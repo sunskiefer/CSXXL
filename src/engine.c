@@ -97,6 +97,7 @@ typedef struct {
     float P[N_PARAMS];
     Layer L[2];
     uint32_t order;
+    int view; unsigned rev; float nav_cool;
     float bend, mw, at, ribbon_prev, rm_vel, mb_last, mb_idle, mb_s, mb_pa, mb_pb, mb_pr;
     float pat[128];                 /* per-key (polyphonic) aftertouch 0..1 */
     double bpm; int bpm_ok;         /* host tempo (song_pos) */
@@ -328,9 +329,28 @@ static int key_idx(const char *key) {
     for (int i = 0; i < N_PARAMS; i++) if (!strcmp(PKEY[i], key)) return i;
     return -1;
 }
+static void set_view(Inst *I, int v) { if (v < 0 || v > N_PAGES || v == I->view) return; I->view = v; I->rev++; }
 static void eng_set(void *p, const char *key, const char *val) {
     Inst *I = (Inst *)p; int i = key_idx(key); if (i < 0) return;
     float v = (float)atof(val);
+    if (i >= E_pg_0 && i <= E_pg_0 + N_PAGES) return;   /* page switches are driven by the engine only */
+    if (i >= E_ql1 && i <= E_ql16) {   /* Q-Links follow the visible page */
+        int t = VIEW_QL[I->view][i - E_ql1]; if (t < 0) return;
+        char b[32]; snprintf(b, sizeof b, "%g", (double)(clampf(v, 0.f, 1.f) * 100.f)); eng_set(p, PKEY[t], b); return;
+    }
+    if (i == E_nav_zoom || i == E_nav_prev || i == E_nav_next || (i >= E_go_1 && i < E_go_1 + N_PAGES)) {
+        if (v < 0.5f) return;
+        if (i == E_nav_zoom) set_view(I, 0);
+        else if (i == E_nav_prev || i == E_nav_next) {
+            if (I->nav_cool > 0.f) return;
+            I->nav_cool = 0.25f;   /* one tap moves one page */
+            int nv = I->view <= 0 ? (i == E_nav_next ? 1 : N_PAGES) : I->view + (i == E_nav_next ? 1 : -1);
+            if (nv < 1) nv = N_PAGES;
+            if (nv > N_PAGES) nv = 1;
+            set_view(I, nv);
+        } else set_view(I, 1 + i - E_go_1);
+        return;
+    }
     if (PBTN[i]) {
         if (v < 0.5f) return;
         if (i == E_p11_load) preset_load(I, preset_index(I));
@@ -382,6 +402,19 @@ static int named_text(const char *key, float v, char *buf, int len) {
 }
 static int eng_get(void *p, const char *key, char *buf, int len) {
     Inst *I = (Inst *)p;
+    if (!strcmp(key, "display_rev")) return snprintf(buf, (size_t)len, "%u", I->rev);
+    {   /* Q-Link n: value, name and text of whichever control the visible page puts there */
+        char base[32]; size_t kl = strlen(key); int suf = 0;
+        if (kl > 6 && !strcmp(key + kl - 5, "_name")) suf = 2; else if (kl > 9 && !strcmp(key + kl - 8, "_display")) suf = 1;
+        size_t bl = kl - (suf == 2 ? 5 : suf == 1 ? 8 : 0); if (bl < sizeof base) { memcpy(base, key, bl); base[bl] = 0; int qi = key_idx(base);
+            if (qi >= E_ql1 && qi <= E_ql16) {
+                int t = VIEW_QL[I->view][qi - E_ql1];
+                if (suf == 2) return snprintf(buf, (size_t)len, "%s", t >= 0 ? PNAME[t] : "-");
+                if (suf == 1) { if (t < 0) return snprintf(buf, (size_t)len, " "); char k2[96]; snprintf(k2, sizeof k2, "%s_display", PKEY[t]); int r = named_text(k2, I->P[t], buf, len); return r > 0 ? r : snprintf(buf, (size_t)len, "%d", (int)(I->P[t] + 0.5f)); }
+                return snprintf(buf, (size_t)len, "%g", t >= 0 ? (double)(I->P[t] * 0.01f) : 0.0);
+            }
+            if (!suf && qi >= E_pg_0 && qi <= E_pg_0 + N_PAGES) return snprintf(buf, (size_t)len, "%d", I->view == qi - E_pg_0);
+        } }
     { size_t kl = strlen(key); if (kl > 9 && !strcmp(key + kl - 8, "_display")) { char b2[96]; if (kl - 8 < sizeof b2) { memcpy(b2, key, kl - 8); b2[kl - 8] = 0; int j = key_idx(b2); if (j >= 0) return named_text(key, I->P[j], buf, len); } return 0; } }
     int i = key_idx(key); if (i < 0 || len < 6) return 0;
     return snprintf(buf, (size_t)len, "%d", (int)(PBTN[i] ? 0.f : I->P[i] + 0.5f));
@@ -601,6 +634,7 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
 static void eng_render(void *p, int16_t *out, int frames) {
     Inst *I = (Inst *)p;
     if (frames > 128) frames = 128;
+    if (I->nav_cool > 0.f) I->nav_cool -= (float)frames / SR;
     { int rt = I->pad.touching; if (rt && !I->rib_was) I->rib_ref = I->rib_x; I->rib_was = rt; I->rib_off = rt ? (I->rib_x - I->rib_ref) * 0.2f : 0.f; }   /* zero point = where the finger first touched; springs back on release */
     /* modulation bar: pitch bar, centre = 0; destination A / B / both / ring-mod oscillator; DIRECT follows at once, RELEASE glides */
     { float bar = (G(p7_mod_bar_bar) - 0.5f) * 2.f; int mm = (int)(G(p7_mod_bar_mde) * 3.99f), md = (int)(G(p7_mod_bar_dst) * 3.99f);

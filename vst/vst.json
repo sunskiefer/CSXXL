@@ -6,7 +6,8 @@
  "so": "csxxl.so",
  "params": "params.json",
  "defines": {
-  "HAS_DISPLAY_REV": 0,
+  "HAS_DISPLAY_REV": 1,
+  "DISPLAY_REV_NO_UPDATE": 1,
   "HAS_SONG_POS": 1,
   "MODULE_SUBDIR": "\"pad\""
  },
