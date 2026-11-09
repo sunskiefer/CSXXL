@@ -134,12 +134,21 @@ static void lset(float *out, int ly, int slot, float v) {
     if (i >= 0) out[i] = clampf(v, 0.f, 100.f);
 }
 #include "patches.h"
+#include "arm_patches.h"
 static float lget(const float *out, int ly, int slot) { int i = LIDX[ly][slot]; return i >= 0 ? out[i] : 0.f; }
 static void ladd(float *out, int ly, int slot, float d) { lset(out, ly, slot, lget(out, ly, slot) + d); }
 static void gset(float *out, int e, float v) { out[e] = clampf(v, 0.f, 100.f); }
 /* factory patch n: family n%8, written recipe (n/8)%8, then one of 12 fixed variations (n/64), see tools/gen_patches.py and docs/PATCHES.md */
 static void patch_gen(int n, float *out) {
     for (int i = 0; i < N_PARAMS; i++) out[i] = PDEF[i];
+    if (n < NARM) {   /* converted Arminator patch: neutral layer, then the matched controls (tools/gen_arm_patches.py) */
+        for (int ly = 0; ly < 2; ly++) for (const PatchKV *k = BASE_KV; k->slot >= 0; k++) lset(out, ly, k->slot, k->v);
+        for (int m = 0; m < NARMMAP; m++) {
+            if (ARM_MAP[m].kind == 'l') lset(out, ARM_MAP[m].line, ARM_MAP[m].slot, ARM_VAL[n][m]);
+            else gset(out, ARM_MAP[m].slot, ARM_VAL[n][m]);
+        }
+        return;
+    }
     int fam = n % 8, rec = (n / 8) % 8, var = (n / 64) % 12;
     const Recipe *R = &RECIPES[fam * 8 + rec];
     for (int ly = 0; ly < 2; ly++) {
