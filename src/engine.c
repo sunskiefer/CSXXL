@@ -470,9 +470,10 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float pit = v->pitch + 0.03f * sinf((float)(vi * 5 + ly * 2) * 1.7f) + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
             float f1 = 440.f * exp2f((pit - 69.f) / 12.f);
             float f2 = f1 * exp2f((q.wid - 0.5f) * 0.12f);
+            float sinmul = q.sub < 0.34f ? 1.f : (q.sub < 0.67f ? 0.5f : 0.25f); /* SINE / SUB -1 oct / SUB -2 oct */
             float dt1 = clampf(f1 / SR, 1e-5f, 0.45f), dt2 = clampf(f2 / SR, 1e-5f, 0.45f);
             v->pwm_ph = wrap1(v->pwm_ph + expmap(q.rte, 0.1f, 8.f) * n / SR);
-            float pw = clampf(0.5f + q.pw * 0.4f + 0.18f * sinf(2.f * PI_F * v->pwm_ph) * q.wid + lfo_to_pw, 0.05f, 0.95f);
+            float pw = clampf(0.5f + q.wid * 0.4f + 0.2f * sinf(2.f * PI_F * v->pwm_ph) * q.pw + lfo_to_pw, 0.05f, 0.95f);
             /* brilliance / filter */
             float keyt = clampf(((float)v->note - 36.f) / 60.f, 0.f, 1.f);
             float bri = lerpf(q.ibr, q.abr, ea) - 0.5f;
@@ -484,34 +485,45 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float lcut = expmap(q.lf, 40.f, 16000.f) * exp2f(lcut_oct + 0.04f * vdr);
             float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(q.hm * 3.f * eh + vel * q.t_hve * 3.f + I->at * q.t_haf * 3.f);
             float res = clampf(q.lres + rsn, 0.f, 1.f);
-            SvfC hc, c1, c2;
+            SvfC hc, c1;
             svf_c(&hc, hcut, 1.4f - q.hres * 1.2f);
             svf_c(&c1, lcut, 2.f * (1.f - 0.82f * res));
-            svf_c(&c2, lcut, 1.3f);
             /* amplitude */
             float lvlkey = (lerpf(q.k_lvl, q.k_lvh, keyt) - 0.5f) * 1.2f;
             float ilvel = 1.f - q.ilv * 0.5f * (1.f - vel), alvel = 1.f - q.alv * 0.5f * (1.f - vel);
             float g = lerpf(q.il * ilvel, q.al * alvel, ea) * 1.6f * q.lvl * (1.f + lvlkey);
-            g *= 1.f - q.t_mix * (1.f - vel);
             g *= 1.f + lfo_to_a * 0.5f + sub_vca;
             if (g < 0.f) g = 0.f;
             /* audio */
             for (int s = 0; s < n; s++) {
                 v->ph1 += dt1; if (v->ph1 >= 1.f) v->ph1 -= 1.f;
                 v->ph2 += dt2; if (v->ph2 >= 1.f) v->ph2 -= 1.f;
-                v->phs += dt1 * 0.5f; if (v->phs >= 1.f) v->phs -= 1.f;
-                v->phsin += dt1; if (v->phsin >= 1.f) v->phsin -= 1.f;
-                float saw = osc_saw(v->ph1, dt1), sq = osc_pulse(v->ph1, dt1, 0.5f);
-                float o1 = (saw * (1.f - q.wav) + sq * q.wav) * q.wlv;
+                v->phsin += dt1 * sinmul; if (v->phsin >= 1.f) v->phsin -= 1.f;
+                int wi = (int)(q.wav * 8.999f); float o1;
+                float sawv = osc_saw(v->ph1, dt1);
+                switch (wi) {
+                case 0: o1 = sawv; break;                                   /* sawtooth */
+                case 1: o1 = -sawv; break;                                  /* ramp 1 (falling) */
+                case 2: { float r = 1.f - v->ph1; o1 = 2.f * r * r - 1.f; } break; /* ramp 2 (curved) */
+                case 3: o1 = osc_pulse(v->ph1, dt1, 0.5f); break;           /* square */
+                case 4: o1 = 4.f * fabsf(v->ph1 - 0.5f) - 1.f; break;       /* peak (triangle) */
+                case 5: o1 = 0.6f * sawv + 0.4f * (2.f * wrap1(v->ph1 * 2.f) - 1.f); break; /* octaves */
+                case 6: o1 = floorf(sawv * 4.f + 4.f) / 4.f - 1.f; break;   /* digital 1 (stepped saw) */
+                case 7: o1 = floorf((4.f * fabsf(v->ph1 - 0.5f) - 1.f) * 3.f + 3.f) / 3.f - 1.f; break; /* digital 2 */
+                default: o1 = rnd01(I) * 2.f - 1.f; break;                  /* white noise */
+                }
+                o1 *= q.wlv;
                 float o2 = osc_pulse(v->ph2, dt2, pw) * q.plv;
-                float sb = osc_pulse(v->phs, dt1 * 0.5f, 0.5f) * q.sub;
-                float x = (o1 + o2 + sb) * 0.45f;
-                float lo1, hi, lo2, tmp;
+                float x = (o1 + o2) * 0.5f;
+                float lo, hi, tmp;
                 svf_run(&v->h, &hc, x, &tmp, &hi);
-                svf_run(&v->l1, &c1, hi, &lo1, &tmp);
-                svf_run(&v->l2, &c2, lo1, &lo2, &tmp);
-                float sn = (sinf(2.f * PI_F * v->phsin) + 0.04f * sinf(6.f * PI_F * v->phsin)) * q.sine * 0.4f; /* sine with a few harmonics */
-                bus[off + s] += (lo2 * q.flt * 1.3f + sn) * g;
+                svf_run(&v->l1, &c1, x, &lo, &tmp);
+                float ser, tmp2; svf_run(&v->l2, &c1, hi, &ser, &tmp2); /* LP of the HP output (series path) */
+                float mixv = q.t_mix, filt;
+                if (mixv < 0.5f) filt = lerpf(lo, ser, mixv * 2.f); else filt = lerpf(ser, hi, (mixv - 0.5f) * 2.f);
+                float sn = sinf(2.f * PI_F * v->phsin) + 0.04f * sinf(6.f * PI_F * v->phsin);
+                sn *= q.sine * 0.4f;
+                bus[off + s] += (filt * q.flt * 1.3f + sn) * g;
             }
         }
     }
