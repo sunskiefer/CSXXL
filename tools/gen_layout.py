@@ -31,6 +31,16 @@ for p in m['pages']:
             out.append('slider_v cx=%d cy=%d w=%d h=%d label="%s" key=%s img=art/cap_%s.png ns=0 vs=0 bw=%d %s'%(cx,cy,c['w'],c['h'],c['label'],c['id'],cc,c['w']+30,W))
         else:
             out.append('button cx=%d cy=%d label="%s" key=%s %s'%(cx,cy,c['label'],c['id'],W))
+# the touch ribbon stripe is baked into the VOICE page (pad/layout.txt gives its place) so it is always visible; the plugin's overlay draws the live part on top
+from PIL import Image, ImageDraw, ImageFont
+px,py,pw,ph=[int(t) for t in open(os.path.join(root,'pad','layout.txt')).read().split()[1:5]]
+vp=art+'/page10.png'; im=Image.open(vp).convert('RGB'); S=4
+st=Image.new('RGBA',(pw*S,ph*S),(0,0,0,0)); d=ImageDraw.Draw(st)
+d.rounded_rectangle([0,0,pw*S-1,ph*S-1],radius=ph*S//2,fill=(96,96,98,255)); d.rounded_rectangle([2*S,2*S,pw*S-1-2*S,ph*S-1-2*S],radius=ph*S//2-2*S,fill=(14,14,14,255))
+d.rectangle([pw*S//2-S,ph*S//4,pw*S//2+S,ph*S*3//4],fill=(74,74,74,255))
+st=st.resize((pw,ph),Image.LANCZOS); im.paste(st,(px,py),st)
+fnt=ImageFont.truetype(os.path.join(os.environ.get('MPC_VST','/home/claude/sunskiefer/mpc-vst-plugins'),'tools/html_art/fonts/TitilliumWeb-SemiBold.ttf'),28)
+ImageDraw.Draw(im).text((px+pw//2,py-18),'TOUCH RIBBON',font=fnt,fill=(40,40,44),anchor='mm'); im.save(vp)
 out.append('qlinks "CSXXL" = '+QL)
 open(v+'/layout.conf','w').write('\n'.join(out)+'\n')
 print('ok',len(out))

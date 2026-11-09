@@ -13,7 +13,7 @@ The sound is not a sample or a guess at a sound: the voices are built in code fr
 Thanks to the Deckard’s Dream General Build Thread (Mod Wiggler) and to Krakli for the references and guidance!
 
 ## Status
-Version 1.0.6, built for Force/MPC OS (ARMv7). All 11 panel pages are rendered, and the engine follows the voice spec: selectable waves incl. white noise, 2-pole HP and LP with mix, sine/sub, CS-80 envelopes, per-key aftertouch, host-tempo arpeggiator/echo/LFO sync, ring modulator, bit crush, chorus, reverb, keysplit, a pitch mod bar and a touch ribbon.
+Version 1.0.7, built for Force/MPC OS (ARMv7). All 11 panel pages are rendered, and the engine follows the voice spec: selectable waves incl. white noise, 2-pole HP and LP with mix, sine/sub, CS-80 envelopes, per-key aftertouch, host-tempo arpeggiator/echo/LFO sync, ring modulator, bit crush, chorus, reverb, keysplit, a pitch mod bar and a touch ribbon.
 
 Not yet tested on hardware. Tap a tile on the overview to open a page; OVERVIEW and < > in the header work, and Q-Links follow the page. Known gaps: the 768 factory patches are code-generated.
 
