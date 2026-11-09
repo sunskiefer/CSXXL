@@ -246,10 +246,11 @@ static void voice_on(Inst *I, int ly, int note, float vel, int retrig_env, int m
     int was = v->active && v->gate;
     v->note = note; v->vel = vel; v->gate = 1; v->held_by_pedal = 0; v->order = ++I->order;
     v->tpitch = (float)note;
-    float gt = lp(I, ly, L_PERF_GTP) * 100.f; float glid = lp(I, ly, L_PERF_GLID);
-    int gl_on = glid > 0.01f && gt < 66.f && !(gt >= 33.f && !was);
+    float glid = lp(I, ly, L_PERF_GLID);
+    int gl_on = glid > 0.01f;   /* PORT/GLISS (GTP) only changes how the glide moves, see render */
     if (!v->active || !gl_on) v->pitch = (float)note;
     if (!v->active) { v->ph1 = v->ph2 = v->phs = v->phsin = 0.f; v->ph1 = rnd01(I); v->ph2 = rnd01(I); v->lfo_gain = 0.f; v->ea.v = v->ef.v = v->eh.v = 0.f; memset(&v->h, 0, sizeof(Svf)); memset(&v->l1, 0, sizeof(Svf)); memset(&v->l2, 0, sizeof(Svf)); }
+    if (lp(I, ly, L_LFO_SYN) >= 0.25f) v->lfo_ph = 0.f;   /* LFO SYNC on: LFO starts with the key */
     v->active = 1;
     v->dly = (ly == 1 && (retrig_env || !was)) ? lp(I, ly, L_ECHO_DLY) * 1.5f : 0.f;
     if (retrig_env || !was) { env_on(&v->ea); env_on(&v->ef); env_on(&v->eh); }
@@ -289,7 +290,7 @@ static void layer_key(Inst *I, int ly, int note, int vel, int on) {
     if (on) { held_add(L, note); voice_on(I, ly, note, fv, 1, mono); }
     else {
         held_del(L, note);
-        if (mono && L->nheld > 0) voice_on(I, ly, L->held[L->nheld - 1], 0.8f, lp(I, ly, L_PERF_GTP) < 0.33f, 1);
+        if (mono && L->nheld > 0) voice_on(I, ly, L->held[L->nheld - 1], 0.8f, 1, 1);
         else voice_off(I, ly, note);
     }
 }
@@ -298,7 +299,7 @@ static void all_off(Inst *I) {
         for (int i = 0; i < NV; i++) { Voice *v = &L->v[i]; v->gate = 0; v->held_by_pedal = 0; env_off(&v->ea); env_off(&v->ef); env_off(&v->eh); } }
 }
 static void key_event(Inst *I, int note, int vel, int on) {
-    int split = G(p7_split_son) >= 0.5f; int sp = 24 + (int)(G(p7_split_spl) * 72.f);
+    int split = G(p7_split_son) >= 0.5f; int sp = (int)(G(p7_split_spl) * 127.f + 0.5f);   /* split point anywhere on the keyboard (10 octaves); A below, B at/above */
     int a = 1, b = 1;
     if (split) { a = note < sp; b = note >= sp; }
     if (a) layer_key(I, 0, note, vel, on);
@@ -448,8 +449,8 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
     float lrate = expmap(q.lrte, 0.05f, 20.f);
     if (lp(I, ly, L_LFO_SYN) >= 0.25f) { static const float LR[8] = {0.25f, 0.5f, 1.f, 2.f, 3.f, 4.f, 6.f, 8.f}; lrate = (I->bpm_ok ? (float)I->bpm : 120.f) / 60.f * LR[(int)(q.lrte * 7.99f)]; }   /* LFO SYNC: rate slider becomes the ratio to the host tempo */
     float vibrate = expmap(q.vvrt, 0.5f, 10.f);
-    float snhrate = expmap(q.vslo, 0.5f, 20.f);
-    int dst = (int)(q.ldst * 3.99f), mde = (int)(q.lmde * 2.99f);
+    float shlo = q.vslo * 2.f - 1.f, shhi = q.vshi * 2.f - 1.f; if (shlo > shhi) { float t = shlo; shlo = shhi; shhi = t; }
+    int dst = (int)(q.ldst * 5.99f), mde = (int)(q.lmde * 2.99f);   /* dst: 0 pitch 1 LPF 2 amp 3 PW 4 HPF 5 resonance; mde: 0 mod wheel, 1 A/R envelope, 2 direct */
     float bri_master = (G(p6_master_bri) - 0.5f) * 6.f;
     float rsn = (G(p6_master_rsn) - 0.5f) * 0.5f;
     /* touch ribbon: RIB picks the target (pitch / filter / resonance), RNG the range, SMD the sustain mode (I: held keys only, II: all sounding notes) */
@@ -473,23 +474,22 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float gc = 1.f - expf(-(float)n / (glid_tau * SR));
             if (q.glid > 0.01f) v->pitch += (v->tpitch - v->pitch) * gc; else v->pitch = v->tpitch;
             /* lfo */
-            v->lfo_ph = wrap1(v->lfo_ph + lrate * n / SR);
+            { float np = v->lfo_ph + lrate * n / SR; if (np >= 1.f) v->snh_val = shlo + rnd01(I) * (shhi - shlo); v->lfo_ph = wrap1(np); }
             float lfo = lfo_wave(v->lfo_ph, lshape, v->snh_val);
             float fadet = expmap(q.latt, 0.01f, 4.f);
             if (v->gate) v->lfo_gain = fminf(1.f, v->lfo_gain + (float)n / (fadet * SR));
             else v->lfo_gain = fmaxf(0.f, v->lfo_gain - (float)n / (expmap(q.lrel, 0.01f, 4.f) * SR));
-            float srcdepth = mde == 0 ? 1.f : (mde == 1 ? I->mw : fmaxf(I->at, I->pat[v->note & 127]));
-            float ld = q.vlfo * srcdepth * v->lfo_gain;
-            float lfo_to_p = 0, lfo_to_f = 0, lfo_to_a = 0, lfo_to_pw = 0;
+            float srcdepth = mde == 0 ? fmaxf(I->mw, I->pat[v->note & 127]) : (mde == 1 ? v->lfo_gain : 1.f);
+            float ld = q.vlfo * srcdepth;
+            float lfo_to_p = 0, lfo_to_f = 0, lfo_to_a = 0, lfo_to_pw = 0, lfo_to_h = 0, lfo_to_r = 0;
             float lv = lfo * ld;
-            if (dst == 0) lfo_to_p += lv * 2.f; else if (dst == 1) lfo_to_f += lv * 3.f; else if (dst == 2) lfo_to_a += lv; else lfo_to_pw += lv * 0.4f;
+            if (dst == 0) lfo_to_p += lv * 2.f; else if (dst == 1) lfo_to_f += lv * 3.f; else if (dst == 2) lfo_to_a += lv; else if (dst == 3) lfo_to_pw += lv * 0.4f; else if (dst == 4) lfo_to_h += lv * 3.f; else lfo_to_r += lv * 0.3f;
             v->vib_ph = wrap1(v->vib_ph + vibrate * n / SR);
             float vib = sinf(2.f * PI_F * v->vib_ph) * q.vvib * 0.5f;
-            v->snh_ph += snhrate * n / SR; if (v->snh_ph >= 1.f) { v->snh_ph -= 1.f; v->snh_val = rnd01(I) * 2.f - 1.f; }
-            float snh_f = v->snh_val * q.vshi * 2.f;
             /* pitch (semitones) */
             float rpit = (rdst == 0 && (rsus2 || v->gate)) ? roff * rrng * 24.f : 0.f;
-            float pit = rpit + (ly ? I->mb_pb : I->mb_pa) + v->pitch + 0.03f * sinf((float)(vi * 5 + ly * 2) * 1.7f) + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
+            float gp = lp(I, ly, L_PERF_GTP) >= 0.5f ? roundf(v->pitch) : v->pitch;   /* glissando = stepped semitones, portamento = smooth */
+            float pit = rpit + (ly ? I->mb_pb : I->mb_pa) + gp + 0.03f * sinf((float)(vi * 5 + ly * 2) * 1.7f) + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
             float f1 = 440.f * exp2f((pit - 69.f) / 12.f);
             float f2 = f1 * exp2f((q.wid - 0.5f) * 0.12f);
             float sinmul = q.sub < 0.34f ? 1.f : (q.sub < 0.67f ? 0.5f : 0.25f); /* SINE / SUB -1 oct / SUB -2 oct */
@@ -503,11 +503,11 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float vel = v->vel;
             float vat = fmaxf(I->at, I->pat[v->note & 127]);   /* per-key aftertouch (channel pressure as fallback) */
             float lcut_oct = q.lm * 6.f * ef + bri * 6.f + kbri + bri_master + (v->note - 60.f) / 12.f * q.t_key
-                           + vel * q.t_lve * 3.f + vat * q.t_laf * 3.f + lfo_to_f + snh_f + sub_vcf + (rdst == 1 ? roff * rrng * 6.f : 0.f);
+                           + vel * q.t_lve * 3.f + vat * q.t_laf * 3.f + lfo_to_f + sub_vcf + (rdst == 1 ? roff * rrng * 6.f : 0.f);
             float vdr = sinf((float)(vi * 7 + ly * 3) * 2.399f); /* per-voice-card trimmer drift */
             float lcut = expmap(q.lf, 40.f, 16000.f) * exp2f(lcut_oct + 0.04f * vdr);
-            float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(q.hm * 3.f * eh + vel * q.t_hve * 3.f + vat * q.t_haf * 3.f);
-            float res = clampf(q.lres + rsn, 0.f, 1.f);
+            float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(lfo_to_h + q.hm * 3.f * eh + vel * q.t_hve * 3.f + vat * q.t_haf * 3.f);
+            float res = clampf(q.lres + rsn + lfo_to_r, 0.f, 1.f);
             SvfC hc, c1;
             svf_c(&hc, hcut, 1.4f - q.hres * 1.2f);
             svf_c(&c1, lcut, 2.f * (1.f - 0.82f * res));
@@ -619,7 +619,7 @@ static void eng_render(void *p, int16_t *out, int frames) {
     {
         float src = G(p8_crush_src); int bits = 2 + (int)(G(p8_crush_bit) * 14.f); float q = (float)(1 << (bits - 1));
         for (int s = 0; s < frames; s++) {
-            float x = src < 0.25f ? 0.f : (src < 0.5f ? A[s] : (src < 0.75f ? B[s] : A[s] + B[s]));
+            float x = src < 0.34f ? A[s] : (src < 0.67f ? B[s] : A[s] + B[s]);   /* LINE A / LINE B / A & B */
             crush[s] = floorf(x * q + 0.5f) / q * bclev;
         }
     }
