@@ -1,0 +1,1895 @@
+{
+ "name": "CSXXL",
+ "params": [
+  {
+   "key": "p1_a_osc_wav",
+   "name": "A OSC WAV",
+   "min": 0,
+   "max": 100,
+   "default": 35,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_osc_wlv",
+   "name": "A OSC WLV",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_osc_plv",
+   "name": "A OSC PLV",
+   "min": 0,
+   "max": 100,
+   "default": 80,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_osc_wid",
+   "name": "A OSC WID",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_osc_pw",
+   "name": "A OSC PW",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_osc_rte",
+   "name": "A OSC RTE",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_osc_sub",
+   "name": "A OSC SUB",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_frq",
+   "name": "A LPF FRQ",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_res",
+   "name": "A LPF RES",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_att",
+   "name": "A LPF ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_dec",
+   "name": "A LPF DEC",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_sus",
+   "name": "A LPF SUS",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_rel",
+   "name": "A LPF REL",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_lpf_mod",
+   "name": "A LPF MOD",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_frq",
+   "name": "A HPF FRQ",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_res",
+   "name": "A HPF RES",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_att",
+   "name": "A HPF ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_dec",
+   "name": "A HPF DEC",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_sus",
+   "name": "A HPF SUS",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_rel",
+   "name": "A HPF REL",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_hpf_mod",
+   "name": "A HPF MOD",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_sine",
+   "name": "A AMP SINE",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_flt",
+   "name": "A AMP FLT",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_att",
+   "name": "A AMP ATT",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_dec",
+   "name": "A AMP DEC",
+   "min": 0,
+   "max": 100,
+   "default": 80,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_sus",
+   "name": "A AMP SUS",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_rel",
+   "name": "A AMP REL",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p1_a_amp_lvl",
+   "name": "A AMP LVL",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_rte",
+   "name": "A LFO RTE",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_syn",
+   "name": "A LFO SYN",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_wav",
+   "name": "A LFO WAV",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_mde",
+   "name": "A LFO MDE",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_dst",
+   "name": "A LFO DST",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_att",
+   "name": "A LFO ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_lfo_rel",
+   "name": "A LFO REL",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_vib_lfo",
+   "name": "A VIB LFO",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_vib_vib",
+   "name": "A VIB VIB",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_vib_vrt",
+   "name": "A VIB VRT",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_vib_slo",
+   "name": "A VIB SLO",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_vib_shi",
+   "name": "A VIB SHI",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_touch_lve",
+   "name": "A TOUCH LVE",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_touch_hve",
+   "name": "A TOUCH HVE",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_touch_laf",
+   "name": "A TOUCH LAF",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_touch_haf",
+   "name": "A TOUCH HAF",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_touch_mix",
+   "name": "A TOUCH MIX",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_touch_key",
+   "name": "A TOUCH KEY",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_echo_tim",
+   "name": "A ECHO TIM",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_echo_rep",
+   "name": "A ECHO REP",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p2_a_echo_lvl",
+   "name": "A ECHO LVL",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_wav",
+   "name": "B OSC WAV",
+   "min": 0,
+   "max": 100,
+   "default": 55,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_wlv",
+   "name": "B OSC WLV",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_plv",
+   "name": "B OSC PLV",
+   "min": 0,
+   "max": 100,
+   "default": 80,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_wid",
+   "name": "B OSC WID",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_pw",
+   "name": "B OSC PW",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_rte",
+   "name": "B OSC RTE",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_osc_sub",
+   "name": "B OSC SUB",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_frq",
+   "name": "B LPF FRQ",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_res",
+   "name": "B LPF RES",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_att",
+   "name": "B LPF ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_dec",
+   "name": "B LPF DEC",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_sus",
+   "name": "B LPF SUS",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_rel",
+   "name": "B LPF REL",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_lpf_mod",
+   "name": "B LPF MOD",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_frq",
+   "name": "B HPF FRQ",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_res",
+   "name": "B HPF RES",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_att",
+   "name": "B HPF ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_dec",
+   "name": "B HPF DEC",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_sus",
+   "name": "B HPF SUS",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_rel",
+   "name": "B HPF REL",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_hpf_mod",
+   "name": "B HPF MOD",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_sine",
+   "name": "B AMP SINE",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_flt",
+   "name": "B AMP FLT",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_att",
+   "name": "B AMP ATT",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_dec",
+   "name": "B AMP DEC",
+   "min": 0,
+   "max": 100,
+   "default": 80,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_sus",
+   "name": "B AMP SUS",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_rel",
+   "name": "B AMP REL",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p3_b_amp_lvl",
+   "name": "B AMP LVL",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_rte",
+   "name": "B LFO RTE",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_syn",
+   "name": "B LFO SYN",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_wav",
+   "name": "B LFO WAV",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_mde",
+   "name": "B LFO MDE",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_dst",
+   "name": "B LFO DST",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_att",
+   "name": "B LFO ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_lfo_rel",
+   "name": "B LFO REL",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_vib_lfo",
+   "name": "B VIB LFO",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_vib_vib",
+   "name": "B VIB VIB",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_vib_vrt",
+   "name": "B VIB VRT",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_vib_slo",
+   "name": "B VIB SLO",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_vib_shi",
+   "name": "B VIB SHI",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_touch_lve",
+   "name": "B TOUCH LVE",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_touch_hve",
+   "name": "B TOUCH HVE",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_touch_laf",
+   "name": "B TOUCH LAF",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_touch_haf",
+   "name": "B TOUCH HAF",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_touch_mix",
+   "name": "B TOUCH MIX",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_touch_key",
+   "name": "B TOUCH KEY",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_echo_tim",
+   "name": "B ECHO TIM",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_echo_rep",
+   "name": "B ECHO REP",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_echo_lvl",
+   "name": "B ECHO LVL",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p4_b_echo_dly",
+   "name": "B ECHO DLY",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_glid",
+   "name": "A PERF GLID",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_gtp",
+   "name": "A PERF GTP",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_tun",
+   "name": "A PERF TUN",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_oct",
+   "name": "A PERF OCT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_bnd",
+   "name": "A PERF BND",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_mon",
+   "name": "A PERF MON",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_perf_ft",
+   "name": "A PERF FT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_glid",
+   "name": "B PERF GLID",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_gtp",
+   "name": "B PERF GTP",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_tun",
+   "name": "B PERF TUN",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_oct",
+   "name": "B PERF OCT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_bnd",
+   "name": "B PERF BND",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_mon",
+   "name": "B PERF MON",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_perf_ft",
+   "name": "B PERF FT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_src",
+   "name": "A ARP SRC",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_typ",
+   "name": "A ARP TYP",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_hld",
+   "name": "A ARP HLD",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_tmp",
+   "name": "A ARP TMP",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_oct",
+   "name": "A ARP OCT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_vel",
+   "name": "A ARP VEL",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_a_arp_gat",
+   "name": "A ARP GAT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_src",
+   "name": "B ARP SRC",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_typ",
+   "name": "B ARP TYP",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_hld",
+   "name": "B ARP HLD",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_tmp",
+   "name": "B ARP TMP",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_oct",
+   "name": "B ARP OCT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_vel",
+   "name": "B ARP VEL",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p5_b_arp_gat",
+   "name": "B ARP GAT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_a_cs80_il",
+   "name": "A CS80 IL",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p6_a_cs80_al",
+   "name": "A CS80 AL",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p6_a_cs80_ibr",
+   "name": "A CS80 IBR",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_a_cs80_abr",
+   "name": "A CS80 ABR",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_a_cs80_ilv",
+   "name": "A CS80 ILV",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_a_cs80_alv",
+   "name": "A CS80 ALV",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_b_cs80_il",
+   "name": "B CS80 IL",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p6_b_cs80_al",
+   "name": "B CS80 AL",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p6_b_cs80_ibr",
+   "name": "B CS80 IBR",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_b_cs80_abr",
+   "name": "B CS80 ABR",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_b_cs80_ilv",
+   "name": "B CS80 ILV",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_b_cs80_alv",
+   "name": "B CS80 ALV",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_keys_brl",
+   "name": "KEYS BRL",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p6_keys_brh",
+   "name": "KEYS BRH",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p6_keys_lvl",
+   "name": "KEYS LVL",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p6_keys_lvh",
+   "name": "KEYS LVH",
+   "min": 0,
+   "max": 100,
+   "default": 60,
+   "display": "int"
+  },
+  {
+   "key": "p6_master_bri",
+   "name": "MASTER BRI",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_master_rsn",
+   "name": "MASTER RSN",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p6_master_mix",
+   "name": "MASTER MIX",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_master_det",
+   "name": "MASTER DET",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_master_crs",
+   "name": "MASTER CRS",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p6_master_fine",
+   "name": "MASTER FINE",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_osc_fnc",
+   "name": "SUB OSC FNC",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_osc_spd",
+   "name": "SUB OSC SPD",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_osc_vco",
+   "name": "SUB OSC VCO",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_osc_vcf",
+   "name": "SUB OSC VCF",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_osc_vca",
+   "name": "SUB OSC VCA",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_touch_bnd",
+   "name": "SUB TOUCH BND",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_touch_spd",
+   "name": "SUB TOUCH SPD",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_touch_vco",
+   "name": "SUB TOUCH VCO",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p7_sub_touch_vcf",
+   "name": "SUB TOUCH VCF",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p7_mod_bar_mde",
+   "name": "MOD BAR MDE",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p7_mod_bar_dst",
+   "name": "MOD BAR DST",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p7_mod_bar_bar",
+   "name": "MOD BAR BAR",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p7_split_son",
+   "name": "SPLIT SON",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p7_split_spl",
+   "name": "SPLIT SPL",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p7_split_out",
+   "name": "SPLIT OUT",
+   "min": 0,
+   "max": 100,
+   "default": 80,
+   "display": "int"
+  },
+  {
+   "key": "p7_split_cka",
+   "name": "SPLIT CKA",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p7_split_ckb",
+   "name": "SPLIT CKB",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_ab",
+   "name": "RING MOD AB",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_ven",
+   "name": "RING MOD VEN",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_pit",
+   "name": "RING MOD PIT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_att",
+   "name": "RING MOD ATT",
+   "min": 0,
+   "max": 100,
+   "default": 10,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_dec",
+   "name": "RING MOD DEC",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_pen",
+   "name": "RING MOD PEN",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p8_ring_mod_pvl",
+   "name": "RING MOD PVL",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p8_crush_src",
+   "name": "CRUSH SRC",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p8_crush_bit",
+   "name": "CRUSH BIT",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p8_chorus_on",
+   "name": "CHORUS ON",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p8_chorus_rte",
+   "name": "CHORUS RTE",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p8_chorus_amt",
+   "name": "CHORUS AMT",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p8_reverb_size",
+   "name": "REVERB SIZE",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p8_reverb_wid",
+   "name": "REVERB WID",
+   "min": 0,
+   "max": 100,
+   "default": 70,
+   "display": "int"
+  },
+  {
+   "key": "p8_reverb_dmp",
+   "name": "REVERB DMP",
+   "min": 0,
+   "max": 100,
+   "default": 40,
+   "display": "int"
+  },
+  {
+   "key": "p8_reverb_mix",
+   "name": "REVERB MIX",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p9_levels_a",
+   "name": "LEVELS A",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p9_levels_b",
+   "name": "LEVELS B",
+   "min": 0,
+   "max": 100,
+   "default": 90,
+   "display": "int"
+  },
+  {
+   "key": "p9_levels_rm",
+   "name": "LEVELS RM",
+   "min": 0,
+   "max": 100,
+   "default": 30,
+   "display": "int"
+  },
+  {
+   "key": "p9_levels_bitc",
+   "name": "LEVELS BITC",
+   "min": 0,
+   "max": 100,
+   "default": 20,
+   "display": "int"
+  },
+  {
+   "key": "p9_pans_pa",
+   "name": "PANS PA",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p9_pans_pb",
+   "name": "PANS PB",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p9_pans_prm",
+   "name": "PANS PRM",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p9_pans_pbc",
+   "name": "PANS PBC",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p9_voice_mna",
+   "name": "VOICE MNA",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p9_voice_mnb",
+   "name": "VOICE MNB",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p9_main_out",
+   "name": "MAIN OUT",
+   "min": 0,
+   "max": 100,
+   "default": 80,
+   "display": "int"
+  },
+  {
+   "key": "p10_sustain_smd",
+   "name": "SUSTAIN SMD",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p10_sustain_sln",
+   "name": "SUSTAIN SLN",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p10_tone_tna",
+   "name": "TONE TNA",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p10_tone_tnb",
+   "name": "TONE TNB",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p10_ribbon_rib",
+   "name": "RIBBON RIB",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p10_ribbon_rng",
+   "name": "RIBBON RNG",
+   "min": 0,
+   "max": 100,
+   "default": 50,
+   "display": "int"
+  },
+  {
+   "key": "p11_preset_bnk",
+   "name": "PRESET BNK",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p11_preset_pat",
+   "name": "PRESET PAT",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int"
+  },
+  {
+   "key": "p11_load",
+   "name": "LOAD",
+   "min": 0,
+   "max": 1,
+   "momentary": true
+  },
+  {
+   "key": "p11_save",
+   "name": "SAVE",
+   "min": 0,
+   "max": 1,
+   "momentary": true
+  },
+  {
+   "key": "p11_init",
+   "name": "INIT",
+   "min": 0,
+   "max": 1,
+   "momentary": true
+  }
+ ],
+ "sections": [
+  {
+   "label": "1 A TONE",
+   "keys": [
+    "p1_a_osc_wav",
+    "p1_a_osc_wlv",
+    "p1_a_osc_plv",
+    "p1_a_osc_wid",
+    "p1_a_osc_pw",
+    "p1_a_osc_rte",
+    "p1_a_osc_sub",
+    "p1_a_lpf_frq",
+    "p1_a_lpf_res",
+    "p1_a_lpf_att",
+    "p1_a_lpf_dec",
+    "p1_a_lpf_sus",
+    "p1_a_lpf_rel",
+    "p1_a_lpf_mod",
+    "p1_a_hpf_frq",
+    "p1_a_hpf_res",
+    "p1_a_hpf_att",
+    "p1_a_hpf_dec",
+    "p1_a_hpf_sus",
+    "p1_a_hpf_rel",
+    "p1_a_hpf_mod",
+    "p1_a_amp_sine",
+    "p1_a_amp_flt",
+    "p1_a_amp_att",
+    "p1_a_amp_dec",
+    "p1_a_amp_sus",
+    "p1_a_amp_rel",
+    "p1_a_amp_lvl"
+   ]
+  },
+  {
+   "label": "2 A MOD",
+   "keys": [
+    "p2_a_lfo_rte",
+    "p2_a_lfo_syn",
+    "p2_a_lfo_wav",
+    "p2_a_lfo_mde",
+    "p2_a_lfo_dst",
+    "p2_a_lfo_att",
+    "p2_a_lfo_rel",
+    "p2_a_vib_lfo",
+    "p2_a_vib_vib",
+    "p2_a_vib_vrt",
+    "p2_a_vib_slo",
+    "p2_a_vib_shi",
+    "p2_a_touch_lve",
+    "p2_a_touch_hve",
+    "p2_a_touch_laf",
+    "p2_a_touch_haf",
+    "p2_a_touch_mix",
+    "p2_a_touch_key",
+    "p2_a_echo_tim",
+    "p2_a_echo_rep",
+    "p2_a_echo_lvl"
+   ]
+  },
+  {
+   "label": "3 B TONE",
+   "keys": [
+    "p3_b_osc_wav",
+    "p3_b_osc_wlv",
+    "p3_b_osc_plv",
+    "p3_b_osc_wid",
+    "p3_b_osc_pw",
+    "p3_b_osc_rte",
+    "p3_b_osc_sub",
+    "p3_b_lpf_frq",
+    "p3_b_lpf_res",
+    "p3_b_lpf_att",
+    "p3_b_lpf_dec",
+    "p3_b_lpf_sus",
+    "p3_b_lpf_rel",
+    "p3_b_lpf_mod",
+    "p3_b_hpf_frq",
+    "p3_b_hpf_res",
+    "p3_b_hpf_att",
+    "p3_b_hpf_dec",
+    "p3_b_hpf_sus",
+    "p3_b_hpf_rel",
+    "p3_b_hpf_mod",
+    "p3_b_amp_sine",
+    "p3_b_amp_flt",
+    "p3_b_amp_att",
+    "p3_b_amp_dec",
+    "p3_b_amp_sus",
+    "p3_b_amp_rel",
+    "p3_b_amp_lvl"
+   ]
+  },
+  {
+   "label": "4 B MOD",
+   "keys": [
+    "p4_b_lfo_rte",
+    "p4_b_lfo_syn",
+    "p4_b_lfo_wav",
+    "p4_b_lfo_mde",
+    "p4_b_lfo_dst",
+    "p4_b_lfo_att",
+    "p4_b_lfo_rel",
+    "p4_b_vib_lfo",
+    "p4_b_vib_vib",
+    "p4_b_vib_vrt",
+    "p4_b_vib_slo",
+    "p4_b_vib_shi",
+    "p4_b_touch_lve",
+    "p4_b_touch_hve",
+    "p4_b_touch_laf",
+    "p4_b_touch_haf",
+    "p4_b_touch_mix",
+    "p4_b_touch_key",
+    "p4_b_echo_tim",
+    "p4_b_echo_rep",
+    "p4_b_echo_lvl",
+    "p4_b_echo_dly"
+   ]
+  },
+  {
+   "label": "5 PERFORM",
+   "keys": [
+    "p5_a_perf_glid",
+    "p5_a_perf_gtp",
+    "p5_a_perf_tun",
+    "p5_a_perf_oct",
+    "p5_a_perf_bnd",
+    "p5_a_perf_mon",
+    "p5_a_perf_ft",
+    "p5_b_perf_glid",
+    "p5_b_perf_gtp",
+    "p5_b_perf_tun",
+    "p5_b_perf_oct",
+    "p5_b_perf_bnd",
+    "p5_b_perf_mon",
+    "p5_b_perf_ft",
+    "p5_a_arp_src",
+    "p5_a_arp_typ",
+    "p5_a_arp_hld",
+    "p5_a_arp_tmp",
+    "p5_a_arp_oct",
+    "p5_a_arp_vel",
+    "p5_a_arp_gat",
+    "p5_b_arp_src",
+    "p5_b_arp_typ",
+    "p5_b_arp_hld",
+    "p5_b_arp_tmp",
+    "p5_b_arp_oct",
+    "p5_b_arp_vel",
+    "p5_b_arp_gat"
+   ]
+  },
+  {
+   "label": "6 CS80",
+   "keys": [
+    "p6_a_cs80_il",
+    "p6_a_cs80_al",
+    "p6_a_cs80_ibr",
+    "p6_a_cs80_abr",
+    "p6_a_cs80_ilv",
+    "p6_a_cs80_alv",
+    "p6_b_cs80_il",
+    "p6_b_cs80_al",
+    "p6_b_cs80_ibr",
+    "p6_b_cs80_abr",
+    "p6_b_cs80_ilv",
+    "p6_b_cs80_alv",
+    "p6_keys_brl",
+    "p6_keys_brh",
+    "p6_keys_lvl",
+    "p6_keys_lvh",
+    "p6_master_bri",
+    "p6_master_rsn",
+    "p6_master_mix",
+    "p6_master_det",
+    "p6_master_crs",
+    "p6_master_fine"
+   ]
+  },
+  {
+   "label": "7 SUB OSC",
+   "keys": [
+    "p7_sub_osc_fnc",
+    "p7_sub_osc_spd",
+    "p7_sub_osc_vco",
+    "p7_sub_osc_vcf",
+    "p7_sub_osc_vca",
+    "p7_sub_touch_bnd",
+    "p7_sub_touch_spd",
+    "p7_sub_touch_vco",
+    "p7_sub_touch_vcf",
+    "p7_mod_bar_mde",
+    "p7_mod_bar_dst",
+    "p7_mod_bar_bar",
+    "p7_split_son",
+    "p7_split_spl",
+    "p7_split_out",
+    "p7_split_cka",
+    "p7_split_ckb"
+   ]
+  },
+  {
+   "label": "8 FX",
+   "keys": [
+    "p8_ring_mod_ab",
+    "p8_ring_mod_ven",
+    "p8_ring_mod_pit",
+    "p8_ring_mod_att",
+    "p8_ring_mod_dec",
+    "p8_ring_mod_pen",
+    "p8_ring_mod_pvl",
+    "p8_crush_src",
+    "p8_crush_bit",
+    "p8_chorus_on",
+    "p8_chorus_rte",
+    "p8_chorus_amt",
+    "p8_reverb_size",
+    "p8_reverb_wid",
+    "p8_reverb_dmp",
+    "p8_reverb_mix"
+   ]
+  },
+  {
+   "label": "9 MIXER",
+   "keys": [
+    "p9_levels_a",
+    "p9_levels_b",
+    "p9_levels_rm",
+    "p9_levels_bitc",
+    "p9_pans_pa",
+    "p9_pans_pb",
+    "p9_pans_prm",
+    "p9_pans_pbc",
+    "p9_voice_mna",
+    "p9_voice_mnb",
+    "p9_main_out"
+   ]
+  },
+  {
+   "label": "10 VOICE",
+   "keys": [
+    "p10_sustain_smd",
+    "p10_sustain_sln",
+    "p10_tone_tna",
+    "p10_tone_tnb",
+    "p10_ribbon_rib",
+    "p10_ribbon_rng"
+   ]
+  },
+  {
+   "label": "11 PRESET",
+   "keys": [
+    "p11_preset_bnk",
+    "p11_preset_pat",
+    "p11_load",
+    "p11_save",
+    "p11_init"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "CSXXL", "vendor": "L'Cronx", "uid": "CSXL", "version": 1000,
+  "so": "csxxl.so",
+  "params": "params.json",
+  "defines": {"HAS_DISPLAY_REV": 0},
+  "build": {"root": "..", "sources": ["src/engine.c"], "cflags": ["-Isrc"], "libs": ["-lm"]},
+  "targets": ["armv7"]
+}

@@ -1,0 +1,2412 @@
+{
+ "page_w": 1280,
+ "page_h": 628,
+ "header_h": 70,
+ "pages": [
+  {
+   "index": 1,
+   "name": "A TONE",
+   "readout": "A WAV SAW",
+   "controls": [
+    {
+     "id": "p1_a_osc_wav",
+     "kind": "slider",
+     "label": "WAV",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.35
+    },
+    {
+     "id": "p1_a_osc_wlv",
+     "kind": "slider",
+     "label": "WLV",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.9
+    },
+    {
+     "id": "p1_a_osc_plv",
+     "kind": "slider",
+     "label": "PLV",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.8
+    },
+    {
+     "id": "p1_a_osc_wid",
+     "kind": "slider",
+     "label": "WID",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.7
+    },
+    {
+     "id": "p1_a_osc_pw",
+     "kind": "slider",
+     "label": "PW",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.3
+    },
+    {
+     "id": "p1_a_osc_rte",
+     "kind": "slider",
+     "label": "RTE",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.2
+    },
+    {
+     "id": "p1_a_osc_sub",
+     "kind": "slider",
+     "label": "SUB",
+     "x": 561,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a osc",
+     "pos": 0.0
+    },
+    {
+     "id": "p1_a_lpf_frq",
+     "kind": "slider",
+     "label": "FRQ",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.7
+    },
+    {
+     "id": "p1_a_lpf_res",
+     "kind": "slider",
+     "label": "RES",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.4
+    },
+    {
+     "id": "p1_a_lpf_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p1_a_lpf_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.5
+    },
+    {
+     "id": "p1_a_lpf_sus",
+     "kind": "slider",
+     "label": "SUS",
+     "x": 1037,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.3
+    },
+    {
+     "id": "p1_a_lpf_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 1119,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.2
+    },
+    {
+     "id": "p1_a_lpf_mod",
+     "kind": "slider",
+     "label": "MOD",
+     "x": 1201,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lpf",
+     "pos": 0.6
+    },
+    {
+     "id": "p1_a_hpf_frq",
+     "kind": "slider",
+     "label": "FRQ",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p1_a_hpf_res",
+     "kind": "slider",
+     "label": "RES",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.2
+    },
+    {
+     "id": "p1_a_hpf_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p1_a_hpf_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 315,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.3
+    },
+    {
+     "id": "p1_a_hpf_sus",
+     "kind": "slider",
+     "label": "SUS",
+     "x": 397,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p1_a_hpf_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 479,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.2
+    },
+    {
+     "id": "p1_a_hpf_mod",
+     "kind": "slider",
+     "label": "MOD",
+     "x": 561,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a hpf",
+     "pos": 0.0
+    },
+    {
+     "id": "p1_a_amp_sine",
+     "kind": "slider",
+     "label": "SINE",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.1
+    },
+    {
+     "id": "p1_a_amp_flt",
+     "kind": "slider",
+     "label": "FLT",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.9
+    },
+    {
+     "id": "p1_a_amp_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.2
+    },
+    {
+     "id": "p1_a_amp_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.8
+    },
+    {
+     "id": "p1_a_amp_sus",
+     "kind": "slider",
+     "label": "SUS",
+     "x": 1037,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.5
+    },
+    {
+     "id": "p1_a_amp_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 1119,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.4
+    },
+    {
+     "id": "p1_a_amp_lvl",
+     "kind": "slider",
+     "label": "LVL",
+     "x": 1201,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a amp",
+     "pos": 0.9
+    }
+   ]
+  },
+  {
+   "index": 2,
+   "name": "A MOD",
+   "readout": "A LFO RTE 62",
+   "controls": [
+    {
+     "id": "p2_a_lfo_rte",
+     "kind": "slider",
+     "label": "RTE",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.5
+    },
+    {
+     "id": "p2_a_lfo_syn",
+     "kind": "slider",
+     "label": "SYN",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.0
+    },
+    {
+     "id": "p2_a_lfo_wav",
+     "kind": "slider",
+     "label": "WAV",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.2
+    },
+    {
+     "id": "p2_a_lfo_mde",
+     "kind": "slider",
+     "label": "MDE",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.4
+    },
+    {
+     "id": "p2_a_lfo_dst",
+     "kind": "slider",
+     "label": "DST",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.3
+    },
+    {
+     "id": "p2_a_lfo_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.1
+    },
+    {
+     "id": "p2_a_lfo_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 561,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a lfo",
+     "pos": 0.1
+    },
+    {
+     "id": "p2_a_vib_lfo",
+     "kind": "slider",
+     "label": "LFO",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a vib",
+     "pos": 0.5
+    },
+    {
+     "id": "p2_a_vib_vib",
+     "kind": "slider",
+     "label": "VIB",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a vib",
+     "pos": 0.4
+    },
+    {
+     "id": "p2_a_vib_vrt",
+     "kind": "slider",
+     "label": "VRT",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a vib",
+     "pos": 0.7
+    },
+    {
+     "id": "p2_a_vib_slo",
+     "kind": "slider",
+     "label": "SLO",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a vib",
+     "pos": 0.3
+    },
+    {
+     "id": "p2_a_vib_shi",
+     "kind": "slider",
+     "label": "SHI",
+     "x": 1037,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a vib",
+     "pos": 0.6
+    },
+    {
+     "id": "p2_a_touch_lve",
+     "kind": "slider",
+     "label": "LVE",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a touch",
+     "pos": 0.5
+    },
+    {
+     "id": "p2_a_touch_hve",
+     "kind": "slider",
+     "label": "HVE",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a touch",
+     "pos": 0.4
+    },
+    {
+     "id": "p2_a_touch_laf",
+     "kind": "slider",
+     "label": "LAF",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a touch",
+     "pos": 0.6
+    },
+    {
+     "id": "p2_a_touch_haf",
+     "kind": "slider",
+     "label": "HAF",
+     "x": 315,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a touch",
+     "pos": 0.3
+    },
+    {
+     "id": "p2_a_touch_mix",
+     "kind": "slider",
+     "label": "MIX",
+     "x": 397,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a touch",
+     "pos": 0.5
+    },
+    {
+     "id": "p2_a_touch_key",
+     "kind": "slider",
+     "label": "KEY",
+     "x": 479,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a touch",
+     "pos": 0.2
+    },
+    {
+     "id": "p2_a_echo_tim",
+     "kind": "slider",
+     "label": "TIM",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a echo",
+     "pos": 0.5
+    },
+    {
+     "id": "p2_a_echo_rep",
+     "kind": "slider",
+     "label": "REP",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a echo",
+     "pos": 0.3
+    },
+    {
+     "id": "p2_a_echo_lvl",
+     "kind": "slider",
+     "label": "LVL",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a echo",
+     "pos": 0.2
+    }
+   ]
+  },
+  {
+   "index": 3,
+   "name": "B TONE",
+   "readout": "B WAV SQR",
+   "controls": [
+    {
+     "id": "p3_b_osc_wav",
+     "kind": "slider",
+     "label": "WAV",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.55
+    },
+    {
+     "id": "p3_b_osc_wlv",
+     "kind": "slider",
+     "label": "WLV",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.9
+    },
+    {
+     "id": "p3_b_osc_plv",
+     "kind": "slider",
+     "label": "PLV",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.8
+    },
+    {
+     "id": "p3_b_osc_wid",
+     "kind": "slider",
+     "label": "WID",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.6
+    },
+    {
+     "id": "p3_b_osc_pw",
+     "kind": "slider",
+     "label": "PW",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.3
+    },
+    {
+     "id": "p3_b_osc_rte",
+     "kind": "slider",
+     "label": "RTE",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.2
+    },
+    {
+     "id": "p3_b_osc_sub",
+     "kind": "slider",
+     "label": "SUB",
+     "x": 561,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b osc",
+     "pos": 0.0
+    },
+    {
+     "id": "p3_b_lpf_frq",
+     "kind": "slider",
+     "label": "FRQ",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.7
+    },
+    {
+     "id": "p3_b_lpf_res",
+     "kind": "slider",
+     "label": "RES",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.4
+    },
+    {
+     "id": "p3_b_lpf_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p3_b_lpf_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.5
+    },
+    {
+     "id": "p3_b_lpf_sus",
+     "kind": "slider",
+     "label": "SUS",
+     "x": 1037,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.3
+    },
+    {
+     "id": "p3_b_lpf_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 1119,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.2
+    },
+    {
+     "id": "p3_b_lpf_mod",
+     "kind": "slider",
+     "label": "MOD",
+     "x": 1201,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lpf",
+     "pos": 0.6
+    },
+    {
+     "id": "p3_b_hpf_frq",
+     "kind": "slider",
+     "label": "FRQ",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p3_b_hpf_res",
+     "kind": "slider",
+     "label": "RES",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.2
+    },
+    {
+     "id": "p3_b_hpf_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p3_b_hpf_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 315,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.3
+    },
+    {
+     "id": "p3_b_hpf_sus",
+     "kind": "slider",
+     "label": "SUS",
+     "x": 397,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.1
+    },
+    {
+     "id": "p3_b_hpf_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 479,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.2
+    },
+    {
+     "id": "p3_b_hpf_mod",
+     "kind": "slider",
+     "label": "MOD",
+     "x": 561,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b hpf",
+     "pos": 0.0
+    },
+    {
+     "id": "p3_b_amp_sine",
+     "kind": "slider",
+     "label": "SINE",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.1
+    },
+    {
+     "id": "p3_b_amp_flt",
+     "kind": "slider",
+     "label": "FLT",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.9
+    },
+    {
+     "id": "p3_b_amp_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.2
+    },
+    {
+     "id": "p3_b_amp_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.8
+    },
+    {
+     "id": "p3_b_amp_sus",
+     "kind": "slider",
+     "label": "SUS",
+     "x": 1037,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.5
+    },
+    {
+     "id": "p3_b_amp_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 1119,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.4
+    },
+    {
+     "id": "p3_b_amp_lvl",
+     "kind": "slider",
+     "label": "LVL",
+     "x": 1201,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b amp",
+     "pos": 0.9
+    }
+   ]
+  },
+  {
+   "index": 4,
+   "name": "B MOD",
+   "readout": "B ECHO LVL 18",
+   "controls": [
+    {
+     "id": "p4_b_lfo_rte",
+     "kind": "slider",
+     "label": "RTE",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.5
+    },
+    {
+     "id": "p4_b_lfo_syn",
+     "kind": "slider",
+     "label": "SYN",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.0
+    },
+    {
+     "id": "p4_b_lfo_wav",
+     "kind": "slider",
+     "label": "WAV",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.2
+    },
+    {
+     "id": "p4_b_lfo_mde",
+     "kind": "slider",
+     "label": "MDE",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.4
+    },
+    {
+     "id": "p4_b_lfo_dst",
+     "kind": "slider",
+     "label": "DST",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.3
+    },
+    {
+     "id": "p4_b_lfo_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.1
+    },
+    {
+     "id": "p4_b_lfo_rel",
+     "kind": "slider",
+     "label": "REL",
+     "x": 561,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b lfo",
+     "pos": 0.1
+    },
+    {
+     "id": "p4_b_vib_lfo",
+     "kind": "slider",
+     "label": "LFO",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b vib",
+     "pos": 0.5
+    },
+    {
+     "id": "p4_b_vib_vib",
+     "kind": "slider",
+     "label": "VIB",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b vib",
+     "pos": 0.4
+    },
+    {
+     "id": "p4_b_vib_vrt",
+     "kind": "slider",
+     "label": "VRT",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b vib",
+     "pos": 0.7
+    },
+    {
+     "id": "p4_b_vib_slo",
+     "kind": "slider",
+     "label": "SLO",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b vib",
+     "pos": 0.3
+    },
+    {
+     "id": "p4_b_vib_shi",
+     "kind": "slider",
+     "label": "SHI",
+     "x": 1037,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b vib",
+     "pos": 0.6
+    },
+    {
+     "id": "p4_b_touch_lve",
+     "kind": "slider",
+     "label": "LVE",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b touch",
+     "pos": 0.5
+    },
+    {
+     "id": "p4_b_touch_hve",
+     "kind": "slider",
+     "label": "HVE",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b touch",
+     "pos": 0.4
+    },
+    {
+     "id": "p4_b_touch_laf",
+     "kind": "slider",
+     "label": "LAF",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b touch",
+     "pos": 0.6
+    },
+    {
+     "id": "p4_b_touch_haf",
+     "kind": "slider",
+     "label": "HAF",
+     "x": 315,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b touch",
+     "pos": 0.3
+    },
+    {
+     "id": "p4_b_touch_mix",
+     "kind": "slider",
+     "label": "MIX",
+     "x": 397,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b touch",
+     "pos": 0.5
+    },
+    {
+     "id": "p4_b_touch_key",
+     "kind": "slider",
+     "label": "KEY",
+     "x": 479,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b touch",
+     "pos": 0.2
+    },
+    {
+     "id": "p4_b_echo_tim",
+     "kind": "slider",
+     "label": "TIM",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b echo",
+     "pos": 0.5
+    },
+    {
+     "id": "p4_b_echo_rep",
+     "kind": "slider",
+     "label": "REP",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b echo",
+     "pos": 0.3
+    },
+    {
+     "id": "p4_b_echo_lvl",
+     "kind": "slider",
+     "label": "LVL",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b echo",
+     "pos": 0.2
+    },
+    {
+     "id": "p4_b_echo_dly",
+     "kind": "slider",
+     "label": "DLY",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b echo",
+     "pos": 0.0
+    }
+   ]
+  },
+  {
+   "index": 5,
+   "name": "PERFORM",
+   "readout": "A GLID PRT",
+   "controls": [
+    {
+     "id": "p5_a_perf_glid",
+     "kind": "slider",
+     "label": "GLID",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.2
+    },
+    {
+     "id": "p5_a_perf_gtp",
+     "kind": "slider",
+     "label": "GTP",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_a_perf_tun",
+     "kind": "slider",
+     "label": "TUN",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_a_perf_oct",
+     "kind": "slider",
+     "label": "OCT",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_a_perf_bnd",
+     "kind": "slider",
+     "label": "BND",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.4
+    },
+    {
+     "id": "p5_a_perf_mon",
+     "kind": "slider",
+     "label": "MON",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_a_perf_ft",
+     "kind": "slider",
+     "label": "FT",
+     "x": 561,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a perf",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_b_perf_glid",
+     "kind": "slider",
+     "label": "GLID",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.2
+    },
+    {
+     "id": "p5_b_perf_gtp",
+     "kind": "slider",
+     "label": "GTP",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_b_perf_tun",
+     "kind": "slider",
+     "label": "TUN",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_b_perf_oct",
+     "kind": "slider",
+     "label": "OCT",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_b_perf_bnd",
+     "kind": "slider",
+     "label": "BND",
+     "x": 1037,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.4
+    },
+    {
+     "id": "p5_b_perf_mon",
+     "kind": "slider",
+     "label": "MON",
+     "x": 1119,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_b_perf_ft",
+     "kind": "slider",
+     "label": "FT",
+     "x": 1201,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b perf",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_a_arp_src",
+     "kind": "slider",
+     "label": "SRC",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_a_arp_typ",
+     "kind": "slider",
+     "label": "TYP",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.2
+    },
+    {
+     "id": "p5_a_arp_hld",
+     "kind": "slider",
+     "label": "HLD",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_a_arp_tmp",
+     "kind": "slider",
+     "label": "TMP",
+     "x": 315,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_a_arp_oct",
+     "kind": "slider",
+     "label": "OCT",
+     "x": 397,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.1
+    },
+    {
+     "id": "p5_a_arp_vel",
+     "kind": "slider",
+     "label": "VEL",
+     "x": 479,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_a_arp_gat",
+     "kind": "slider",
+     "label": "GAT",
+     "x": 561,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "a arp",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_b_arp_src",
+     "kind": "slider",
+     "label": "SRC",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_b_arp_typ",
+     "kind": "slider",
+     "label": "TYP",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.2
+    },
+    {
+     "id": "p5_b_arp_hld",
+     "kind": "slider",
+     "label": "HLD",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_b_arp_tmp",
+     "kind": "slider",
+     "label": "TMP",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.5
+    },
+    {
+     "id": "p5_b_arp_oct",
+     "kind": "slider",
+     "label": "OCT",
+     "x": 1037,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.1
+    },
+    {
+     "id": "p5_b_arp_vel",
+     "kind": "slider",
+     "label": "VEL",
+     "x": 1119,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.0
+    },
+    {
+     "id": "p5_b_arp_gat",
+     "kind": "slider",
+     "label": "GAT",
+     "x": 1201,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b arp",
+     "pos": 0.5
+    }
+   ]
+  },
+  {
+   "index": 6,
+   "name": "CS80",
+   "readout": "A IL 40",
+   "controls": [
+    {
+     "id": "p6_a_cs80_il",
+     "kind": "slider",
+     "label": "IL",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a cs80",
+     "pos": 0.4
+    },
+    {
+     "id": "p6_a_cs80_al",
+     "kind": "slider",
+     "label": "AL",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a cs80",
+     "pos": 0.6
+    },
+    {
+     "id": "p6_a_cs80_ibr",
+     "kind": "slider",
+     "label": "IBR",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_a_cs80_abr",
+     "kind": "slider",
+     "label": "ABR",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_a_cs80_ilv",
+     "kind": "slider",
+     "label": "ILV",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_a_cs80_alv",
+     "kind": "slider",
+     "label": "ALV",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_b_cs80_il",
+     "kind": "slider",
+     "label": "IL",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b cs80",
+     "pos": 0.4
+    },
+    {
+     "id": "p6_b_cs80_al",
+     "kind": "slider",
+     "label": "AL",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b cs80",
+     "pos": 0.6
+    },
+    {
+     "id": "p6_b_cs80_ibr",
+     "kind": "slider",
+     "label": "IBR",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_b_cs80_abr",
+     "kind": "slider",
+     "label": "ABR",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_b_cs80_ilv",
+     "kind": "slider",
+     "label": "ILV",
+     "x": 1037,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_b_cs80_alv",
+     "kind": "slider",
+     "label": "ALV",
+     "x": 1119,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "b cs80",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_keys_brl",
+     "kind": "slider",
+     "label": "BRL",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "keys",
+     "pos": 0.3
+    },
+    {
+     "id": "p6_keys_brh",
+     "kind": "slider",
+     "label": "BRH",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "keys",
+     "pos": 0.6
+    },
+    {
+     "id": "p6_keys_lvl",
+     "kind": "slider",
+     "label": "LVL",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "keys",
+     "pos": 0.3
+    },
+    {
+     "id": "p6_keys_lvh",
+     "kind": "slider",
+     "label": "LVH",
+     "x": 315,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "keys",
+     "pos": 0.6
+    },
+    {
+     "id": "p6_master_bri",
+     "kind": "slider",
+     "label": "BRI",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "master",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_master_rsn",
+     "kind": "slider",
+     "label": "RSN",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "master",
+     "pos": 0.3
+    },
+    {
+     "id": "p6_master_mix",
+     "kind": "slider",
+     "label": "MIX",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "master",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_master_det",
+     "kind": "slider",
+     "label": "DET",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "master",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_master_crs",
+     "kind": "slider",
+     "label": "CRS",
+     "x": 1037,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "master",
+     "pos": 0.5
+    },
+    {
+     "id": "p6_master_fine",
+     "kind": "slider",
+     "label": "FINE",
+     "x": 1119,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "master",
+     "pos": 0.5
+    }
+   ]
+  },
+  {
+   "index": 7,
+   "name": "SUB OSC",
+   "readout": "SUB FUNC SIN",
+   "controls": [
+    {
+     "id": "p7_sub_osc_fnc",
+     "kind": "slider",
+     "label": "FNC",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub osc",
+     "pos": 0.0
+    },
+    {
+     "id": "p7_sub_osc_spd",
+     "kind": "slider",
+     "label": "SPD",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub osc",
+     "pos": 0.4
+    },
+    {
+     "id": "p7_sub_osc_vco",
+     "kind": "slider",
+     "label": "VCO",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub osc",
+     "pos": 0.1
+    },
+    {
+     "id": "p7_sub_osc_vcf",
+     "kind": "slider",
+     "label": "VCF",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub osc",
+     "pos": 0.2
+    },
+    {
+     "id": "p7_sub_osc_vca",
+     "kind": "slider",
+     "label": "VCA",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub osc",
+     "pos": 0.0
+    },
+    {
+     "id": "p7_sub_touch_bnd",
+     "kind": "slider",
+     "label": "BND",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub touch",
+     "pos": 0.5
+    },
+    {
+     "id": "p7_sub_touch_spd",
+     "kind": "slider",
+     "label": "SPD",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub touch",
+     "pos": 0.4
+    },
+    {
+     "id": "p7_sub_touch_vco",
+     "kind": "slider",
+     "label": "VCO",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub touch",
+     "pos": 0.3
+    },
+    {
+     "id": "p7_sub_touch_vcf",
+     "kind": "slider",
+     "label": "VCF",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sub touch",
+     "pos": 0.3
+    },
+    {
+     "id": "p7_mod_bar_mde",
+     "kind": "slider",
+     "label": "MDE",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "mod bar",
+     "pos": 0.0
+    },
+    {
+     "id": "p7_mod_bar_dst",
+     "kind": "slider",
+     "label": "DST",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "mod bar",
+     "pos": 0.0
+    },
+    {
+     "id": "p7_mod_bar_bar",
+     "kind": "slider",
+     "label": "BAR",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "mod bar",
+     "pos": 0.5
+    },
+    {
+     "id": "p7_split_son",
+     "kind": "slider",
+     "label": "SON",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "split",
+     "pos": 0.0
+    },
+    {
+     "id": "p7_split_spl",
+     "kind": "slider",
+     "label": "SPL",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "split",
+     "pos": 0.5
+    },
+    {
+     "id": "p7_split_out",
+     "kind": "slider",
+     "label": "OUT",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "split",
+     "pos": 0.8
+    },
+    {
+     "id": "p7_split_cka",
+     "kind": "slider",
+     "label": "CKA",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "split",
+     "pos": 0.0
+    },
+    {
+     "id": "p7_split_ckb",
+     "kind": "slider",
+     "label": "CKB",
+     "x": 1037,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "split",
+     "pos": 0.0
+    }
+   ]
+  },
+  {
+   "index": 8,
+   "name": "FX",
+   "readout": "RM PIT 55",
+   "controls": [
+    {
+     "id": "p8_ring_mod_ab",
+     "kind": "slider",
+     "label": "AB",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.5
+    },
+    {
+     "id": "p8_ring_mod_ven",
+     "kind": "slider",
+     "label": "VEN",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.4
+    },
+    {
+     "id": "p8_ring_mod_pit",
+     "kind": "slider",
+     "label": "PIT",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.5
+    },
+    {
+     "id": "p8_ring_mod_att",
+     "kind": "slider",
+     "label": "ATT",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.1
+    },
+    {
+     "id": "p8_ring_mod_dec",
+     "kind": "slider",
+     "label": "DEC",
+     "x": 397,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.3
+    },
+    {
+     "id": "p8_ring_mod_pen",
+     "kind": "slider",
+     "label": "PEN",
+     "x": 479,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.5
+    },
+    {
+     "id": "p8_ring_mod_pvl",
+     "kind": "slider",
+     "label": "PVL",
+     "x": 561,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "ring mod",
+     "pos": 0.5
+    },
+    {
+     "id": "p8_crush_src",
+     "kind": "slider",
+     "label": "SRC",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "crush",
+     "pos": 0.0
+    },
+    {
+     "id": "p8_crush_bit",
+     "kind": "slider",
+     "label": "BIT",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "crush",
+     "pos": 0.7
+    },
+    {
+     "id": "p8_chorus_on",
+     "kind": "slider",
+     "label": "ON",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "chorus",
+     "pos": 0.0
+    },
+    {
+     "id": "p8_chorus_rte",
+     "kind": "slider",
+     "label": "RTE",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "chorus",
+     "pos": 0.4
+    },
+    {
+     "id": "p8_chorus_amt",
+     "kind": "slider",
+     "label": "AMT",
+     "x": 233,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "chorus",
+     "pos": 0.5
+    },
+    {
+     "id": "p8_reverb_size",
+     "kind": "slider",
+     "label": "SIZE",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "reverb",
+     "pos": 0.5
+    },
+    {
+     "id": "p8_reverb_wid",
+     "kind": "slider",
+     "label": "WID",
+     "x": 791,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "reverb",
+     "pos": 0.7
+    },
+    {
+     "id": "p8_reverb_dmp",
+     "kind": "slider",
+     "label": "DMP",
+     "x": 873,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "reverb",
+     "pos": 0.4
+    },
+    {
+     "id": "p8_reverb_mix",
+     "kind": "slider",
+     "label": "MIX",
+     "x": 955,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "reverb",
+     "pos": 0.3
+    }
+   ]
+  },
+  {
+   "index": 9,
+   "name": "MIXER",
+   "readout": "MIX A LVL 90",
+   "controls": [
+    {
+     "id": "p9_levels_a",
+     "kind": "slider",
+     "label": "A",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "levels",
+     "pos": 0.9
+    },
+    {
+     "id": "p9_levels_b",
+     "kind": "slider",
+     "label": "B",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "levels",
+     "pos": 0.9
+    },
+    {
+     "id": "p9_levels_rm",
+     "kind": "slider",
+     "label": "RM",
+     "x": 233,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "levels",
+     "pos": 0.3
+    },
+    {
+     "id": "p9_levels_bitc",
+     "kind": "slider",
+     "label": "BITC",
+     "x": 315,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "levels",
+     "pos": 0.2
+    },
+    {
+     "id": "p9_pans_pa",
+     "kind": "slider",
+     "label": "PA",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "pans",
+     "pos": 0.5
+    },
+    {
+     "id": "p9_pans_pb",
+     "kind": "slider",
+     "label": "PB",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "pans",
+     "pos": 0.5
+    },
+    {
+     "id": "p9_pans_prm",
+     "kind": "slider",
+     "label": "PRM",
+     "x": 873,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "pans",
+     "pos": 0.5
+    },
+    {
+     "id": "p9_pans_pbc",
+     "kind": "slider",
+     "label": "PBC",
+     "x": 955,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "pans",
+     "pos": 0.5
+    },
+    {
+     "id": "p9_voice_mna",
+     "kind": "slider",
+     "label": "MNA",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "voice",
+     "pos": 0.0
+    },
+    {
+     "id": "p9_voice_mnb",
+     "kind": "slider",
+     "label": "MNB",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "voice",
+     "pos": 0.0
+    },
+    {
+     "id": "p9_main_out",
+     "kind": "slider",
+     "label": "OUT",
+     "x": 709,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "main",
+     "pos": 0.8
+    }
+   ]
+  },
+  {
+   "index": 10,
+   "name": "VOICE",
+   "readout": "SUSTAIN MD 1",
+   "controls": [
+    {
+     "id": "p10_sustain_smd",
+     "kind": "slider",
+     "label": "SMD",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sustain",
+     "pos": 0.0
+    },
+    {
+     "id": "p10_sustain_sln",
+     "kind": "slider",
+     "label": "SLN",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "sustain",
+     "pos": 0.5
+    },
+    {
+     "id": "p10_tone_tna",
+     "kind": "slider",
+     "label": "TNA",
+     "x": 709,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "tone",
+     "pos": 0.0
+    },
+    {
+     "id": "p10_tone_tnb",
+     "kind": "slider",
+     "label": "TNB",
+     "x": 791,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "tone",
+     "pos": 0.0
+    },
+    {
+     "id": "p10_ribbon_rib",
+     "kind": "slider",
+     "label": "RIB",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "ribbon",
+     "pos": 0.5
+    },
+    {
+     "id": "p10_ribbon_rng",
+     "kind": "slider",
+     "label": "RNG",
+     "x": 151,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "ribbon",
+     "pos": 0.5
+    }
+   ]
+  },
+  {
+   "index": 11,
+   "name": "PRESET",
+   "readout": "0001 FACTORY",
+   "controls": [
+    {
+     "id": "p11_preset_bnk",
+     "kind": "slider",
+     "label": "BNK",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "preset",
+     "pos": 0.0
+    },
+    {
+     "id": "p11_preset_pat",
+     "kind": "slider",
+     "label": "PAT",
+     "x": 151,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "preset",
+     "pos": 0.0
+    },
+    {
+     "id": "p11_load",
+     "kind": "button",
+     "x": 700,
+     "y": 100,
+     "w": 160,
+     "h": 70,
+     "label": "LOAD"
+    },
+    {
+     "id": "p11_save",
+     "kind": "button",
+     "x": 880,
+     "y": 100,
+     "w": 160,
+     "h": 70,
+     "label": "SAVE"
+    },
+    {
+     "id": "p11_init",
+     "kind": "button",
+     "x": 1060,
+     "y": 100,
+     "w": 160,
+     "h": 70,
+     "label": "INIT"
+    }
+   ]
+  }
+ ],
+ "overview_tiles": [
+  {
+   "id": "tile_1",
+   "x": 24,
+   "y": 92,
+   "w": 290,
+   "h": 160,
+   "page": 1
+  },
+  {
+   "id": "tile_2",
+   "x": 338,
+   "y": 92,
+   "w": 290,
+   "h": 160,
+   "page": 2
+  },
+  {
+   "id": "tile_3",
+   "x": 652,
+   "y": 92,
+   "w": 290,
+   "h": 160,
+   "page": 3
+  },
+  {
+   "id": "tile_4",
+   "x": 966,
+   "y": 92,
+   "w": 290,
+   "h": 160,
+   "page": 4
+  },
+  {
+   "id": "tile_5",
+   "x": 24,
+   "y": 266,
+   "w": 290,
+   "h": 160,
+   "page": 5
+  },
+  {
+   "id": "tile_6",
+   "x": 338,
+   "y": 266,
+   "w": 290,
+   "h": 160,
+   "page": 6
+  },
+  {
+   "id": "tile_7",
+   "x": 652,
+   "y": 266,
+   "w": 290,
+   "h": 160,
+   "page": 7
+  },
+  {
+   "id": "tile_8",
+   "x": 966,
+   "y": 266,
+   "w": 290,
+   "h": 160,
+   "page": 8
+  },
+  {
+   "id": "tile_9",
+   "x": 24,
+   "y": 440,
+   "w": 290,
+   "h": 160,
+   "page": 9
+  },
+  {
+   "id": "tile_10",
+   "x": 338,
+   "y": 440,
+   "w": 290,
+   "h": 160,
+   "page": 10
+  },
+  {
+   "id": "tile_11",
+   "x": 652,
+   "y": 440,
+   "w": 290,
+   "h": 160,
+   "page": 11
+  }
+ ]
+}
