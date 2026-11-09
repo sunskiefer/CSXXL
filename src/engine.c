@@ -97,7 +97,7 @@ typedef struct {
     float P[N_PARAMS];
     Layer L[2];
     uint32_t order;
-    int view; unsigned rev; float nav_cool;
+    int view; unsigned rev; float nav_cool; int pm_page; char pm_msg[96];
     float bend, mw, at, ribbon_prev, rm_vel, mb_last, mb_idle, mb_s, mb_pa, mb_pb, mb_pr;
     float pat[128];                 /* per-key (polyphonic) aftertouch 0..1 */
     double bpm; int bpm_ok;         /* host tempo (song_pos) */
@@ -190,6 +190,23 @@ static int preset_index(const Inst *I) {
     int b = (int)(I->P[E_p11_preset_bnk] * 0.01f * 12.f); if (b > 11) b = 11;
     int p = (int)(I->P[E_p11_preset_pat] * 1.27f + 0.5f); if (p > 127) p = 127;
     return b * 128 + p;
+}
+static void pm_name(const Inst *I, int n, char *o, size_t sz) {
+    if (n < 0 || n >= NSLOTS) { snprintf(o, sz, " "); return; }
+    if (I->user_set[n]) snprintf(o, sz, "%03d  USER %d", n + 1, n + 1);
+    else if (n < NARM) snprintf(o, sz, "%03d  %s", n + 1, ARM_NAME[n]);
+    else if (n < NFACTORY) snprintf(o, sz, "%03d  Recipe %d", n + 1, n + 1 - NARM);
+    else snprintf(o, sz, "%03d  - empty -", n + 1);
+}
+static void pm_select(Inst *I, int n) {   /* selection lives in the two preset sliders, so the Q-Links and data wheel still work */
+    n = n < 0 ? 0 : n > NSLOTS - 1 ? NSLOTS - 1 : n;
+    I->P[E_p11_preset_bnk] = ((float)(n / 128) + 0.5f) / 12.f * 100.f;
+    I->P[E_p11_preset_pat] = (float)(n % 128) / 1.27f;
+    I->pm_page = n / 8;
+}
+static void pm_describe(Inst *I, const char *pre) {
+    char t[64]; int n = preset_index(I); pm_name(I, n, t, sizeof t);
+    snprintf(I->pm_msg, sizeof I->pm_msg, "%s%s", pre, t); I->rev++;
 }
 static void user_file(const Inst *I, char *path, size_t n) { snprintf(path, n, "%s/csxxl_user_presets.bin", I->data_dir[0] ? I->data_dir : "."); }
 static void user_save_file(Inst *I) {
@@ -334,14 +351,22 @@ static void eng_set(void *p, const char *key, const char *val) {
         } else set_view(I, 1 + i - E_go_1);
         return;
     }
+    if (i >= E_pm_1 && i <= E_pm_8) { if (v >= 0.5f) { pm_select(I, I->pm_page * 8 + (i - E_pm_1)); pm_describe(I, "Selected "); } return; }
+    if (i == E_pm_prev || i == E_pm_next || i == E_pm_prev10 || i == E_pm_next10) {
+        if (v < 0.5f || I->nav_cool > 0.f) return; I->nav_cool = 0.2f;
+        int d = i == E_pm_prev ? -1 : i == E_pm_next ? 1 : i == E_pm_prev10 ? -10 : 10, pages = (NSLOTS + 7) / 8;
+        I->pm_page = ((I->pm_page + d) % pages + pages) % pages;
+        snprintf(I->pm_msg, sizeof I->pm_msg, "Page %d / %d", I->pm_page + 1, pages); I->rev++; return;
+    }
     if (PBTN[i]) {
         if (v < 0.5f) return;
-        if (i == E_p11_load) preset_load(I, preset_index(I));
-        else if (i == E_p11_save) { int n = preset_index(I); memcpy(I->user[n], I->P, sizeof(I->P)); I->user_set[n] = 1; user_save_file(I); }
-        else if (i == E_p11_init) { for (int k = 0; k < N_PARAMS; k++) if (!PBTN[k] && k != E_p11_preset_bnk && k != E_p11_preset_pat) I->P[k] = PDEF[k]; }
+        if (i == E_p11_load) { preset_load(I, preset_index(I)); pm_describe(I, "Loaded "); }
+        else if (i == E_p11_save) { int n = preset_index(I); memcpy(I->user[n], I->P, sizeof(I->P)); I->user_set[n] = 1; user_save_file(I); pm_describe(I, "Saved "); }
+        else if (i == E_p11_init) { for (int k = 0; k < N_PARAMS; k++) if (!PBTN[k] && k != E_p11_preset_bnk && k != E_p11_preset_pat) I->P[k] = PDEF[k]; snprintf(I->pm_msg, sizeof I->pm_msg, "Initialised"); I->rev++; }
         return;
     }
     I->P[i] = clampf(v, 0.f, 100.f);
+    if (i == E_p11_preset_bnk || i == E_p11_preset_pat) { I->pm_page = preset_index(I) / 8; pm_describe(I, "Selected "); }
 }
 typedef struct { const char *suf; int n; const char *names[9]; } NamedP;
 static const NamedP NAMED[] = {
@@ -402,6 +427,13 @@ static int eng_get(void *p, const char *key, char *buf, int len) {
             if (!suf && qi >= E_pg_0 && qi <= E_pg_0 + N_PAGES) return snprintf(buf, (size_t)len, "%d", I->view == qi - E_pg_0);
         } }
     { size_t kl = strlen(key); if (kl > 9 && !strcmp(key + kl - 8, "_display")) { char b2[96]; if (kl - 8 < sizeof b2) { memcpy(b2, key, kl - 8); b2[kl - 8] = 0; int j = key_idx(b2); if (j >= 0) return named_text(key, I->P[j], buf, len); } return 0; } }
+    {   /* preset list: row text, row highlight, status line */
+        size_t kl = strlen(key);
+        if (!strncmp(key, "pm_", 3) && kl == 7 && !strcmp(key + 4, "_on")) { int r = key[3] - '1'; return snprintf(buf, (size_t)len, "%d", r >= 0 && r < 8 && I->pm_page * 8 + r == preset_index(I)); }
+        int pi = key_idx(key);
+        if (pi >= E_pm_1 && pi <= E_pm_8) { int n = I->pm_page * 8 + (pi - E_pm_1); if (n >= NSLOTS) return snprintf(buf, (size_t)len, " "); char t[64]; pm_name(I, n, t, sizeof t); return snprintf(buf, (size_t)len, "%s", t); }
+        if (pi == E_pm_info) return snprintf(buf, (size_t)len, "%s", I->pm_msg[0] ? I->pm_msg : "Tap a preset, then LOAD");
+    }
     int i = key_idx(key); if (i < 0 || len < 6) return 0;
     return snprintf(buf, (size_t)len, "%d", (int)(PBTN[i] ? 0.f : I->P[i] + 0.5f));
 }

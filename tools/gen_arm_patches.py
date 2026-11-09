@@ -65,6 +65,12 @@ for b in BANKS:
 out.append("static const unsigned char ARM_VAL[NARM][NARMMAP] = {")
 for row in vals: out.append("{" + ",".join(map(str, row)) + "},")
 out.append("};")
+def _cs(n):
+    n = "".join(c if 32 <= ord(c) < 127 and c not in '"\\' else "?" for c in n.strip())[:23]
+    return '"%s"' % n
+out.append("static const char *const ARM_NAME[NARM] = {")
+out.append(",".join(_cs(n) for b, n in names_all))
+out.append("};")
 open(os.path.join(R, "src", "arm_patches.h"), "w").write("\n".join(out) + "\n")
 md = ["# CSXXL factory patches from the Arminator banks", "", "Slots 1..640 follow the five Arminator banks in this order (128 each): " + ", ".join(BANKS) + ". Slots 641..768 are the written recipes.", ""]
 for i, (b, n) in enumerate(names_all): md.append("%d. %s  (%s)" % (i + 1, n, b))

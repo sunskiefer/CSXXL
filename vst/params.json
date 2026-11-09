@@ -2385,6 +2385,126 @@
     "On"
    ],
    "default": 0
+  },
+  {
+   "key": "pm_1",
+   "name": "Preset Row 1",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_2",
+   "name": "Preset Row 2",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_3",
+   "name": "Preset Row 3",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_4",
+   "name": "Preset Row 4",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_5",
+   "name": "Preset Row 5",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_6",
+   "name": "Preset Row 6",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_7",
+   "name": "Preset Row 7",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_8",
+   "name": "Preset Row 8",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string",
+   "type": "slot"
+  },
+  {
+   "key": "pm_prev",
+   "name": "PRESETS PAGE UP",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
+   "key": "pm_next",
+   "name": "PRESETS PAGE DOWN",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
+   "key": "pm_prev10",
+   "name": "PRESETS -10 PAGES",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
+   "key": "pm_next10",
+   "name": "PRESETS +10 PAGES",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
+   "key": "pm_info",
+   "name": "Preset Info",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "display": "string"
   }
  ],
  "sections": [
