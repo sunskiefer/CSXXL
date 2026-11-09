@@ -29,6 +29,29 @@
                     "Q-Link 15": 212,
                     "Q-Link 16": 216
                 }
+            },
+            {
+                "Tab": 1,
+                "SubTab": 2,
+                "Bank Direction": "Column",
+                "Q-Links": {
+                    "Q-Link 1": 223,
+                    "Q-Link 2": 227,
+                    "Q-Link 3": 231,
+                    "Q-Link 4": 235,
+                    "Q-Link 5": 222,
+                    "Q-Link 6": 226,
+                    "Q-Link 7": 230,
+                    "Q-Link 8": 234,
+                    "Q-Link 9": 221,
+                    "Q-Link 10": 225,
+                    "Q-Link 11": 229,
+                    "Q-Link 12": 233,
+                    "Q-Link 13": 220,
+                    "Q-Link 14": 224,
+                    "Q-Link 15": 228,
+                    "Q-Link 16": 232
+                }
             }
         ]
     },

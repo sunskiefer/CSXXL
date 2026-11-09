@@ -133,64 +133,38 @@ static void lset(float *out, int ly, int slot, float v) {
     int i = LIDX[ly][slot];
     if (i >= 0) out[i] = clampf(v, 0.f, 100.f);
 }
-static float vary(uint32_t *s, float base, float amt) {
-    *s = *s * 1664525u + 1013904223u;
-    float r = (float)((*s >> 8) & 0xFFFF) / 65535.f * 2.f - 1.f;
-    return clampf(base + r * amt, 0.f, 100.f);
-}
+#include "patches.h"
+static float lget(const float *out, int ly, int slot) { int i = LIDX[ly][slot]; return i >= 0 ? out[i] : 0.f; }
+static void ladd(float *out, int ly, int slot, float d) { lset(out, ly, slot, lget(out, ly, slot) + d); }
+static void gset(float *out, int e, float v) { out[e] = clampf(v, 0.f, 100.f); }
+/* factory patch n: family n%8, written recipe (n/8)%8, then one of 12 fixed variations (n/64), see tools/gen_patches.py and docs/PATCHES.md */
 static void patch_gen(int n, float *out) {
     for (int i = 0; i < N_PARAMS; i++) out[i] = PDEF[i];
-    uint32_t s = 0x9E3779B9u * (uint32_t)(n + 1) + 12345u;
-    int cat = n % 8, var = (n / 8) % 16, bank = n / 128;
-    float vamt = 4.f + (float)var * 1.2f;
+    int fam = n % 8, rec = (n / 8) % 8, var = (n / 64) % 12;
+    const Recipe *R = &RECIPES[fam * 8 + rec];
     for (int ly = 0; ly < 2; ly++) {
-        /* defaults of a "neutral saw" layer */
-        float wav = 10, wlv = 80, plv = 40, wid = 40, pw = 50, rte = 25, sub = 10;
-        float lf = 45, lres = 15, la = 10, ld = 40, ls = 60, lr = 30, lm = 40;
-        float hf = 10, hres = 0, ha = 5, hd = 30, hs = 100, hr = 20, hm = 0;
-        float aa = 8, ad = 40, as = 80, ar = 30, sine = 0, flt = 80;
-        float il = 20, al = 85, ibr = 40, abr = 65, vib = 30, vrt = 40;
-        float glid = 0, mon = 0, arp = 0, tmp = 50, typ = 0;
-        switch (cat) {
-        case 0: /* brass */    wlv = 90; plv = 50; lf = 35; lm = 55; la = 25; ld = 45; ls = 55; aa = 18; ad = 40; as = 85; ar = 25; ibr = 30; abr = 75; break;
-        case 1: /* strings */  wav = 30; wlv = 70; plv = 65; wid = 35; lf = 55; lres = 8; lm = 15; la = 40; aa = 45 + var; as = 90; ar = 50; hf = 25; vib = 45; break;
-        case 2: /* pad */      wav = 40; plv = 60; wid = 55; lf = 40; lm = 25; la = 55; ld = 60; aa = 70; ad = 60; as = 85; ar = 75; il = 10; al = 70; vib = 20; break;
-        case 3: /* bass */     wlv = 90; plv = 30; sub = 75; lf = 22; lres = 28; lm = 45; la = 3; ld = 30; ls = 25; aa = 3; ad = 30; as = 70; ar = 12; mon = 100; glid = 8; break;
-        case 4: /* lead */     wlv = 80; plv = 60; wid = 30; lf = 45; lres = 35; lm = 35; aa = 8; as = 85; ar = 28; mon = 100; glid = 22; vib = 55; vrt = 50; break;
-        case 5: /* ensemble */ if (ly == 0) { wav = 30; plv = 65; aa = 50; ar = 55; lf = 55; } else { wlv = 90; la = 25; lf = 38; lm = 55; aa = 18; } break;
-        case 6: /* fx */       wav = 70; wlv = 60; plv = 70; wid = 70; lf = 30; lres = 55; lm = 60; la = 20; ld = 55; ls = 30; aa = 10; ad = 55; as = 50; ar = 55; sine = 40; break;
-        default: /* arp */     wlv = 85; plv = 45; lf = 40; lres = 25; lm = 50; la = 3; ld = 25; ls = 20; aa = 3; ad = 25; as = 60; ar = 20; arp = 50; tmp = 55; typ = 20; break;
-        }
-        /* noise patches: windy FX, and "breath" layers (line A = filtered noise under line B's tone) */
-        if (cat == 6 && (var % 3) != 1) { wav = 100; wlv = 55 + (float)(var % 5) * 6; plv = 30; lres = 45; lf = 35 + (float)(var * 3 % 30); la = 45; aa = 40; ar = 70; }
-        if ((cat == 0 || cat == 4 || cat == 5 || cat == 1) && (var % 4) == 0 && ly == 0) { wav = 100; wlv = 45; plv = 0; lres = 40; lf = 55; lm = 20; la = 20; aa = 14; as = 55; ar = 25; hf = 35; }
-        if (ly == 1) { wid += 8; lf += (var & 1) ? 3 : -3; }
-        lset(out, ly, L_OSC_WAV, wav >= 100.f ? 100.f : vary(&s, wav, vamt)); lset(out, ly, L_OSC_WLV, vary(&s, wlv, vamt * 0.5f));
-        lset(out, ly, L_OSC_PLV, vary(&s, plv, vamt)); lset(out, ly, L_OSC_WID, vary(&s, wid, vamt));
-        lset(out, ly, L_OSC_PW, vary(&s, pw, vamt)); lset(out, ly, L_OSC_RTE, vary(&s, rte, vamt));
-        lset(out, ly, L_OSC_SUB, vary(&s, sub, vamt * 0.5f));
-        lset(out, ly, L_LPF_FRQ, vary(&s, lf, vamt)); lset(out, ly, L_LPF_RES, vary(&s, lres, vamt));
-        lset(out, ly, L_LPF_ATT, vary(&s, la, vamt)); lset(out, ly, L_LPF_DEC, vary(&s, ld, vamt));
-        lset(out, ly, L_LPF_SUS, vary(&s, ls, vamt)); lset(out, ly, L_LPF_REL, vary(&s, lr, vamt));
-        lset(out, ly, L_LPF_MOD, vary(&s, lm, vamt));
-        lset(out, ly, L_HPF_FRQ, vary(&s, hf, vamt * 0.6f)); lset(out, ly, L_HPF_RES, hres);
-        lset(out, ly, L_HPF_ATT, ha); lset(out, ly, L_HPF_DEC, hd); lset(out, ly, L_HPF_SUS, hs);
-        lset(out, ly, L_HPF_REL, hr); lset(out, ly, L_HPF_MOD, hm);
-        lset(out, ly, L_AMP_SINE, sine); lset(out, ly, L_AMP_FLT, flt);
-        lset(out, ly, L_AMP_ATT, vary(&s, aa, vamt)); lset(out, ly, L_AMP_DEC, vary(&s, ad, vamt));
-        lset(out, ly, L_AMP_SUS, vary(&s, as, vamt * 0.6f)); lset(out, ly, L_AMP_REL, vary(&s, ar, vamt));
-        lset(out, ly, L_AMP_LVL, 80);
-        lset(out, ly, L_CS80_IL, il); lset(out, ly, L_CS80_AL, al);
-        lset(out, ly, L_CS80_IBR, vary(&s, ibr, vamt)); lset(out, ly, L_CS80_ABR, vary(&s, abr, vamt));
-        lset(out, ly, L_VIB_VIB, vary(&s, vib, vamt)); lset(out, ly, L_VIB_VRT, vrt);
-        lset(out, ly, L_PERF_GLID, glid); lset(out, ly, L_PERF_MON, mon);
-        lset(out, ly, L_ARP_SRC, arp); lset(out, ly, L_ARP_TMP, tmp); lset(out, ly, L_ARP_TYP, typ);
-        lset(out, ly, L_ECHO_LVL, cat == 6 ? 35.f : 0.f); lset(out, ly, L_ECHO_TIM, vary(&s, 40, 20)); lset(out, ly, L_ECHO_REP, 35);
+        for (const PatchKV *k = BASE_KV; k->slot >= 0; k++) lset(out, ly, k->slot, k->v);
+        for (const PatchKV *k = ly ? R->b : R->a; k->slot >= 0; k++) lset(out, ly, k->slot, k->v);
     }
-    out[E_p6_master_det] = vary(&s, 52, 4); out[E_p8_chorus_on] = (cat == 1 || cat == 2 || cat == 5) ? 100.f : 0.f;
-    out[E_p8_reverb_mix] = (cat == 2 || cat == 6) ? 40.f : 22.f;
-    if (cat == 6) { out[E_p9_levels_rm] = 45; out[E_p8_ring_mod_ab] = 30; }
-    (void)bank;
+    for (const PatchKV *k = R->g; k->slot >= 0; k++) gset(out, k->slot, k->v);
+    for (int ly = 0; ly < 2; ly++) {
+        switch (var) {
+        case 1: ladd(out, ly, L_LPF_FRQ, 12); ladd(out, ly, L_CS80_ABR, 10); ladd(out, ly, L_CS80_IBR, 5); ladd(out, ly, L_LPF_RES, 6); break;
+        case 2: ladd(out, ly, L_LPF_FRQ, -14); ladd(out, ly, L_CS80_ABR, -12); ladd(out, ly, L_LPF_RES, -4); break;
+        case 3: ladd(out, ly, L_AMP_ATT, 22); ladd(out, ly, L_AMP_REL, 22); ladd(out, ly, L_LPF_ATT, 15); break;
+        case 4: lset(out, ly, L_AMP_ATT, fminf(lget(out, ly, L_AMP_ATT), 4.f)); lset(out, ly, L_AMP_DEC, 26); lset(out, ly, L_AMP_SUS, 15); lset(out, ly, L_LPF_SUS, 10); lset(out, ly, L_LPF_DEC, 28); ladd(out, ly, L_AMP_REL, -12); break;
+        case 5: ladd(out, ly, L_OSC_WID, 10); break;
+        case 6: lset(out, ly, L_ECHO_LVL, 38); lset(out, ly, L_ECHO_TIM, 40); lset(out, ly, L_ECHO_REP, 45); break;
+        case 7: lset(out, ly, L_LFO_DST, 0); lset(out, ly, L_LFO_RTE, 48); lset(out, ly, L_LFO_MDE, 0); lset(out, ly, L_VIB_LFO, 60); lset(out, ly, L_TOUCH_LAF, 50); break;
+        case 8: if (ly) { lset(out, ly, L_OSC_SUB, 50); ladd(out, ly, L_AMP_SINE, 30); } break;
+        case 9: if (!ly) { lset(out, ly, L_OSC_WAV, 100); lset(out, ly, L_OSC_WLV, 45); lset(out, ly, L_OSC_PLV, 0); lset(out, ly, L_LPF_RES, 40); lset(out, ly, L_LPF_FRQ, 55); lset(out, ly, L_LPF_MOD, 20); lset(out, ly, L_LPF_ATT, 20); lset(out, ly, L_AMP_ATT, 14); lset(out, ly, L_AMP_SUS, 55); lset(out, ly, L_AMP_REL, 25); lset(out, ly, L_HPF_FRQ, 35); } break;
+        case 10: lset(out, ly, L_PERF_MON, 100); lset(out, ly, L_PERF_GLID, 14); break;
+        default: break;
+        }
+    }
+    if (var == 5) { gset(out, E_p6_master_det, 62); gset(out, E_p8_chorus_on, 100); gset(out, E_p8_chorus_amt, 50); }
+    if (var == 6 && out[E_p8_reverb_mix] < 40.f) gset(out, E_p8_reverb_mix, 40);
+    if (var == 11) { gset(out, E_p9_levels_rm, 40); gset(out, E_p8_ring_mod_ab, 50); gset(out, E_p8_ring_mod_ven, 50); gset(out, E_p9_levels_bitc, 22); gset(out, E_p8_crush_src, 66); }
 }
 
 /* ---------------------------------------------------------------- preset helpers */
@@ -334,7 +308,7 @@ static void eng_set(void *p, const char *key, const char *val) {
     Inst *I = (Inst *)p; int i = key_idx(key); if (i < 0) return;
     float v = (float)atof(val);
     if (i >= E_pg_0 && i <= E_pg_0 + N_PAGES) return;   /* page switches are driven by the engine only */
-    if (i >= E_ql1 && i <= E_ql16) {   /* Q-Links follow the visible page */
+    if (i >= E_ql1 && i <= E_ql32) {   /* Q-Links follow the visible page */
         int t = VIEW_QL[I->view][i - E_ql1]; if (t < 0) return;
         char b[32]; snprintf(b, sizeof b, "%g", (double)(clampf(v, 0.f, 1.f) * 100.f)); eng_set(p, PKEY[t], b); return;
     }
@@ -407,7 +381,7 @@ static int eng_get(void *p, const char *key, char *buf, int len) {
         char base[32]; size_t kl = strlen(key); int suf = 0;
         if (kl > 6 && !strcmp(key + kl - 5, "_name")) suf = 2; else if (kl > 9 && !strcmp(key + kl - 8, "_display")) suf = 1;
         size_t bl = kl - (suf == 2 ? 5 : suf == 1 ? 8 : 0); if (bl < sizeof base) { memcpy(base, key, bl); base[bl] = 0; int qi = key_idx(base);
-            if (qi >= E_ql1 && qi <= E_ql16) {
+            if (qi >= E_ql1 && qi <= E_ql32) {
                 int t = VIEW_QL[I->view][qi - E_ql1];
                 if (suf == 2) return snprintf(buf, (size_t)len, "%s", t >= 0 ? PNAME[t] : "-");
                 if (suf == 1) { if (t < 0) return snprintf(buf, (size_t)len, " "); char k2[96]; snprintf(k2, sizeof k2, "%s_display", PKEY[t]); int r = named_text(k2, I->P[t], buf, len); return r > 0 ? r : snprintf(buf, (size_t)len, "%d", (int)(I->P[t] + 0.5f)); }

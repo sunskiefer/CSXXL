@@ -22,8 +22,8 @@ for p in d["pages"]:
 NPG = len(d["pages"])
 VIEW_QL = [[] for _ in range(NPG + 1)]
 for p in d["pages"]:
-    VIEW_QL[p["index"]] = [c["id"] for c in p["controls"] if c["kind"] == "slider"][:16]
-for i in range(1, 17):
+    VIEW_QL[p["index"]] = [c["id"] for c in p["controls"] if c["kind"] == "slider"][:32]
+for i in range(1, 33):
     params.append({"key": "ql%d" % i, "name": "Q-Link %d" % i, "min": 0.0, "max": 1.0, "default": 0.0, "dynamic_name": True, "dynamic_display": True})
 for k, nm in (("nav_zoom", "OVERVIEW"), ("nav_prev", "PREVIOUS PAGE"), ("nav_next", "NEXT PAGE")):
     params.append({"key": k, "name": nm, "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "type": "trigger", "refresh_display": True})
@@ -69,9 +69,9 @@ with open(os.path.join(R, "src", "params_gen.h"), "w") as f:
 pk = {q["key"]: i for i, q in enumerate(params)}
 f = open(os.path.join(R, "src", "params_gen.h"), "a")
 f.write("#define N_PAGES %d\n" % NPG)
-f.write("static const short VIEW_QL[N_PAGES + 1][16] = {\n")
+f.write("static const short VIEW_QL[N_PAGES + 1][32] = {\n")
 for row in VIEW_QL:
-    f.write("  {" + ", ".join(str(pk[k]) if k else "-1" for k in (row + [None] * 16)[:16]) + "},\n")
+    f.write("  {" + ", ".join(str(pk[k]) if k else "-1" for k in (row + [None] * 32)[:32]) + "},\n")
 f.write("};\nstatic const char *const PNAME[N_PARAMS] = {\n" + ",\n".join('  "%s"' % q["name"] for q in params) + "\n};\n")
 f.close()
 print(len(params), "params")

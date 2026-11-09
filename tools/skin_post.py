@@ -15,7 +15,8 @@ sk = sys.argv[1]
 if os.path.isdir(os.path.join(sk, "Plugin Skins")): sk = os.path.join(sk, "Plugin Skins")
 tp = os.path.join(sk, "TUI.json"); tui = json.load(open(tp))
 defs = tui["pageData"]["componentDefinitions"]["localComponentDefinitions"]
-page = next(d["value"] for d in defs if d["key"] == "CSXXL|CSXXL")
+pages = [d["value"] for d in defs if d["key"].startswith("CSXXL|")]   # one per Q-Link bank (sub-page); they share the component types
+page = pages[0]
 dd = {d["key"]: d["value"] for d in defs}
 keys = [m.group(1) for m in (re.match(r'\s*\{"([^"]+)",', l) for l in open(os.path.join(ROOT, "build", "params.h"))) if m]
 
@@ -40,11 +41,14 @@ def param_of(inst):
         if m["key"] == "Data" and m["value"].startswith("Parameter "): return keys[int(m["value"].split()[1])]
 def tint(ww, hh, rad):
     im2 = Image.new("RGBA", (ww, hh), (0, 0, 0, 0)); ImageDraw.Draw(im2).rounded_rectangle([2, 2, ww - 3, hh - 3], radius=rad, fill=(255, 255, 255, 46)); return im2
-done = 0
-for inst in page["componentsData"]:
+done = 0; styled = set()
+for inst in [i for pg in pages for i in pg["componentsData"]]:
     k = param_of(inst)
     if k not in rects or not inst["componentData"]["type"].startswith("shTrig_"): continue
     x, y, ww, hh = rects[k]; d = dd[inst["componentData"]["type"]]
+    if inst["componentData"]["type"] in styled:
+        inst["bounds"]["bounds"] = "%d %d %d %d" % (x, y, ww, hh); done += 1; continue
+    styled.add(inst["componentData"]["type"])
     d["componentsData"] = [s for s in d["componentsData"] if s["componentData"]["type"] != "Label"]
     for s in d["componentsData"]:
         s["bounds"]["bounds"] = "0 0 %d %d" % (ww, hh)
@@ -53,6 +57,6 @@ for inst in page["componentsData"]:
             Image.new("RGBA", (ww, hh), (0, 0, 0, 40 if k.startswith("go_") else 6)).save(os.path.join(sk, data["offImage"]))   # 16 % black: a fully clear picture can be skipped by the host's hit test
             tint(ww, hh, 14 if k.startswith("go_") else 10).save(os.path.join(sk, data["onImage"]))
     inst["bounds"]["bounds"] = "%d %d %d %d" % (x, y, ww, hh); done += 1
-if done != len(rects): sys.exit("skin_post: placed %d of %d touch areas" % (done, len(rects)))
+if done != len(rects) * len(pages): sys.exit("skin_post: placed %d of %d touch areas" % (done, len(rects)))
 json.dump(tui, open(tp, "w"), separators=(",", ":"))
-print("skin_post: ribbon markers in page 10, %d touch areas placed" % done)
+print("skin_post: ribbon markers in page 10, %d touch areas placed in %d Q-Link banks" % (done, len(pages)))

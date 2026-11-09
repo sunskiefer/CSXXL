@@ -1,7 +1,7 @@
 {
  "p1_a_osc_wav": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 1,
   "block": "a osc",
   "label": "WAV"
@@ -203,29 +203,29 @@
   "label": "RTE"
  },
  "p2_a_lfo_syn": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a lfo",
   "label": "SYN"
  },
  "p2_a_lfo_wav": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a lfo",
   "label": "WAV"
  },
  "p2_a_lfo_mde": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a lfo",
   "label": "MDE"
  },
  "p2_a_lfo_dst": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a lfo",
   "label": "DST"
@@ -280,57 +280,57 @@
   "label": "SHI"
  },
  "p2_a_touch_lve": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a touch",
   "label": "LVE"
  },
  "p2_a_touch_hve": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a touch",
   "label": "HVE"
  },
  "p2_a_touch_laf": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a touch",
   "label": "LAF"
  },
  "p2_a_touch_haf": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a touch",
   "label": "HAF"
  },
  "p2_a_touch_mix": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a touch",
   "label": "MIX"
  },
  "p2_a_touch_key": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a touch",
   "label": "KEY"
  },
  "p2_a_echo_tim": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a echo",
   "label": "TIM"
  },
  "p2_a_echo_rep": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 2,
   "block": "a echo",
   "label": "REP"
@@ -343,8 +343,8 @@
   "label": "LVL"
  },
  "p3_b_osc_wav": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 3,
   "block": "b osc",
   "label": "WAV"
@@ -546,29 +546,29 @@
   "label": "RTE"
  },
  "p4_b_lfo_syn": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b lfo",
   "label": "SYN"
  },
  "p4_b_lfo_wav": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b lfo",
   "label": "WAV"
  },
  "p4_b_lfo_mde": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b lfo",
   "label": "MDE"
  },
  "p4_b_lfo_dst": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b lfo",
   "label": "DST"
@@ -623,57 +623,57 @@
   "label": "SHI"
  },
  "p4_b_touch_lve": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b touch",
   "label": "LVE"
  },
  "p4_b_touch_hve": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b touch",
   "label": "HVE"
  },
  "p4_b_touch_laf": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b touch",
   "label": "LAF"
  },
  "p4_b_touch_haf": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b touch",
   "label": "HAF"
  },
  "p4_b_touch_mix": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b touch",
   "label": "MIX"
  },
  "p4_b_touch_key": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b touch",
   "label": "KEY"
  },
  "p4_b_echo_tim": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b echo",
   "label": "TIM"
  },
  "p4_b_echo_rep": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b echo",
   "label": "REP"
@@ -686,8 +686,8 @@
   "label": "LVL"
  },
  "p4_b_echo_dly": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 4,
   "block": "b echo",
   "label": "DLY"
@@ -700,8 +700,8 @@
   "label": "GLID"
  },
  "p5_a_perf_gtp": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a perf",
   "label": "GTP"
@@ -714,29 +714,29 @@
   "label": "TUN"
  },
  "p5_a_perf_oct": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a perf",
   "label": "OCT"
  },
  "p5_a_perf_bnd": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a perf",
   "label": "BND"
  },
  "p5_a_perf_mon": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a perf",
   "label": "MON"
  },
  "p5_a_perf_ft": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a perf",
   "label": "FT"
@@ -749,8 +749,8 @@
   "label": "GLID"
  },
  "p5_b_perf_gtp": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b perf",
   "label": "GTP"
@@ -763,71 +763,71 @@
   "label": "TUN"
  },
  "p5_b_perf_oct": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b perf",
   "label": "OCT"
  },
  "p5_b_perf_bnd": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b perf",
   "label": "BND"
  },
  "p5_b_perf_mon": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b perf",
   "label": "MON"
  },
  "p5_b_perf_ft": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b perf",
   "label": "FT"
  },
  "p5_a_arp_src": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a arp",
   "label": "SRC"
  },
  "p5_a_arp_typ": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a arp",
   "label": "TYP"
  },
  "p5_a_arp_hld": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a arp",
   "label": "HLD"
  },
  "p5_a_arp_tmp": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a arp",
   "label": "TMP"
  },
  "p5_a_arp_oct": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a arp",
   "label": "OCT"
  },
  "p5_a_arp_vel": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "a arp",
   "label": "VEL"
@@ -840,43 +840,43 @@
   "label": "GAT"
  },
  "p5_b_arp_src": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b arp",
   "label": "SRC"
  },
  "p5_b_arp_typ": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b arp",
   "label": "TYP"
  },
  "p5_b_arp_hld": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b arp",
   "label": "HLD"
  },
  "p5_b_arp_tmp": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b arp",
   "label": "TMP"
  },
  "p5_b_arp_oct": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b arp",
   "label": "OCT"
  },
  "p5_b_arp_vel": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 5,
   "block": "b arp",
   "label": "VEL"
@@ -1162,8 +1162,8 @@
   "label": "CKB"
  },
  "p8_ring_mod_ab": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 8,
   "block": "ring mod",
   "label": "AB"
@@ -1211,22 +1211,22 @@
   "label": "PVL"
  },
  "p8_crush_src": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 8,
   "block": "crush",
   "label": "SRC"
  },
  "p8_crush_bit": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 8,
   "block": "crush",
   "label": "BIT"
  },
  "p8_chorus_on": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 8,
   "block": "chorus",
   "label": "ON"
@@ -1239,8 +1239,8 @@
   "label": "RTE"
  },
  "p8_chorus_amt": {
-  "colour": "red",
-  "source": "?",
+  "colour": "black",
+  "source": "no colour needed",
   "page": 8,
   "block": "chorus",
   "label": "AMT"
