@@ -7,7 +7,8 @@
    "min": 0,
    "max": 100,
    "default": 35,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p1_a_osc_wlv",
@@ -55,7 +56,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p1_a_lpf_frq",
@@ -239,7 +241,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p2_a_lfo_wav",
@@ -247,7 +250,8 @@
    "min": 0,
    "max": 100,
    "default": 20,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p2_a_lfo_mde",
@@ -255,7 +259,8 @@
    "min": 0,
    "max": 100,
    "default": 40,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p2_a_lfo_dst",
@@ -263,7 +268,8 @@
    "min": 0,
    "max": 100,
    "default": 30,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p2_a_lfo_att",
@@ -375,7 +381,8 @@
    "min": 0,
    "max": 100,
    "default": 50,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p2_a_echo_rep",
@@ -399,7 +406,8 @@
    "min": 0,
    "max": 100,
    "default": 55,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p3_b_osc_wlv",
@@ -447,7 +455,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p3_b_lpf_frq",
@@ -631,7 +640,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p4_b_lfo_wav",
@@ -639,7 +649,8 @@
    "min": 0,
    "max": 100,
    "default": 20,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p4_b_lfo_mde",
@@ -647,7 +658,8 @@
    "min": 0,
    "max": 100,
    "default": 40,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p4_b_lfo_dst",
@@ -655,7 +667,8 @@
    "min": 0,
    "max": 100,
    "default": 30,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p4_b_lfo_att",
@@ -767,7 +780,8 @@
    "min": 0,
    "max": 100,
    "default": 50,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p4_b_echo_rep",
@@ -807,7 +821,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_perf_tun",
@@ -839,7 +854,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_perf_ft",
@@ -863,7 +879,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_perf_tun",
@@ -895,7 +912,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_perf_ft",
@@ -911,7 +929,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_arp_typ",
@@ -919,7 +938,8 @@
    "min": 0,
    "max": 100,
    "default": 20,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_arp_hld",
@@ -927,7 +947,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_arp_tmp",
@@ -935,7 +956,8 @@
    "min": 0,
    "max": 100,
    "default": 50,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_arp_oct",
@@ -943,7 +965,8 @@
    "min": 0,
    "max": 100,
    "default": 10,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_arp_vel",
@@ -951,7 +974,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_a_arp_gat",
@@ -967,7 +991,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_arp_typ",
@@ -975,7 +1000,8 @@
    "min": 0,
    "max": 100,
    "default": 20,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_arp_hld",
@@ -983,7 +1009,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_arp_tmp",
@@ -991,7 +1018,8 @@
    "min": 0,
    "max": 100,
    "default": 50,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_arp_oct",
@@ -999,7 +1027,8 @@
    "min": 0,
    "max": 100,
    "default": 10,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_arp_vel",
@@ -1007,7 +1036,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p5_b_arp_gat",
@@ -1271,7 +1301,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p7_mod_bar_dst",
@@ -1279,7 +1310,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p7_mod_bar_bar",
@@ -1295,7 +1327,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p7_split_spl",
@@ -1391,7 +1424,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p8_crush_bit",
@@ -1407,7 +1441,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p8_chorus_rte",
@@ -1527,7 +1562,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p9_voice_mnb",
@@ -1535,7 +1571,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p9_main_out",
@@ -1551,7 +1588,8 @@
    "min": 0,
    "max": 100,
    "default": 0,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p10_sustain_sln",
@@ -1583,7 +1621,8 @@
    "min": 0,
    "max": 100,
    "default": 50,
-   "display": "int"
+   "display": "int",
+   "dynamic_display": true
   },
   {
    "key": "p10_ribbon_rng",

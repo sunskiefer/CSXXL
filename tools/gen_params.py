@@ -3,6 +3,7 @@
 import json, os, re
 H = os.path.dirname(os.path.abspath(__file__)); R = os.path.join(H, "..")
 d = json.load(open(os.path.join(R, "vst", "control_map.json")))
+NAMED = {'osc_wav','osc_sub','lfo_wav','lfo_mde','lfo_dst','lfo_syn','perf_gtp','perf_mon','arp_src','arp_typ','arp_hld','arp_vel','arp_oct','arp_tmp','echo_tim','p7_mod_bar_mde','p7_mod_bar_dst','p7_split_son','p8_chorus_on','p8_crush_src','p9_voice_mna','p9_voice_mnb','p10_ribbon_rib','p10_sustain_smd'}
 params, secs = [], []
 for p in d["pages"]:
     keys = []
@@ -12,7 +13,9 @@ for p in d["pages"]:
         if c["kind"] == "button":
             params.append({"key": k, "name": c["label"].upper(), "min": 0, "max": 1, "momentary": True})
         else:
-            params.append({"key": k, "name": nm, "min": 0, "max": 100, "default": round(c["pos"] * 100), "display": "int"})
+            ent = {"key": k, "name": nm, "min": 0, "max": 100, "default": round(c["pos"] * 100), "display": "int"}
+            if re.sub(r"^p\d+_[ab]_", "", k) in NAMED: ent["dynamic_display"] = True   # engine answers <key>_display with the value's name
+            params.append(ent)
         keys.append(k)
     secs.append({"label": "%d %s" % (p["index"], p["name"]), "keys": keys})
 json.dump({"name": "CSXXL", "params": params, "sections": secs}, open(os.path.join(R, "vst", "params.json"), "w"), indent=1)

@@ -97,7 +97,7 @@ typedef struct {
     float P[N_PARAMS];
     Layer L[2];
     uint32_t order;
-    float bend, mw, at, ribbon_prev, rm_vel, mb_s, mb_pa, mb_pb, mb_pr;
+    float bend, mw, at, ribbon_prev, rm_vel, mb_last, mb_idle, mb_s, mb_pa, mb_pb, mb_pr;
     float pat[128];                 /* per-key (polyphonic) aftertouch 0..1 */
     double bpm; int bpm_ok;         /* host tempo (song_pos) */
     volatile float rib_x, rib_y; volatile unsigned rib_changed; overlay_t pad; float rib_ref; int rib_was; float rib_off;
@@ -269,6 +269,7 @@ static void voice_off(Inst *I, int ly, int note) {
 static void held_add(Layer *L, int n) { for (int i = 0; i < L->nheld; i++) if (L->held[i] == n) return; if (L->nheld < 16) L->held[L->nheld++] = n; }
 static void held_del(Layer *L, int n) { for (int i = 0; i < L->nheld; i++) if (L->held[i] == n) { for (int j = i; j < L->nheld - 1; j++) L->held[j] = L->held[j + 1]; L->nheld--; return; } }
 
+static int is_mono(const Inst *I, int ly) { return lp(I, ly, L_PERF_MON) >= 0.5f || (ly ? G(p9_voice_mnb) : G(p9_voice_mna)) >= 0.5f; }
 static int arp_on(const Inst *I, int ly) { return lp(I, ly, L_ARP_SRC) >= 0.25f; }
 static void layer_key(Inst *I, int ly, int note, int vel, int on) {
     Layer *L = &I->L[ly];
@@ -284,9 +285,11 @@ static void layer_key(Inst *I, int ly, int note, int vel, int on) {
             if (lp(I, ly, L_ARP_HLD) >= 0.5f) { if (L->nheld == 0) L->arp_latched = 1; }
             else { for (int i = 0; i < L->narp; i++) if (L->arp_notes[i] == note) { for (int j = i; j < L->narp - 1; j++) L->arp_notes[j] = L->arp_notes[j + 1]; L->narp--; break; } }
         }
+        if (lp(I, ly, L_ARP_SRC) < 0.67f) return;   /* ARPEGGIATOR: arp only; BOTH: the keys also sound directly */
+        if (on) voice_on(I, ly, note, fv, 1, is_mono(I, ly)); else voice_off(I, ly, note);
         return;
     }
-    int mono = lp(I, ly, L_PERF_MON) >= 0.5f;
+    int mono = is_mono(I, ly);
     if (on) { held_add(L, note); voice_on(I, ly, note, fv, 1, mono); }
     else {
         held_del(L, note);
@@ -337,8 +340,50 @@ static void eng_set(void *p, const char *key, const char *val) {
     }
     I->P[i] = clampf(v, 0.f, 100.f);
 }
+typedef struct { const char *suf; int n; const char *names[9]; } NamedP;
+static const NamedP NAMED[] = {
+    {"osc_wav", 9, {"SAWTOOTH", "RAMP 1", "RAMP 2", "SQUARE", "PEAK", "OCTAVES", "DIGITAL 1", "DIGITAL 2", "WHITE NOISE"}},
+    {"osc_sub", 3, {"SINE", "SUB -1 OCT", "SUB -2 OCT"}},
+    {"lfo_wav", 5, {"SINE", "TRIANGLE", "SAW", "SQUARE", "SAMPLE+HOLD"}},
+    {"lfo_mde", 3, {"MOD WHEEL", "A/R ENVELOPE", "DIRECT"}},
+    {"lfo_dst", 6, {"PITCH", "LO PASS FREQ", "AMPLITUDE", "PULSE WIDTH", "HI PASS FREQ", "RESONANCE"}},
+    {"perf_gtp", 2, {"PORTAMENTO", "GLISSANDO"}},
+    {"perf_mon", 2, {"POLY", "MONO"}},
+    {"arp_src", 3, {"KEYBOARD", "ARPEGGIATOR", "BOTH"}},
+    {"arp_typ", 6, {"UP", "DOWN", "UP & DOWN", "DOWN & UP", "UP & DOWN 2", "DOWN & UP 2"}},
+    {"arp_hld", 2, {"HOLD OFF", "HOLD ON"}},
+    {"arp_vel", 2, {"FIXED VELOCITY", "AS PLAYED"}},
+    {"arp_oct", 4, {"1 OCTAVE", "2 OCTAVES", "3 OCTAVES", "4 OCTAVES"}},
+    {"arp_tmp", 8, {"TEMPO / 2", "TEMPO / 1.5", "TEMPO x 0.75", "TEMPO", "TEMPO x 1.5", "TEMPO x 2", "TEMPO x 3", "TEMPO x 4"}},
+    {"echo_tim", 8, {"/4", "/3", "/2", "2/3", "x1", "x1.5", "x2", "x3"}},
+    {"p7_mod_bar_mde", 4, {"TOUCH DIRECT", "HOLD RELEASE", "TOUCH RELEASE", "HOLD DIRECT"}},
+    {"p7_mod_bar_dst", 4, {"LINE A PITCH", "LINE B PITCH", "BOTH LINES PITCH", "RING MOD PITCH"}},
+    {"p7_split_son", 2, {"OFF", "ON"}},
+    {"p8_chorus_on", 2, {"OFF", "ON"}},
+    {"p8_crush_src", 3, {"LINE A", "LINE B", "LINE A & B"}},
+    {"p9_voice_mna", 2, {"POLY", "MONO"}},
+    {"p9_voice_mnb", 2, {"POLY", "MONO"}},
+    {"p10_ribbon_rib", 3, {"PITCH", "FILTER", "RESONANCE"}},
+    {"p10_sustain_smd", 2, {"SUSTAIN I", "SUSTAIN II"}},
+};
+static int named_text(const char *key, float v, char *buf, int len) {
+    size_t kl = strlen(key); if (kl < 9 || strcmp(key + kl - 8, "_display")) return 0;
+    char base[96]; size_t bl = kl - 8; if (bl >= sizeof base) return 0; memcpy(base, key, bl); base[bl] = 0;
+    for (size_t k = 0; k < sizeof NAMED / sizeof NAMED[0]; k++) {
+        size_t sl = strlen(NAMED[k].suf);
+        if (bl >= sl && !strcmp(base + bl - sl, NAMED[k].suf)) {
+            if (!strcmp(NAMED[k].suf, "lfo_syn")) break;
+            int ix = (int)(v / 100.f * ((float)NAMED[k].n - 0.001f)); if (ix < 0) ix = 0; if (ix >= NAMED[k].n) ix = NAMED[k].n - 1;
+            return snprintf(buf, (size_t)len, "%s", NAMED[k].names[ix]);
+        }
+    }
+    if (bl >= 7 && !strcmp(base + bl - 7, "lfo_syn")) return snprintf(buf, (size_t)len, "%s", v < 25.f ? "MANUAL" : "HOST SYNC");
+    return 0;
+}
 static int eng_get(void *p, const char *key, char *buf, int len) {
-    Inst *I = (Inst *)p; int i = key_idx(key); if (i < 0 || len < 6) return 0;
+    Inst *I = (Inst *)p;
+    { size_t kl = strlen(key); if (kl > 9 && !strcmp(key + kl - 8, "_display")) { char b2[96]; if (kl - 8 < sizeof b2) { memcpy(b2, key, kl - 8); b2[kl - 8] = 0; int j = key_idx(b2); if (j >= 0) return named_text(key, I->P[j], buf, len); } return 0; } }
+    int i = key_idx(key); if (i < 0 || len < 6) return 0;
     return snprintf(buf, (size_t)len, "%d", (int)(PBTN[i] ? 0.f : I->P[i] + 0.5f));
 }
 static void eng_midi(void *p, const uint8_t *m, int n) {
@@ -398,7 +443,7 @@ static void arp_run(Inst *I, int ly, int frames) {
             float vel = lp(I, ly, L_ARP_VEL) >= 0.5f ? (L->arp_vel > 0.f ? L->arp_vel : 0.8f) : 0.8f;   /* FIXED velocity or as played */
             if (note > 127) note = 127;
             L->arp_note_on = note;
-            voice_on(I, ly, note, vel, 1, lp(I, ly, L_PERF_MON) >= 0.5f);
+            voice_on(I, ly, note, vel, 1, is_mono(I, ly));
         }
     }
 }
@@ -559,6 +604,9 @@ static void eng_render(void *p, int16_t *out, int frames) {
     { int rt = I->pad.touching; if (rt && !I->rib_was) I->rib_ref = I->rib_x; I->rib_was = rt; I->rib_off = rt ? (I->rib_x - I->rib_ref) * 0.2f : 0.f; }   /* zero point = where the finger first touched; springs back on release */
     /* modulation bar: pitch bar, centre = 0; destination A / B / both / ring-mod oscillator; DIRECT follows at once, RELEASE glides */
     { float bar = (G(p7_mod_bar_bar) - 0.5f) * 2.f; int mm = (int)(G(p7_mod_bar_mde) * 3.99f), md = (int)(G(p7_mod_bar_dst) * 3.99f);
+      if (G(p7_mod_bar_bar) != I->mb_last) { I->mb_last = G(p7_mod_bar_bar); I->mb_idle = 0.f; } else I->mb_idle += (float)frames / SR;
+      /* TOUCH modes: a finger on the bar bends, and once it has been let go (slider still for 0.3 s) the bar springs back to centre; HOLD modes stay where left */
+      if ((mm == 0 || mm == 2) && I->mb_idle > 0.3f) bar = 0.f;
       float tgt = bar * 7.f; int rel = (mm == 1 || mm == 2);
       I->mb_s = rel ? I->mb_s + (tgt - I->mb_s) * (1.f - expf(-(float)frames / (0.35f * SR))) : tgt;
       I->mb_pa = (md == 0 || md == 2) ? I->mb_s : 0.f; I->mb_pb = (md == 1 || md == 2) ? I->mb_s : 0.f; I->mb_pr = md == 3 ? I->mb_s : 0.f; }

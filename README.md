@@ -13,7 +13,9 @@ The sound is not a sample or a guess at a sound: the voices are built in code fr
 Thanks to the Deckard’s Dream General Build Thread (Mod Wiggler) and to Krakli for the references and guidance!
 
 ## Status
-Work in progress. Panel design is done for page 6 (CS80): brushed aluminium, recessed slider channels, metal caps. The remaining pages and the plugin build are next.
+Version 1.0.5, built for Force/MPC OS (ARMv7). All 11 panel pages are rendered, and the engine follows the voice spec: selectable waves incl. white noise, 2-pole HP and LP with mix, sine/sub, CS-80 envelopes, per-key aftertouch, host-tempo arpeggiator/echo/LFO sync, ring modulator, bit crush, chorus, reverb, keysplit, a pitch mod bar and a touch ribbon.
+
+Not yet tested on hardware. Known gaps: tapping an overview tile does not open a page yet; the 768 factory patches are code-generated.
 
 ## Licence
 Source is public and free to use under the [PolyForm Noncommercial License 1.0.0](LICENSE). Not for sale. Any third-party material referenced for the voices belongs to its authors under their own licences.
