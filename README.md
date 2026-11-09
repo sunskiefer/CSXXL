@@ -9,6 +9,9 @@ The sound is not a sample or a guess at a sound: the voices are built in code fr
 
 *CS-80 overall circuit diagram, shown as reference. The diagram belongs to its owner (Yamaha) and is not covered by this project’s licence.*
 
+## Thanks
+Thanks to the Deckard’s Dream General Build Thread (Mod Wiggler) and to Krakli for the references and guidance!
+
 ## Status
 Work in progress. Panel design is done for page 6 (CS80): brushed aluminium, recessed slider channels, metal caps. The remaining pages and the plugin build are next.
 
