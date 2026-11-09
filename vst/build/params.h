@@ -213,4 +213,6 @@ static const param_t PARAMS[] = {
 #define PLUG_UID 0x4353584c /* 'CSXL' */
 #define PLUG_VERSION 1000
 #define HAS_DISPLAY_REV 0
+static const int PLUG_CC[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+#define HAS_CC_MAP 1
 #define HAS_NRPN 1

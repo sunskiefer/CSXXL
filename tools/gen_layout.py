@@ -16,13 +16,13 @@ for p in m['pages']:
         shutil.copy(bg,art+'/page%d.png'%n); out.append('art file=art/page%d.png fit=stretch'%n)
     keys=[]
     for c in p['controls']:
-        cx=c['x']+c['w']//2; cy=c['y']+c['h']//2
+        cx=c['x']+c['w']//2; cy=c['y']+c['h']//2+86
         if c['kind']=='slider':
             cc=col.get(c['id'],{}); cc=cc.get('colour','red') if isinstance(cc,dict) else cc
             out.append('slider_v cx=%d cy=%d w=%d h=%d label="%s" key=%s img=art/cap_%s.png ns=0 vs=0 bw=%d'%(cx,cy,c['w'],c['h'],c['label'],c['id'],cc,c['w']+30))
             keys.append(c['id'])
         else:
-            out.append('button cx=%d cy=%d w=%d h=%d label="%s" key=%s'%(cx,cy,c['w'],c['h'],c['label'],c['id']))
+            out.append('button cx=%d cy=%d label="%s" key=%s'%(cx,cy,c['label'],c['id']))
     if keys: out.append('qlinks "%s" = %s'%(p['name'],','.join(keys[:16])))
 open(v+'/layout.conf','w').write('\n'.join(out)+'\n')
 print('ok',len(out))
