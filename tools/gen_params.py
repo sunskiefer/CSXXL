@@ -3,7 +3,7 @@
 import json, os, re
 H = os.path.dirname(os.path.abspath(__file__)); R = os.path.join(H, "..")
 d = json.load(open(os.path.join(R, "vst", "control_map.json")))
-NAMED = {'osc_wav','osc_sub','lfo_wav','lfo_mde','lfo_dst','lfo_syn','perf_gtp','perf_mon','arp_src','arp_typ','arp_hld','arp_vel','arp_oct','arp_tmp','echo_tim','p7_mod_bar_mde','p7_mod_bar_dst','p7_split_son','p8_chorus_on','p8_crush_src','p9_voice_mna','p9_voice_mnb','p10_ribbon_rib','p10_sustain_smd'}
+NAMED = {'gate_s1','gate_s2','gate_s3','gate_s4','gate_s5','gate_s6','gate_s7','gate_s8','gate_cg','osc_wav','osc_sub','lfo_wav','lfo_mde','lfo_dst','lfo_syn','perf_gtp','perf_mon','arp_src','arp_typ','arp_hld','arp_vel','arp_oct','arp_tmp','echo_tim','p7_mod_bar_mde','p7_mod_bar_dst','p7_split_son','p8_chorus_on','p8_crush_src','p9_voice_mna','p9_voice_mnb','p10_ribbon_rib','p10_sustain_smd'}
 params, secs = [], []
 for p in d["pages"]:
     keys = []
@@ -51,7 +51,8 @@ with open(os.path.join(R, "src", "params_gen.h"), "w") as f:
            "echo_tim","echo_rep","echo_lvl","echo_dly",
            "perf_glid","perf_gtp","perf_tun","perf_oct","perf_bnd","perf_mon","perf_ft",
            "arp_src","arp_typ","arp_hld","arp_tmp","arp_oct","arp_vel","arp_gat",
-           "cs80_il","cs80_al","cs80_ibr","cs80_abr","cs80_ilv","cs80_alv"]
+           "cs80_il","cs80_al","cs80_ibr","cs80_abr","cs80_ilv","cs80_alv",
+           "gate_s1","gate_s2","gate_s3","gate_s4","gate_s5","gate_s6","gate_s7","gate_s8","gate_cg"]
     pageof = {}
     for p in d["pages"]:
         for c in p["controls"]:

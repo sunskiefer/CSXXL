@@ -2317,6 +2317,211 @@
      "label": "INIT"
     }
    ]
+  },
+  {
+   "index": 12,
+   "name": "ARP GATE",
+   "readout": "A GATE 1",
+   "controls": [
+    {
+     "id": "p12_a_gate_s1",
+     "kind": "slider",
+     "label": "1",
+     "x": 69,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s2",
+     "kind": "slider",
+     "label": "2",
+     "x": 209,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s3",
+     "kind": "slider",
+     "label": "3",
+     "x": 349,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s4",
+     "kind": "slider",
+     "label": "4",
+     "x": 489,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s5",
+     "kind": "slider",
+     "label": "5",
+     "x": 629,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s6",
+     "kind": "slider",
+     "label": "6",
+     "x": 769,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s7",
+     "kind": "slider",
+     "label": "7",
+     "x": 909,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_s8",
+     "kind": "slider",
+     "label": "8",
+     "x": 1049,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_a_gate_cg",
+     "kind": "slider",
+     "label": "C/G",
+     "x": 1189,
+     "y": 82,
+     "w": 36,
+     "h": 201,
+     "block": "a gate",
+     "pos": 0.0
+    },
+    {
+     "id": "p12_b_gate_s1",
+     "kind": "slider",
+     "label": "1",
+     "x": 69,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s2",
+     "kind": "slider",
+     "label": "2",
+     "x": 209,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s3",
+     "kind": "slider",
+     "label": "3",
+     "x": 349,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s4",
+     "kind": "slider",
+     "label": "4",
+     "x": 489,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s5",
+     "kind": "slider",
+     "label": "5",
+     "x": 629,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s6",
+     "kind": "slider",
+     "label": "6",
+     "x": 769,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s7",
+     "kind": "slider",
+     "label": "7",
+     "x": 909,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_s8",
+     "kind": "slider",
+     "label": "8",
+     "x": 1049,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 1.0
+    },
+    {
+     "id": "p12_b_gate_cg",
+     "kind": "slider",
+     "label": "C/G",
+     "x": 1189,
+     "y": 361,
+     "w": 36,
+     "h": 201,
+     "block": "b gate",
+     "pos": 0.0
+    }
+   ]
   }
  ],
  "overview_tiles": [

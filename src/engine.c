@@ -352,6 +352,9 @@ static const NamedP NAMED[] = {
     {"echo_tim", 8, {"/4", "/3", "/2", "2/3", "x1", "x1.5", "x2", "x3"}},
     {"p7_mod_bar_mde", 4, {"TOUCH DIRECT", "HOLD RELEASE", "TOUCH RELEASE", "HOLD DIRECT"}},
     {"p7_mod_bar_dst", 4, {"LINE A PITCH", "LINE B PITCH", "BOTH LINES PITCH", "RING MOD PITCH"}},
+    {"gate_s1", 2, {"STEP OFF", "STEP ON"}}, {"gate_s2", 2, {"STEP OFF", "STEP ON"}}, {"gate_s3", 2, {"STEP OFF", "STEP ON"}}, {"gate_s4", 2, {"STEP OFF", "STEP ON"}},
+    {"gate_s5", 2, {"STEP OFF", "STEP ON"}}, {"gate_s6", 2, {"STEP OFF", "STEP ON"}}, {"gate_s7", 2, {"STEP OFF", "STEP ON"}}, {"gate_s8", 2, {"STEP OFF", "STEP ON"}},
+    {"gate_cg", 2, {"CLOCK", "GATE"}},
     {"p7_split_son", 2, {"OFF", "ON"}},
     {"p8_chorus_on", 2, {"OFF", "ON"}},
     {"p8_crush_src", 3, {"LINE A", "LINE B", "LINE A & B"}},
@@ -420,6 +423,11 @@ static void arp_run(Inst *I, int ly, int frames) {
     float cl = (ly ? G(p7_split_ckb) : G(p7_split_cka));
     static const unsigned char GP[8] = {0xFF, 0xAA, 0xEE, 0xBB, 0x88, 0xDD, 0xA5, 0xC3}; /* gate patterns, 8 steps; CLOCK = every step */
     unsigned char pat = cl < 0.5f ? 0xFF : GP[(int)((cl - 0.5f) * 15.99f)];
+    if (lp(I, ly, L_GATE_CG) >= 0.5f) {   /* ARP GATE page: GATE = the 8 step switches pass or mute each arpeggiator step; CLOCK = every step */
+        unsigned char sp = 0; for (int i = 0; i < 8; i++) if (lp(I, ly, L_GATE_S1 + i) >= 0.5f) sp |= (unsigned char)(1 << i);
+        sp = (unsigned char)((sp << 1) | (sp >> 7));   /* arp_step counts from 1: step 1 = the first note */
+        pat = (unsigned char)(pat & sp);
+    }
     double step = (60.0 / bpm) / 4.0 * SR;
     L->arp_t += frames;
     double gate = step * (0.1 + 0.85 * lp(I, ly, L_ARP_GAT));

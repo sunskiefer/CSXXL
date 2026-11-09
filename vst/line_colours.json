@@ -1405,5 +1405,131 @@
   "page": 11,
   "block": "preset",
   "label": "PAT"
+ },
+ "p12_a_gate_s1": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "1"
+ },
+ "p12_a_gate_s2": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "2"
+ },
+ "p12_a_gate_s3": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "3"
+ },
+ "p12_a_gate_s4": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "4"
+ },
+ "p12_a_gate_s5": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "5"
+ },
+ "p12_a_gate_s6": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "6"
+ },
+ "p12_a_gate_s7": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "7"
+ },
+ "p12_a_gate_s8": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "a gate",
+  "label": "8"
+ },
+ "p12_a_gate_cg": {
+  "colour": "black",
+  "source": "no colour needed",
+  "page": 12,
+  "block": "a gate",
+  "label": "C/G"
+ },
+ "p12_b_gate_s1": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "1"
+ },
+ "p12_b_gate_s2": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "2"
+ },
+ "p12_b_gate_s3": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "3"
+ },
+ "p12_b_gate_s4": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "4"
+ },
+ "p12_b_gate_s5": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "5"
+ },
+ "p12_b_gate_s6": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "6"
+ },
+ "p12_b_gate_s7": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "7"
+ },
+ "p12_b_gate_s8": {
+  "colour": "white",
+  "source": "panel",
+  "page": 12,
+  "block": "b gate",
+  "label": "8"
+ },
+ "p12_b_gate_cg": {
+  "colour": "black",
+  "source": "no colour needed",
+  "page": 12,
+  "block": "b gate",
+  "label": "C/G"
  }
 }

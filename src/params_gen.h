@@ -205,6 +205,24 @@ enum {
   E_p11_load,
   E_p11_save,
   E_p11_init,
+  E_p12_a_gate_s1,
+  E_p12_a_gate_s2,
+  E_p12_a_gate_s3,
+  E_p12_a_gate_s4,
+  E_p12_a_gate_s5,
+  E_p12_a_gate_s6,
+  E_p12_a_gate_s7,
+  E_p12_a_gate_s8,
+  E_p12_a_gate_cg,
+  E_p12_b_gate_s1,
+  E_p12_b_gate_s2,
+  E_p12_b_gate_s3,
+  E_p12_b_gate_s4,
+  E_p12_b_gate_s5,
+  E_p12_b_gate_s6,
+  E_p12_b_gate_s7,
+  E_p12_b_gate_s8,
+  E_p12_b_gate_cg,
   E_ql1,
   E_ql2,
   E_ql3,
@@ -251,6 +269,7 @@ enum {
   E_go_9,
   E_go_10,
   E_go_11,
+  E_go_12,
   E_pg_0,
   E_pg_1,
   E_pg_2,
@@ -263,6 +282,7 @@ enum {
   E_pg_9,
   E_pg_10,
   E_pg_11,
+  E_pg_12,
   N_PARAMS
 };
 static const char *const PKEY[N_PARAMS] = {
@@ -470,6 +490,24 @@ static const char *const PKEY[N_PARAMS] = {
   "p11_load",
   "p11_save",
   "p11_init",
+  "p12_a_gate_s1",
+  "p12_a_gate_s2",
+  "p12_a_gate_s3",
+  "p12_a_gate_s4",
+  "p12_a_gate_s5",
+  "p12_a_gate_s6",
+  "p12_a_gate_s7",
+  "p12_a_gate_s8",
+  "p12_a_gate_cg",
+  "p12_b_gate_s1",
+  "p12_b_gate_s2",
+  "p12_b_gate_s3",
+  "p12_b_gate_s4",
+  "p12_b_gate_s5",
+  "p12_b_gate_s6",
+  "p12_b_gate_s7",
+  "p12_b_gate_s8",
+  "p12_b_gate_cg",
   "ql1",
   "ql2",
   "ql3",
@@ -516,6 +554,7 @@ static const char *const PKEY[N_PARAMS] = {
   "go_9",
   "go_10",
   "go_11",
+  "go_12",
   "pg_0",
   "pg_1",
   "pg_2",
@@ -527,10 +566,11 @@ static const char *const PKEY[N_PARAMS] = {
   "pg_8",
   "pg_9",
   "pg_10",
-  "pg_11"
+  "pg_11",
+  "pg_12"
 };
-static const unsigned char PDEF[N_PARAMS] = {35,90,80,70,30,20,0,70,40,10,50,30,20,60,10,20,10,30,10,20,0,10,90,20,80,50,40,90,50,0,20,40,30,10,10,50,40,70,30,60,50,40,60,30,50,20,50,30,20,55,90,80,60,30,20,0,70,40,10,50,30,20,60,10,20,10,30,10,20,0,10,90,20,80,50,40,90,50,0,20,40,30,10,10,50,40,70,30,60,50,40,60,30,50,20,50,30,20,0,20,0,50,50,40,0,50,20,0,50,50,40,0,50,0,20,0,50,10,0,50,0,20,0,50,10,0,50,40,60,50,50,50,50,40,60,50,50,50,50,30,60,30,60,50,30,50,50,50,50,0,40,10,20,0,50,40,30,30,0,0,50,0,50,80,0,0,50,40,50,10,30,50,50,0,70,0,40,50,50,70,40,30,90,90,30,20,50,50,50,50,0,0,80,0,50,0,0,50,50,0,0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0};
-static const unsigned char PBTN[N_PARAMS] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0};
+static const unsigned char PDEF[N_PARAMS] = {35,90,80,70,30,20,0,70,40,10,50,30,20,60,10,20,10,30,10,20,0,10,90,20,80,50,40,90,50,0,20,40,30,10,10,50,40,70,30,60,50,40,60,30,50,20,50,30,20,55,90,80,60,30,20,0,70,40,10,50,30,20,60,10,20,10,30,10,20,0,10,90,20,80,50,40,90,50,0,20,40,30,10,10,50,40,70,30,60,50,40,60,30,50,20,50,30,20,0,20,0,50,50,40,0,50,20,0,50,50,40,0,50,0,20,0,50,10,0,50,0,20,0,50,10,0,50,40,60,50,50,50,50,40,60,50,50,50,50,30,60,30,60,50,30,50,50,50,50,0,40,10,20,0,50,40,30,30,0,0,50,0,50,80,0,0,50,40,50,10,30,50,50,0,70,0,40,50,50,70,40,30,90,90,30,20,50,50,50,50,0,0,80,0,50,0,0,50,50,0,0,0,0,0,100,100,100,100,100,100,100,100,0,100,100,100,100,100,100,100,100,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+static const unsigned char PBTN[N_PARAMS] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0};
 enum {
   L_OSC_WAV,
   L_OSC_WLV,
@@ -602,13 +642,22 @@ enum {
   L_CS80_ABR,
   L_CS80_ILV,
   L_CS80_ALV,
+  L_GATE_S1,
+  L_GATE_S2,
+  L_GATE_S3,
+  L_GATE_S4,
+  L_GATE_S5,
+  L_GATE_S6,
+  L_GATE_S7,
+  L_GATE_S8,
+  L_GATE_CG,
   N_LAYER
 };
 static const int LIDX[2][N_LAYER] = {
-  {E_p1_a_osc_wav, E_p1_a_osc_wlv, E_p1_a_osc_plv, E_p1_a_osc_wid, E_p1_a_osc_pw, E_p1_a_osc_rte, E_p1_a_osc_sub, E_p1_a_lpf_frq, E_p1_a_lpf_res, E_p1_a_lpf_att, E_p1_a_lpf_dec, E_p1_a_lpf_sus, E_p1_a_lpf_rel, E_p1_a_lpf_mod, E_p1_a_hpf_frq, E_p1_a_hpf_res, E_p1_a_hpf_att, E_p1_a_hpf_dec, E_p1_a_hpf_sus, E_p1_a_hpf_rel, E_p1_a_hpf_mod, E_p1_a_amp_sine, E_p1_a_amp_flt, E_p1_a_amp_att, E_p1_a_amp_dec, E_p1_a_amp_sus, E_p1_a_amp_rel, E_p1_a_amp_lvl, E_p2_a_lfo_rte, E_p2_a_lfo_syn, E_p2_a_lfo_wav, E_p2_a_lfo_mde, E_p2_a_lfo_dst, E_p2_a_lfo_att, E_p2_a_lfo_rel, E_p2_a_vib_lfo, E_p2_a_vib_vib, E_p2_a_vib_vrt, E_p2_a_vib_slo, E_p2_a_vib_shi, E_p2_a_touch_lve, E_p2_a_touch_hve, E_p2_a_touch_laf, E_p2_a_touch_haf, E_p2_a_touch_mix, E_p2_a_touch_key, E_p2_a_echo_tim, E_p2_a_echo_rep, E_p2_a_echo_lvl, -1, E_p5_a_perf_glid, E_p5_a_perf_gtp, E_p5_a_perf_tun, E_p5_a_perf_oct, E_p5_a_perf_bnd, E_p5_a_perf_mon, E_p5_a_perf_ft, E_p5_a_arp_src, E_p5_a_arp_typ, E_p5_a_arp_hld, E_p5_a_arp_tmp, E_p5_a_arp_oct, E_p5_a_arp_vel, E_p5_a_arp_gat, E_p6_a_cs80_il, E_p6_a_cs80_al, E_p6_a_cs80_ibr, E_p6_a_cs80_abr, E_p6_a_cs80_ilv, E_p6_a_cs80_alv},
-  {E_p3_b_osc_wav, E_p3_b_osc_wlv, E_p3_b_osc_plv, E_p3_b_osc_wid, E_p3_b_osc_pw, E_p3_b_osc_rte, E_p3_b_osc_sub, E_p3_b_lpf_frq, E_p3_b_lpf_res, E_p3_b_lpf_att, E_p3_b_lpf_dec, E_p3_b_lpf_sus, E_p3_b_lpf_rel, E_p3_b_lpf_mod, E_p3_b_hpf_frq, E_p3_b_hpf_res, E_p3_b_hpf_att, E_p3_b_hpf_dec, E_p3_b_hpf_sus, E_p3_b_hpf_rel, E_p3_b_hpf_mod, E_p3_b_amp_sine, E_p3_b_amp_flt, E_p3_b_amp_att, E_p3_b_amp_dec, E_p3_b_amp_sus, E_p3_b_amp_rel, E_p3_b_amp_lvl, E_p4_b_lfo_rte, E_p4_b_lfo_syn, E_p4_b_lfo_wav, E_p4_b_lfo_mde, E_p4_b_lfo_dst, E_p4_b_lfo_att, E_p4_b_lfo_rel, E_p4_b_vib_lfo, E_p4_b_vib_vib, E_p4_b_vib_vrt, E_p4_b_vib_slo, E_p4_b_vib_shi, E_p4_b_touch_lve, E_p4_b_touch_hve, E_p4_b_touch_laf, E_p4_b_touch_haf, E_p4_b_touch_mix, E_p4_b_touch_key, E_p4_b_echo_tim, E_p4_b_echo_rep, E_p4_b_echo_lvl, E_p4_b_echo_dly, E_p5_b_perf_glid, E_p5_b_perf_gtp, E_p5_b_perf_tun, E_p5_b_perf_oct, E_p5_b_perf_bnd, E_p5_b_perf_mon, E_p5_b_perf_ft, E_p5_b_arp_src, E_p5_b_arp_typ, E_p5_b_arp_hld, E_p5_b_arp_tmp, E_p5_b_arp_oct, E_p5_b_arp_vel, E_p5_b_arp_gat, E_p6_b_cs80_il, E_p6_b_cs80_al, E_p6_b_cs80_ibr, E_p6_b_cs80_abr, E_p6_b_cs80_ilv, E_p6_b_cs80_alv},
+  {E_p1_a_osc_wav, E_p1_a_osc_wlv, E_p1_a_osc_plv, E_p1_a_osc_wid, E_p1_a_osc_pw, E_p1_a_osc_rte, E_p1_a_osc_sub, E_p1_a_lpf_frq, E_p1_a_lpf_res, E_p1_a_lpf_att, E_p1_a_lpf_dec, E_p1_a_lpf_sus, E_p1_a_lpf_rel, E_p1_a_lpf_mod, E_p1_a_hpf_frq, E_p1_a_hpf_res, E_p1_a_hpf_att, E_p1_a_hpf_dec, E_p1_a_hpf_sus, E_p1_a_hpf_rel, E_p1_a_hpf_mod, E_p1_a_amp_sine, E_p1_a_amp_flt, E_p1_a_amp_att, E_p1_a_amp_dec, E_p1_a_amp_sus, E_p1_a_amp_rel, E_p1_a_amp_lvl, E_p2_a_lfo_rte, E_p2_a_lfo_syn, E_p2_a_lfo_wav, E_p2_a_lfo_mde, E_p2_a_lfo_dst, E_p2_a_lfo_att, E_p2_a_lfo_rel, E_p2_a_vib_lfo, E_p2_a_vib_vib, E_p2_a_vib_vrt, E_p2_a_vib_slo, E_p2_a_vib_shi, E_p2_a_touch_lve, E_p2_a_touch_hve, E_p2_a_touch_laf, E_p2_a_touch_haf, E_p2_a_touch_mix, E_p2_a_touch_key, E_p2_a_echo_tim, E_p2_a_echo_rep, E_p2_a_echo_lvl, -1, E_p5_a_perf_glid, E_p5_a_perf_gtp, E_p5_a_perf_tun, E_p5_a_perf_oct, E_p5_a_perf_bnd, E_p5_a_perf_mon, E_p5_a_perf_ft, E_p5_a_arp_src, E_p5_a_arp_typ, E_p5_a_arp_hld, E_p5_a_arp_tmp, E_p5_a_arp_oct, E_p5_a_arp_vel, E_p5_a_arp_gat, E_p6_a_cs80_il, E_p6_a_cs80_al, E_p6_a_cs80_ibr, E_p6_a_cs80_abr, E_p6_a_cs80_ilv, E_p6_a_cs80_alv, E_p12_a_gate_s1, E_p12_a_gate_s2, E_p12_a_gate_s3, E_p12_a_gate_s4, E_p12_a_gate_s5, E_p12_a_gate_s6, E_p12_a_gate_s7, E_p12_a_gate_s8, E_p12_a_gate_cg},
+  {E_p3_b_osc_wav, E_p3_b_osc_wlv, E_p3_b_osc_plv, E_p3_b_osc_wid, E_p3_b_osc_pw, E_p3_b_osc_rte, E_p3_b_osc_sub, E_p3_b_lpf_frq, E_p3_b_lpf_res, E_p3_b_lpf_att, E_p3_b_lpf_dec, E_p3_b_lpf_sus, E_p3_b_lpf_rel, E_p3_b_lpf_mod, E_p3_b_hpf_frq, E_p3_b_hpf_res, E_p3_b_hpf_att, E_p3_b_hpf_dec, E_p3_b_hpf_sus, E_p3_b_hpf_rel, E_p3_b_hpf_mod, E_p3_b_amp_sine, E_p3_b_amp_flt, E_p3_b_amp_att, E_p3_b_amp_dec, E_p3_b_amp_sus, E_p3_b_amp_rel, E_p3_b_amp_lvl, E_p4_b_lfo_rte, E_p4_b_lfo_syn, E_p4_b_lfo_wav, E_p4_b_lfo_mde, E_p4_b_lfo_dst, E_p4_b_lfo_att, E_p4_b_lfo_rel, E_p4_b_vib_lfo, E_p4_b_vib_vib, E_p4_b_vib_vrt, E_p4_b_vib_slo, E_p4_b_vib_shi, E_p4_b_touch_lve, E_p4_b_touch_hve, E_p4_b_touch_laf, E_p4_b_touch_haf, E_p4_b_touch_mix, E_p4_b_touch_key, E_p4_b_echo_tim, E_p4_b_echo_rep, E_p4_b_echo_lvl, E_p4_b_echo_dly, E_p5_b_perf_glid, E_p5_b_perf_gtp, E_p5_b_perf_tun, E_p5_b_perf_oct, E_p5_b_perf_bnd, E_p5_b_perf_mon, E_p5_b_perf_ft, E_p5_b_arp_src, E_p5_b_arp_typ, E_p5_b_arp_hld, E_p5_b_arp_tmp, E_p5_b_arp_oct, E_p5_b_arp_vel, E_p5_b_arp_gat, E_p6_b_cs80_il, E_p6_b_cs80_al, E_p6_b_cs80_ibr, E_p6_b_cs80_abr, E_p6_b_cs80_ilv, E_p6_b_cs80_alv, E_p12_b_gate_s1, E_p12_b_gate_s2, E_p12_b_gate_s3, E_p12_b_gate_s4, E_p12_b_gate_s5, E_p12_b_gate_s6, E_p12_b_gate_s7, E_p12_b_gate_s8, E_p12_b_gate_cg},
 };
-#define N_PAGES 11
+#define N_PAGES 12
 static const short VIEW_QL[N_PAGES + 1][32] = {
   {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, -1, -1, -1, -1},
@@ -622,6 +671,7 @@ static const short VIEW_QL[N_PAGES + 1][32] = {
   {182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {193, 194, 195, 196, 197, 198, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   {199, 200, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
+  {204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
 };
 static const char *const PNAME[N_PARAMS] = {
   "A OSC WAV",
@@ -828,6 +878,24 @@ static const char *const PNAME[N_PARAMS] = {
   "LOAD",
   "SAVE",
   "INIT",
+  "A GATE 1",
+  "A GATE 2",
+  "A GATE 3",
+  "A GATE 4",
+  "A GATE 5",
+  "A GATE 6",
+  "A GATE 7",
+  "A GATE 8",
+  "A GATE C/G",
+  "B GATE 1",
+  "B GATE 2",
+  "B GATE 3",
+  "B GATE 4",
+  "B GATE 5",
+  "B GATE 6",
+  "B GATE 7",
+  "B GATE 8",
+  "B GATE C/G",
   "Q-Link 1",
   "Q-Link 2",
   "Q-Link 3",
@@ -874,6 +942,7 @@ static const char *const PNAME[N_PARAMS] = {
   "GO MIXER",
   "GO VOICE",
   "GO PRESET",
+  "GO ARP GATE",
   "PAGE 0",
   "PAGE 1",
   "PAGE 2",
@@ -885,5 +954,6 @@ static const char *const PNAME[N_PARAMS] = {
   "PAGE 8",
   "PAGE 9",
   "PAGE 10",
-  "PAGE 11"
+  "PAGE 11",
+  "PAGE 12"
 };

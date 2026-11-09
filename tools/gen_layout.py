@@ -32,6 +32,12 @@ for p in m['pages']:
     n=p['index']; bg=os.path.join(src,'p%d'%n,'page.png'); W='when=pg_%d:1'%n
     if os.path.exists(bg):
         shutil.copy(bg,art+'/page%d.png'%n); out.append('art file=art/page%d.png fit=stretch %s'%(n,W))
+        # page title in the header: "n/<count>  NAME" (repainted so the count follows the number of pages)
+        from PIL import ImageDraw as _ID, ImageFont as _IF
+        _hp=Image.open(art+'/page%d.png'%n).convert('RGB'); _d=_ID.Draw(_hp)
+        _d.rectangle([322,8,690,62],fill=(0,0,0))
+        _d.text((340,48),'%d/%d  %s'%(n,len(m['pages']),p['name']),font=_IF.truetype(os.path.join(os.environ.get('MPC_VST','/home/claude/sunskiefer/mpc-vst-plugins'),'tools/html_art/fonts/TitilliumWeb-SemiBold.ttf'),34),fill=(245,245,245),anchor='ls')
+        _hp.save(art+'/page%d.png'%n)
     for c in p['controls']:
         cx=c['x']+c['w']//2; cy=c['y']+c['h']//2+86
         if c['kind']=='slider':

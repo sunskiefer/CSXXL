@@ -202,6 +202,24 @@ p11_preset_pat
 p11_load
 p11_save
 p11_init
+p12_a_gate_s1
+p12_a_gate_s2
+p12_a_gate_s3
+p12_a_gate_s4
+p12_a_gate_s5
+p12_a_gate_s6
+p12_a_gate_s7
+p12_a_gate_s8
+p12_a_gate_cg
+p12_b_gate_s1
+p12_b_gate_s2
+p12_b_gate_s3
+p12_b_gate_s4
+p12_b_gate_s5
+p12_b_gate_s6
+p12_b_gate_s7
+p12_b_gate_s8
+p12_b_gate_cg
 ql1
 ql2
 ql3
@@ -248,6 +266,7 @@ go_8
 go_9
 go_10
 go_11
+go_12
 pg_0
 pg_1
 pg_2
@@ -260,3 +279,4 @@ pg_8
 pg_9
 pg_10
 pg_11
+pg_12

@@ -1670,6 +1670,168 @@
    "momentary": true
   },
   {
+   "key": "p12_a_gate_s1",
+   "name": "A GATE 1",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s2",
+   "name": "A GATE 2",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s3",
+   "name": "A GATE 3",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s4",
+   "name": "A GATE 4",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s5",
+   "name": "A GATE 5",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s6",
+   "name": "A GATE 6",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s7",
+   "name": "A GATE 7",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_s8",
+   "name": "A GATE 8",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_a_gate_cg",
+   "name": "A GATE C/G",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s1",
+   "name": "B GATE 1",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s2",
+   "name": "B GATE 2",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s3",
+   "name": "B GATE 3",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s4",
+   "name": "B GATE 4",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s5",
+   "name": "B GATE 5",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s6",
+   "name": "B GATE 6",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s7",
+   "name": "B GATE 7",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_s8",
+   "name": "B GATE 8",
+   "min": 0,
+   "max": 100,
+   "default": 100,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
+   "key": "p12_b_gate_cg",
+   "name": "B GATE C/G",
+   "min": 0,
+   "max": 100,
+   "default": 0,
+   "display": "int",
+   "dynamic_display": true
+  },
+  {
    "key": "ql1",
    "name": "Q-Link 1",
    "min": 0.0,
@@ -2098,6 +2260,16 @@
    "refresh_display": true
   },
   {
+   "key": "go_12",
+   "name": "GO ARP GATE",
+   "min": 0.0,
+   "max": 1.0,
+   "default": 0.0,
+   "momentary": true,
+   "type": "trigger",
+   "refresh_display": true
+  },
+  {
    "key": "pg_0",
    "name": "PAGE 0",
    "options": [
@@ -2199,6 +2371,15 @@
   {
    "key": "pg_11",
    "name": "PAGE 11",
+   "options": [
+    "Off",
+    "On"
+   ],
+   "default": 0
+  },
+  {
+   "key": "pg_12",
+   "name": "PAGE 12",
    "options": [
     "Off",
     "On"
@@ -2464,6 +2645,29 @@
     "p11_load",
     "p11_save",
     "p11_init"
+   ]
+  },
+  {
+   "label": "12 ARP GATE",
+   "keys": [
+    "p12_a_gate_s1",
+    "p12_a_gate_s2",
+    "p12_a_gate_s3",
+    "p12_a_gate_s4",
+    "p12_a_gate_s5",
+    "p12_a_gate_s6",
+    "p12_a_gate_s7",
+    "p12_a_gate_s8",
+    "p12_a_gate_cg",
+    "p12_b_gate_s1",
+    "p12_b_gate_s2",
+    "p12_b_gate_s3",
+    "p12_b_gate_s4",
+    "p12_b_gate_s5",
+    "p12_b_gate_s6",
+    "p12_b_gate_s7",
+    "p12_b_gate_s8",
+    "p12_b_gate_cg"
    ]
   }
  ]
