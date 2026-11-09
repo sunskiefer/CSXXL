@@ -467,7 +467,7 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             v->snh_ph += snhrate * n / SR; if (v->snh_ph >= 1.f) { v->snh_ph -= 1.f; v->snh_val = rnd01(I) * 2.f - 1.f; }
             float snh_f = v->snh_val * q.vshi * 2.f;
             /* pitch (semitones) */
-            float pit = v->pitch + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
+            float pit = v->pitch + 0.03f * sinf((float)(vi * 5 + ly * 2) * 1.7f) + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
             float f1 = 440.f * exp2f((pit - 69.f) / 12.f);
             float f2 = f1 * exp2f((q.wid - 0.5f) * 0.12f);
             float dt1 = clampf(f1 / SR, 1e-5f, 0.45f), dt2 = clampf(f2 / SR, 1e-5f, 0.45f);
@@ -480,8 +480,9 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float vel = v->vel;
             float lcut_oct = q.lm * 6.f * ef + bri * 6.f + kbri + bri_master + (v->note - 60.f) / 12.f * q.t_key
                            + vel * q.t_lve * 3.f + I->at * q.t_laf * 3.f + lfo_to_f + snh_f + sub_vcf;
-            float lcut = expmap(q.lf, 40.f, 16000.f) * exp2f(lcut_oct);
-            float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(q.hm * 6.f * eh + vel * q.t_hve * 3.f + I->at * q.t_haf * 3.f);
+            float vdr = sinf((float)(vi * 7 + ly * 3) * 2.399f); /* per-voice-card trimmer drift */
+            float lcut = expmap(q.lf, 40.f, 16000.f) * exp2f(lcut_oct + 0.04f * vdr);
+            float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(q.hm * 3.f * eh + vel * q.t_hve * 3.f + I->at * q.t_haf * 3.f);
             float res = clampf(q.lres + rsn, 0.f, 1.f);
             SvfC hc, c1, c2;
             svf_c(&hc, hcut, 1.4f - q.hres * 1.2f);
@@ -509,7 +510,7 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
                 svf_run(&v->h, &hc, x, &tmp, &hi);
                 svf_run(&v->l1, &c1, hi, &lo1, &tmp);
                 svf_run(&v->l2, &c2, lo1, &lo2, &tmp);
-                float sn = sinf(2.f * PI_F * v->phsin) * q.sine * 0.4f;
+                float sn = (sinf(2.f * PI_F * v->phsin) + 0.04f * sinf(6.f * PI_F * v->phsin)) * q.sine * 0.4f; /* sine with a few harmonics */
                 bus[off + s] += (lo2 * q.flt * 1.3f + sn) * g;
             }
         }
