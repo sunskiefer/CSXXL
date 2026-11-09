@@ -78,6 +78,7 @@ typedef struct {
     Env ea, ef, eh;
     Svf h, l1, l2;
     uint32_t order;
+    float dly;                      /* line B gate delay (s) before the envelopes start */
 } Voice;
 
 typedef struct {
@@ -243,6 +244,7 @@ static void voice_on(Inst *I, int ly, int note, float vel, int retrig_env, int m
     if (!v->active || !gl_on) v->pitch = (float)note;
     if (!v->active) { v->ph1 = v->ph2 = v->phs = v->phsin = 0.f; v->ph1 = rnd01(I); v->ph2 = rnd01(I); v->lfo_gain = 0.f; v->ea.v = v->ef.v = v->eh.v = 0.f; memset(&v->h, 0, sizeof(Svf)); memset(&v->l1, 0, sizeof(Svf)); memset(&v->l2, 0, sizeof(Svf)); }
     v->active = 1;
+    v->dly = (ly == 1 && (retrig_env || !was)) ? lp(I, ly, L_ECHO_DLY) * 1.5f : 0.f;
     if (retrig_env || !was) { env_on(&v->ea); env_on(&v->ef); env_on(&v->eh); }
     I->rm_stage = 1; I->rm_note = (float)note;
 }
@@ -439,6 +441,7 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
         Voice *v = &L->v[vi]; if (!v->active) continue;
         for (int off = 0; off < frames; off += CHUNK) {
             int n = frames - off < CHUNK ? frames - off : CHUNK;
+            if (v->dly > 0.f) { v->dly -= (float)n / SR; continue; } /* line B DELAY: start of the envelope is delayed */
             /* envelopes */
             float rm = q.rel_mul;
             float ea = env_step(&v->ea, expmap(q.aa, 0.002f, 6.f), expmap(q.ad, 0.01f, 8.f), q.as, expmap(q.ar, 0.01f, 10.f) * rm, n);
@@ -553,7 +556,7 @@ static void eng_render(void *p, int16_t *out, int frames) {
         Layer *L = &I->L[ly]; float *b = bus[ly];
         float tn = (ly ? G(p10_tone_tnb) : G(p10_tone_tna));
         float echo_lvl = lp(I, ly, L_ECHO_LVL), rep = lp(I, ly, L_ECHO_REP) * 0.85f;
-        int dl = (int)(expmap(lp(I, ly, L_ECHO_TIM), 0.02f, 0.9f) * SR + lp(I, ly, L_ECHO_DLY) * 0.25f * SR);
+        int dl = (int)(expmap(lp(I, ly, L_ECHO_TIM), 0.02f, 0.9f) * SR);
         if (dl > 44099) dl = 44099; if (dl < 64) dl = 64;
         float tilt = tn * 100.f >= 3.f ? (tn - 0.5f) * 1.6f : 0.f;
         for (int s = 0; s < frames; s++) {
