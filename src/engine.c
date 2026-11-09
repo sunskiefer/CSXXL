@@ -10,6 +10,7 @@
 #include <string.h>
 #include "engine.h"
 #include "params_gen.h"
+#include "xyz_pad.h"
 
 #define SR 44100.0f
 #define NV 8
@@ -83,6 +84,7 @@ typedef struct {
 
 typedef struct {
     Voice v[NV];
+    unsigned arp_step;
     int held[16], nheld;            /* keys held by the player (arp / mono) */
     int arp_notes[16], narp, arp_i, arp_dir, arp_note_on;
     int arp_latched;
@@ -95,7 +97,10 @@ typedef struct {
     float P[N_PARAMS];
     Layer L[2];
     uint32_t order;
-    float bend, mw, at, ribbon_prev;
+    float bend, mw, at, ribbon_prev, rm_vel, mb_s, mb_pa, mb_pb, mb_pr;
+    float pat[128];                 /* per-key (polyphonic) aftertouch 0..1 */
+    double bpm; int bpm_ok;         /* host tempo (song_pos) */
+    volatile float rib_x, rib_y; volatile unsigned rib_changed; overlay_t pad; float rib_ref; int rib_was; float rib_off;
     int pedal;
     float rm_env, rm_stage_on, rm_note;
     int rm_stage; float rm_ph;
@@ -142,7 +147,7 @@ static void patch_gen(int n, float *out) {
         float wav = 10, wlv = 80, plv = 40, wid = 40, pw = 50, rte = 25, sub = 10;
         float lf = 45, lres = 15, la = 10, ld = 40, ls = 60, lr = 30, lm = 40;
         float hf = 10, hres = 0, ha = 5, hd = 30, hs = 100, hr = 20, hm = 0;
-        float aa = 8, ad = 40, as = 80, ar = 30, lvl = 80, sine = 0, flt = 80;
+        float aa = 8, ad = 40, as = 80, ar = 30, sine = 0, flt = 80;
         float il = 20, al = 85, ibr = 40, abr = 65, vib = 30, vrt = 40;
         float glid = 0, mon = 0, arp = 0, tmp = 50, typ = 0;
         switch (cat) {
@@ -155,8 +160,11 @@ static void patch_gen(int n, float *out) {
         case 6: /* fx */       wav = 70; wlv = 60; plv = 70; wid = 70; lf = 30; lres = 55; lm = 60; la = 20; ld = 55; ls = 30; aa = 10; ad = 55; as = 50; ar = 55; sine = 40; break;
         default: /* arp */     wlv = 85; plv = 45; lf = 40; lres = 25; lm = 50; la = 3; ld = 25; ls = 20; aa = 3; ad = 25; as = 60; ar = 20; arp = 50; tmp = 55; typ = 20; break;
         }
+        /* noise patches: windy FX, and "breath" layers (line A = filtered noise under line B's tone) */
+        if (cat == 6 && (var % 3) != 1) { wav = 100; wlv = 55 + (float)(var % 5) * 6; plv = 30; lres = 45; lf = 35 + (float)(var * 3 % 30); la = 45; aa = 40; ar = 70; }
+        if ((cat == 0 || cat == 4 || cat == 5 || cat == 1) && (var % 4) == 0 && ly == 0) { wav = 100; wlv = 45; plv = 0; lres = 40; lf = 55; lm = 20; la = 20; aa = 14; as = 55; ar = 25; hf = 35; }
         if (ly == 1) { wid += 8; lf += (var & 1) ? 3 : -3; }
-        lset(out, ly, L_OSC_WAV, vary(&s, wav, vamt)); lset(out, ly, L_OSC_WLV, vary(&s, wlv, vamt * 0.5f));
+        lset(out, ly, L_OSC_WAV, wav >= 100.f ? 100.f : vary(&s, wav, vamt)); lset(out, ly, L_OSC_WLV, vary(&s, wlv, vamt * 0.5f));
         lset(out, ly, L_OSC_PLV, vary(&s, plv, vamt)); lset(out, ly, L_OSC_WID, vary(&s, wid, vamt));
         lset(out, ly, L_OSC_PW, vary(&s, pw, vamt)); lset(out, ly, L_OSC_RTE, vary(&s, rte, vamt));
         lset(out, ly, L_OSC_SUB, vary(&s, sub, vamt * 0.5f));
@@ -226,8 +234,7 @@ static float note_shift(const Inst *I, int ly) {
     float crs = roundf((G(p6_master_crs) - 0.5f) * 24.f);
     float fine = (G(p6_master_fine) - 0.5f) * 1.0f;
     float det = (G(p6_master_det) - 0.5f) * 0.6f * (ly ? 1.f : -1.f);
-    float rib = (G(p10_ribbon_rib) - 0.5f) * 2.f * (G(p10_ribbon_rng) * 12.f);
-    return oct + tun + crs + fine + det + rib;
+    return oct + tun + crs + fine + det;
 }
 static void voice_on(Inst *I, int ly, int note, float vel, int retrig_env, int mono) {
     Layer *L = &I->L[ly]; Voice *v = 0;
@@ -246,7 +253,7 @@ static void voice_on(Inst *I, int ly, int note, float vel, int retrig_env, int m
     v->active = 1;
     v->dly = (ly == 1 && (retrig_env || !was)) ? lp(I, ly, L_ECHO_DLY) * 1.5f : 0.f;
     if (retrig_env || !was) { env_on(&v->ea); env_on(&v->ef); env_on(&v->eh); }
-    I->rm_stage = 1; I->rm_note = (float)note;
+    I->rm_stage = 1; I->rm_note = (float)note; I->rm_vel = vel;
 }
 static void voice_off(Inst *I, int ly, int note) {
     Layer *L = &I->L[ly];
@@ -307,10 +314,11 @@ static void *eng_create(const char *data_dir) {
     for (int ly = 0; ly < 2; ly++) I->L[ly].arp_note_on = -1, I->L[ly].arp_dir = 1;
     for (int c = 0; c < 2; c++) for (int k = 0; k < 4; k++) I->cd[c][k] = 0.f;
     if (data_dir) snprintf(I->data_dir, sizeof I->data_dir, "%s", data_dir);
+    pad_start(&I->pad, data_dir, &I->rib_x, &I->rib_y, &I->rib_changed);   /* the touch ribbon (black stripe on the VOICE page) */
     user_load_file(I);
     return I;
 }
-static void eng_destroy(void *p) { free(p); }
+static void eng_destroy(void *p) { Inst *I = (Inst *)p; if (I) pad_stop(&I->pad); free(p); }
 
 static int key_idx(const char *key) {
     for (int i = 0; i < N_PARAMS; i++) if (!strcmp(PKEY[i], key)) return i;
@@ -335,11 +343,11 @@ static int eng_get(void *p, const char *key, char *buf, int len) {
 static void eng_midi(void *p, const uint8_t *m, int n) {
     Inst *I = (Inst *)p; if (n < 2) return;
     int st = m[0] & 0xF0;
-    if (st == 0x90 && n >= 3) key_event(I, m[1], m[2], m[2] > 0);
-    else if (st == 0x80 && n >= 3) key_event(I, m[1], 0, 0);
+    if (st == 0x90 && n >= 3) { if (m[2] == 0) I->pat[m[1] & 127] = 0.f; key_event(I, m[1], m[2], m[2] > 0); }
+    else if (st == 0x80 && n >= 3) { I->pat[m[1] & 127] = 0.f; key_event(I, m[1], 0, 0); }
     else if (st == 0xE0 && n >= 3) I->bend = ((m[2] << 7 | m[1]) - 8192) / 8192.f;
     else if (st == 0xD0) I->at = m[1] / 127.f;
-    else if (st == 0xA0 && n >= 3) I->at = m[2] / 127.f;
+    else if (st == 0xA0 && n >= 3) I->pat[m[1] & 127] = m[2] / 127.f;
     else if (st == 0xB0 && n >= 3) {
         if (m[1] == 1) I->mw = m[2] / 127.f;
         else if (m[1] == 64) {
@@ -353,17 +361,21 @@ static void eng_midi(void *p, const uint8_t *m, int n) {
 static void arp_run(Inst *I, int ly, int frames) {
     Layer *L = &I->L[ly];
     if (!arp_on(I, ly)) { if (L->arp_note_on >= 0) { voice_off(I, ly, L->arp_note_on); L->arp_note_on = -1; } return; }
-    float bpm = 40.f + lp(I, ly, L_ARP_TMP) * 200.f;
+    static const float AR[8] = {0.5f, 0.6667f, 0.75f, 1.f, 1.5f, 2.f, 3.f, 4.f};   /* arp tempo = host tempo x ratio (Tempo/2 ... x4) */
+    float host = I->bpm_ok ? (float)I->bpm : 120.f;
+    float bpm = host * AR[(int)(lp(I, ly, L_ARP_TMP) * 7.99f)];
     float cl = (ly ? G(p7_split_ckb) : G(p7_split_cka));
-    float div = cl <= 0.25f ? 1.f : cl <= 0.5f ? 2.f : cl <= 0.75f ? 4.f : 0.5f;   /* 16th, 8th, quarter, 32nd */
-    double step = (60.0 / bpm) / 4.0 * div * SR;
+    static const unsigned char GP[8] = {0xFF, 0xAA, 0xEE, 0xBB, 0x88, 0xDD, 0xA5, 0xC3}; /* gate patterns, 8 steps; CLOCK = every step */
+    unsigned char pat = cl < 0.5f ? 0xFF : GP[(int)((cl - 0.5f) * 15.99f)];
+    double step = (60.0 / bpm) / 4.0 * SR;
     L->arp_t += frames;
     double gate = step * (0.1 + 0.85 * lp(I, ly, L_ARP_GAT));
     if (L->arp_note_on >= 0 && L->arp_t >= gate) { voice_off(I, ly, L->arp_note_on); L->arp_note_on = -1; }
     if (L->arp_t >= step) {
         L->arp_t -= step; if (L->arp_t > step) L->arp_t = 0;
         if (L->arp_note_on >= 0) { voice_off(I, ly, L->arp_note_on); L->arp_note_on = -1; }
-        if (L->narp > 0) {
+        L->arp_step++;
+        if (L->narp > 0 && (pat >> (L->arp_step & 7)) & 1) {
             int octs = 1 + (int)(lp(I, ly, L_ARP_OCT) * 3.99f);
             int total = L->narp * octs; if (total < 1) total = 1;
             float typ = lp(I, ly, L_ARP_TYP);
@@ -424,16 +436,17 @@ static float lfo_wave(float ph, int shape, float snh) {
 }
 
 static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo, float sub_vco, float sub_vcf, float sub_vca) {
-    Layer *L = &I->L[ly]; LP q; load_lp(I, ly, &q);
+    Layer *L = &I->L[ly]; LP q; load_lp(I, ly, &q); (void)sub_lfo;
     int lshape = (int)(q.lwav * 4.99f);
     float lrate = expmap(q.lrte, 0.05f, 20.f);
     float vibrate = expmap(q.vvrt, 0.5f, 10.f);
     float snhrate = expmap(q.vslo, 0.5f, 20.f);
     int dst = (int)(q.ldst * 3.99f), mde = (int)(q.lmde * 2.99f);
-    float modbar = G(p7_mod_bar_bar);
-    int mb_dst = (int)(G(p7_mod_bar_dst) * 3.99f);
     float bri_master = (G(p6_master_bri) - 0.5f) * 6.f;
     float rsn = (G(p6_master_rsn) - 0.5f) * 0.5f;
+    /* touch ribbon: RIB picks the target (pitch / filter / resonance), RNG the range, SMD the sustain mode (I: held keys only, II: all sounding notes) */
+    int rdst = (int)(G(p10_ribbon_rib) * 2.99f); float rrng = G(p10_ribbon_rng), roff = I->rib_off; int rsus2 = G(p10_sustain_smd) >= 0.5f;
+    if (rdst == 2) rsn += roff * rrng * 0.5f;
     float bendsemi = (float)(int)(lp(I, ly, L_PERF_BND) * 12.f + 0.5f);
     float ribpitch = 0.f; (void)ribpitch;
     float glid_tau = expmap(q.glid, 0.005f, 2.f);
@@ -457,20 +470,18 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float fadet = expmap(q.latt, 0.01f, 4.f);
             if (v->gate) v->lfo_gain = fminf(1.f, v->lfo_gain + (float)n / (fadet * SR));
             else v->lfo_gain = fmaxf(0.f, v->lfo_gain - (float)n / (expmap(q.lrel, 0.01f, 4.f) * SR));
-            float srcdepth = mde == 0 ? 1.f : (mde == 1 ? I->mw : I->at);
+            float srcdepth = mde == 0 ? 1.f : (mde == 1 ? I->mw : fmaxf(I->at, I->pat[v->note & 127]));
             float ld = q.vlfo * srcdepth * v->lfo_gain;
-            float mbm = I->mw * modbar;
             float lfo_to_p = 0, lfo_to_f = 0, lfo_to_a = 0, lfo_to_pw = 0;
             float lv = lfo * ld;
             if (dst == 0) lfo_to_p += lv * 2.f; else if (dst == 1) lfo_to_f += lv * 3.f; else if (dst == 2) lfo_to_a += lv; else lfo_to_pw += lv * 0.4f;
-            float mv = (G(p7_mod_bar_mde) >= 0.5f ? sub_lfo : lfo) * mbm;
-            if (mb_dst == 0) lfo_to_p += mv * 2.f; else if (mb_dst == 1) lfo_to_f += mv * 3.f; else if (mb_dst == 2) lfo_to_a += mv; else lfo_to_pw += mv * 0.4f;
             v->vib_ph = wrap1(v->vib_ph + vibrate * n / SR);
             float vib = sinf(2.f * PI_F * v->vib_ph) * q.vvib * 0.5f;
             v->snh_ph += snhrate * n / SR; if (v->snh_ph >= 1.f) { v->snh_ph -= 1.f; v->snh_val = rnd01(I) * 2.f - 1.f; }
             float snh_f = v->snh_val * q.vshi * 2.f;
             /* pitch (semitones) */
-            float pit = v->pitch + 0.03f * sinf((float)(vi * 5 + ly * 2) * 1.7f) + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
+            float rpit = (rdst == 0 && (rsus2 || v->gate)) ? roff * rrng * 24.f : 0.f;
+            float pit = rpit + (ly ? I->mb_pb : I->mb_pa) + v->pitch + 0.03f * sinf((float)(vi * 5 + ly * 2) * 1.7f) + q.shift + I->bend * bendsemi + lfo_to_p + vib + sub_vco;
             float f1 = 440.f * exp2f((pit - 69.f) / 12.f);
             float f2 = f1 * exp2f((q.wid - 0.5f) * 0.12f);
             float sinmul = q.sub < 0.34f ? 1.f : (q.sub < 0.67f ? 0.5f : 0.25f); /* SINE / SUB -1 oct / SUB -2 oct */
@@ -482,11 +493,12 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float bri = lerpf(q.ibr, q.abr, ea) - 0.5f;
             float kbri = (lerpf(q.k_brl, q.k_brh, keyt) - 0.5f) * 3.f;
             float vel = v->vel;
+            float vat = fmaxf(I->at, I->pat[v->note & 127]);   /* per-key aftertouch (channel pressure as fallback) */
             float lcut_oct = q.lm * 6.f * ef + bri * 6.f + kbri + bri_master + (v->note - 60.f) / 12.f * q.t_key
-                           + vel * q.t_lve * 3.f + I->at * q.t_laf * 3.f + lfo_to_f + snh_f + sub_vcf;
+                           + vel * q.t_lve * 3.f + vat * q.t_laf * 3.f + lfo_to_f + snh_f + sub_vcf + (rdst == 1 ? roff * rrng * 6.f : 0.f);
             float vdr = sinf((float)(vi * 7 + ly * 3) * 2.399f); /* per-voice-card trimmer drift */
             float lcut = expmap(q.lf, 40.f, 16000.f) * exp2f(lcut_oct + 0.04f * vdr);
-            float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(q.hm * 3.f * eh + vel * q.t_hve * 3.f + I->at * q.t_haf * 3.f);
+            float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(q.hm * 3.f * eh + vel * q.t_hve * 3.f + vat * q.t_haf * 3.f);
             float res = clampf(q.lres + rsn, 0.f, 1.f);
             SvfC hc, c1;
             svf_c(&hc, hcut, 1.4f - q.hres * 1.2f);
@@ -536,6 +548,12 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
 static void eng_render(void *p, int16_t *out, int frames) {
     Inst *I = (Inst *)p;
     if (frames > 128) frames = 128;
+    { int rt = I->pad.touching; if (rt && !I->rib_was) I->rib_ref = I->rib_x; I->rib_was = rt; I->rib_off = rt ? (I->rib_x - I->rib_ref) * 0.2f : 0.f; }   /* zero point = where the finger first touched; springs back on release */
+    /* modulation bar: pitch bar, centre = 0; destination A / B / both / ring-mod oscillator; DIRECT follows at once, RELEASE glides */
+    { float bar = (G(p7_mod_bar_bar) - 0.5f) * 2.f; int mm = (int)(G(p7_mod_bar_mde) * 3.99f), md = (int)(G(p7_mod_bar_dst) * 3.99f);
+      float tgt = bar * 7.f; int rel = (mm == 1 || mm == 2);
+      I->mb_s = rel ? I->mb_s + (tgt - I->mb_s) * (1.f - expf(-(float)frames / (0.35f * SR))) : tgt;
+      I->mb_pa = (md == 0 || md == 2) ? I->mb_s : 0.f; I->mb_pb = (md == 1 || md == 2) ? I->mb_s : 0.f; I->mb_pr = md == 3 ? I->mb_s : 0.f; }
     float A[128], B[128], X[128];
     memset(A, 0, sizeof A); memset(B, 0, sizeof B);
     arp_run(I, 0, frames); arp_run(I, 1, frames);
@@ -556,8 +574,9 @@ static void eng_render(void *p, int16_t *out, int frames) {
         Layer *L = &I->L[ly]; float *b = bus[ly];
         float tn = (ly ? G(p10_tone_tnb) : G(p10_tone_tna));
         float echo_lvl = lp(I, ly, L_ECHO_LVL), rep = lp(I, ly, L_ECHO_REP) * 0.85f;
-        int dl = (int)(expmap(lp(I, ly, L_ECHO_TIM), 0.02f, 0.9f) * SR);
-        if (dl > 44099) dl = 44099; if (dl < 64) dl = 64;
+        static const float ER[8] = {0.25f, 0.3333f, 0.5f, 0.6667f, 1.f, 1.5f, 2.f, 3.f};   /* echo time = beats x ratio of the host tempo */
+        float ebeat = 60.f / (I->bpm_ok ? (float)I->bpm : 120.f);
+        int dl = (int)(ebeat * ER[(int)(lp(I, ly, L_ECHO_TIM) * 7.99f)] * SR); if (dl > 44090) dl = 44090; if (dl < 64) dl = 64;
         float tilt = tn * 100.f >= 3.f ? (tn - 0.5f) * 1.6f : 0.f;
         for (int s = 0; s < frames; s++) {
             float x = b[s];
@@ -582,10 +601,11 @@ static void eng_render(void *p, int16_t *out, int frames) {
         for (int s = 0; s < frames; s++) {
             if (I->rm_stage == 1) { I->rm_env += (1.1f - I->rm_env) * (1.f - expf(-3.f / (att * SR))); if (I->rm_env >= 1.f) { I->rm_env = 1.f; I->rm_stage = 2; } }
             else I->rm_env += (0.f - I->rm_env) * (1.f - expf(-3.f / (dec * SR)));
-            float f = 440.f * exp2f((I->rm_note - 69.f) / 12.f + pit + pen * I->rm_env + (pvl - 0.5f) * 0.5f);
+            float f = 440.f * exp2f((I->rm_note - 69.f + I->mb_pr) / 12.f + pit + pen * I->rm_env + pvl * 2.f * (I->rm_vel - 0.5f));
             I->rm_ph = wrap1(I->rm_ph + f / SR);
-            float car = (1.f - ab) * B[s] + ab * sinf(2.f * PI_F * I->rm_ph);
-            ring[s] = A[s] * car * 3.f * ((1.f - ven) + ven * I->rm_env) * rmlev;
+            float inp = (1.f - ab) * A[s] + ab * B[s];   /* A_B: which line feeds the ring modulator */
+            float car = sinf(2.f * PI_F * I->rm_ph) * ((1.f - ven) + ven * I->rm_env);   /* V ENV: envelope on the internal oscillator volume */
+            ring[s] = inp * car * 3.f * rmlev;
         }
     }
     {
@@ -656,5 +676,6 @@ static void eng_render(void *p, int16_t *out, int frames) {
     }
 }
 
-static const mpc_engine_t ENGINE = { eng_create, eng_destroy, eng_midi, eng_set, eng_get, eng_render, 0, 0 };
+static void eng_song_pos(void *p, double ppq, double bpm, int playing, int frames) { Inst *I = (Inst *)p; (void)ppq; (void)playing; (void)frames; if (bpm > 20.0 && bpm < 400.0) { I->bpm = bpm; I->bpm_ok = 1; } }
+static const mpc_engine_t ENGINE = { eng_create, eng_destroy, eng_midi, eng_set, eng_get, eng_render, 0, eng_song_pos };
 const mpc_engine_t *mpc_engine(void) { return &ENGINE; }

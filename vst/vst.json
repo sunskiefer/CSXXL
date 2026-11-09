@@ -6,12 +6,15 @@
  "so": "csxxl.so",
  "params": "params.json",
  "defines": {
-  "HAS_DISPLAY_REV": 0
+  "HAS_DISPLAY_REV": 0,
+  "HAS_SONG_POS": 1,
+  "MODULE_SUBDIR": "\"pad\""
  },
  "build": {
   "root": "..",
   "sources": [
-   "src/engine.c"
+   "src/engine.c",
+   "src/xyz_pad.c"
   ],
   "cflags": [
    "-Isrc"
@@ -24,5 +27,6 @@
   "armv7"
  ],
  "layout": "layout.conf",
- "art": "html"
+ "art": "html",
+ "skin_post": "../tools/skin_post.py"
 }
