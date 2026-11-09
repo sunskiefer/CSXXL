@@ -86,7 +86,7 @@ typedef struct {
     Voice v[NV];
     unsigned arp_step;
     int held[16], nheld;            /* keys held by the player (arp / mono) */
-    int arp_notes[16], narp, arp_i, arp_dir, arp_note_on;
+    float arp_vel; int arp_notes[16], narp, arp_i, arp_dir, arp_note_on;
     int arp_latched;
     double arp_t; float arp_gate_t;
     float echo[44100]; int echo_w;
@@ -275,7 +275,7 @@ static void layer_key(Inst *I, int ly, int note, int vel, int on) {
     if (arp_on(I, ly)) {
         if (on) {
             if (L->arp_latched && L->nheld == 0) { L->narp = 0; }
-            L->arp_latched = 0; held_add(L, note);
+            L->arp_latched = 0; held_add(L, note); L->arp_vel = fv;
             int found = 0; for (int i = 0; i < L->narp; i++) if (L->arp_notes[i] == note) found = 1;
             if (!found && L->narp < 16) L->arp_notes[L->narp++] = note;
         } else {
@@ -378,16 +378,23 @@ static void arp_run(Inst *I, int ly, int frames) {
         if (L->narp > 0 && (pat >> (L->arp_step & 7)) & 1) {
             int octs = 1 + (int)(lp(I, ly, L_ARP_OCT) * 3.99f);
             int total = L->narp * octs; if (total < 1) total = 1;
-            float typ = lp(I, ly, L_ARP_TYP);
-            int idx;
-            if (typ < 0.2f) { L->arp_i = (L->arp_i + 1) % total; idx = L->arp_i; }
-            else if (typ < 0.4f) { L->arp_i = (L->arp_i + total - 1) % total; idx = L->arp_i; }
-            else if (typ < 0.6f) { if (total == 1) idx = 0; else { L->arp_i += L->arp_dir; if (L->arp_i >= total - 1) { L->arp_i = total - 1; L->arp_dir = -1; } else if (L->arp_i <= 0) { L->arp_i = 0; L->arp_dir = 1; } idx = L->arp_i; } }
-            else if (typ < 0.8f) { idx = (int)(rnd01(I) * total); if (idx >= total) idx = total - 1; }
-            else { L->arp_i = (L->arp_i + 1) % total; idx = L->arp_i; }
+            /* manual: UP, DOWN, UP&DOWN, DOWN&UP, UP&DOWN 2 (end notes repeat), DOWN&UP 2 */
+            int ty = (int)(lp(I, ly, L_ARP_TYP) * 5.99f), idx;
+            int a = L->arp_i;
+            if (ty == 0) { a = (a + 1) % total; idx = a; }
+            else if (ty == 1) { a = (a + total - 1) % total; idx = a; }
+            else {
+                int per = ty >= 4 ? 2 * total : (total > 1 ? 2 * total - 2 : 1);   /* ping-pong period */
+                a = (a + 1) % (per > 0 ? per : 1);
+                int up = a < total ? a : (ty >= 4 ? 2 * total - 1 - a : 2 * total - 2 - a);
+                idx = (ty == 3 || ty == 5) ? total - 1 - up : up;
+            }
+            L->arp_i = a;
             if (idx >= total) idx = 0;
-            int note = L->arp_notes[idx % L->narp] + 12 * (idx / L->narp);
-            float vel = lp(I, ly, L_ARP_VEL) >= 0.5f ? 0.8f : 0.7f;
+            int srt[16]; memcpy(srt, L->arp_notes, sizeof(int) * (size_t)L->narp);
+            for (int i = 1; i < L->narp; i++) { int k = srt[i], j = i - 1; while (j >= 0 && srt[j] > k) { srt[j + 1] = srt[j]; j--; } srt[j + 1] = k; }
+            int note = srt[idx % L->narp] + 12 * (idx / L->narp);
+            float vel = lp(I, ly, L_ARP_VEL) >= 0.5f ? (L->arp_vel > 0.f ? L->arp_vel : 0.8f) : 0.8f;   /* FIXED velocity or as played */
             if (note > 127) note = 127;
             L->arp_note_on = note;
             voice_on(I, ly, note, vel, 1, lp(I, ly, L_PERF_MON) >= 0.5f);
@@ -439,6 +446,7 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
     Layer *L = &I->L[ly]; LP q; load_lp(I, ly, &q); (void)sub_lfo;
     int lshape = (int)(q.lwav * 4.99f);
     float lrate = expmap(q.lrte, 0.05f, 20.f);
+    if (lp(I, ly, L_LFO_SYN) >= 0.25f) { static const float LR[8] = {0.25f, 0.5f, 1.f, 2.f, 3.f, 4.f, 6.f, 8.f}; lrate = (I->bpm_ok ? (float)I->bpm : 120.f) / 60.f * LR[(int)(q.lrte * 7.99f)]; }   /* LFO SYNC: rate slider becomes the ratio to the host tempo */
     float vibrate = expmap(q.vvrt, 0.5f, 10.f);
     float snhrate = expmap(q.vslo, 0.5f, 20.f);
     int dst = (int)(q.ldst * 3.99f), mde = (int)(q.lmde * 2.99f);
