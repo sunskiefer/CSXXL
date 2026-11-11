@@ -97,7 +97,7 @@ typedef struct {
     float P[N_PARAMS];
     Layer L[2];
     uint32_t order;
-    int view; unsigned rev; float nav_cool, ql_cool; int ql_dirty, pm_page; char pm_msg[96];
+    int view; unsigned rev; float nav_cool; int pm_page, no_mark, dirty_n; unsigned char dirty[N_PARAMS]; char pm_msg[96];
     float bend, mw, at, ribbon_prev, rm_vel, mb_last, mb_idle, mb_s, mb_pa, mb_pb, mb_pr;
     float pat[128];                 /* per-key (polyphonic) aftertouch 0..1 */
     double bpm; int bpm_ok;         /* host tempo (song_pos) */
@@ -330,13 +330,14 @@ static int key_idx(const char *key) {
     return -1;
 }
 static void set_view(Inst *I, int v) { if (v < 0 || v > N_PAGES || v == I->view) return; I->view = v; I->rev++; }
+static void mark(Inst *I, int i) { if (i >= 0 && i < N_PARAMS && !I->dirty[i]) { I->dirty[i] = 1; I->dirty_n++; } }
 static void eng_set(void *p, const char *key, const char *val) {
     Inst *I = (Inst *)p; int i = key_idx(key); if (i < 0) return;
     float v = (float)atof(val);
     if (i >= E_pg_0 && i <= E_pg_0 + N_PAGES) return;   /* page switches are driven by the engine only */
     if (i >= E_ql1 && i <= E_ql32) {   /* Q-Links follow the visible page */
         int t = VIEW_QL[I->view][i - E_ql1]; if (t < 0) return;
-        char b[32]; snprintf(b, sizeof b, "%g", (double)(clampf(v, 0.f, 1.f) * 100.f)); eng_set(p, PKEY[t], b); I->ql_dirty = 1; return;   /* the screen faders are redrawn from render, see ql_dirty */
+        char b[32]; snprintf(b, sizeof b, "%g", (double)(clampf(v, 0.f, 1.f) * 100.f)); I->no_mark = 1; eng_set(p, PKEY[t], b); I->no_mark = 0; mark(I, t); return;   /* the fader of that control follows, see mpc_engine_changed */
     }
     if (i == E_nav_zoom || i == E_nav_prev || i == E_nav_next || (i >= E_go_1 && i < E_go_1 + N_PAGES)) {
         if (v < 0.5f) return;
@@ -366,6 +367,7 @@ static void eng_set(void *p, const char *key, const char *val) {
         return;
     }
     I->P[i] = clampf(v, 0.f, 100.f);
+    if (!I->no_mark && I->dirty_n < N_PARAMS) for (int j = 0; j < 32; j++) if (VIEW_QL[I->view][j] == i) mark(I, E_ql1 + j);   /* a fader moved on screen: its Q-Link (name, value) follows */
     if (i == E_p11_preset_bnk || i == E_p11_preset_pat) { I->pm_page = preset_index(I) / 8; pm_describe(I, "Selected "); }
 }
 typedef struct { const char *suf; int n; const char *names[9]; } NamedP;
@@ -658,8 +660,6 @@ static void eng_render(void *p, int16_t *out, int frames) {
     Inst *I = (Inst *)p;
     if (frames > 128) frames = 128;
     if (I->nav_cool > 0.f) I->nav_cool -= (float)frames / SR;
-    if (I->ql_cool > 0.f) I->ql_cool -= (float)frames / SR;
-    if (I->ql_dirty && I->ql_cool <= 0.f) { I->ql_dirty = 0; I->ql_cool = 0.06f; I->rev++; }   /* a Q-Link moved a control: redraw the page, at most about 16 times a second, last value always drawn */
     { int rt = I->pad.touching; if (rt && !I->rib_was) I->rib_ref = I->rib_x; I->rib_was = rt; I->rib_off = rt ? (I->rib_x - I->rib_ref) * 0.2f : 0.f; }   /* zero point = where the finger first touched; springs back on release */
     /* modulation bar: pitch bar, centre = 0; destination A / B / both / ring-mod oscillator; DIRECT follows at once, RELEASE glides */
     { float bar = (G(p7_mod_bar_bar) - 0.5f) * 2.f; int mm = (int)(G(p7_mod_bar_mde) * 3.99f), md = (int)(G(p7_mod_bar_dst) * 3.99f);
@@ -794,3 +794,12 @@ static void eng_render(void *p, int16_t *out, int frames) {
 static void eng_song_pos(void *p, double ppq, double bpm, int playing, int frames) { Inst *I = (Inst *)p; (void)ppq; (void)playing; (void)frames; if (bpm > 20.0 && bpm < 400.0) { I->bpm = bpm; I->bpm_ok = 1; } }
 static const mpc_engine_t ENGINE = { eng_create, eng_destroy, eng_midi, eng_set, eng_get, eng_render, 0, eng_song_pos };
 const mpc_engine_t *mpc_engine(void) { return &ENGINE; }
+
+/* parameters moved by the other side (a Q-Link turned -> its fader; a fader touched -> its Q-Link): reported one key per call,
+ * so the host updates just those controls, nothing is polled and no page is redrawn (wrapper/engine.h). */
+int mpc_engine_changed(void *inst, char *key, int len) {
+    Inst *I = (Inst *)inst;
+    if (!I->dirty_n) return 0;
+    for (int i = 0; i < N_PARAMS; i++) if (I->dirty[i]) { I->dirty[i] = 0; I->dirty_n--; snprintf(key, (size_t)len, "%s", PKEY[i]); return 1; }
+    I->dirty_n = 0; return 0;
+}
