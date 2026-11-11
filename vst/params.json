@@ -1653,21 +1653,24 @@
    "name": "LOAD",
    "min": 0,
    "max": 1,
-   "momentary": true
+   "momentary": true,
+   "debounce_ms": 0
   },
   {
    "key": "p11_save",
    "name": "SAVE",
    "min": 0,
    "max": 1,
-   "momentary": true
+   "momentary": true,
+   "debounce_ms": 0
   },
   {
    "key": "p11_init",
    "name": "INIT",
    "min": 0,
    "max": 1,
-   "momentary": true
+   "momentary": true,
+   "debounce_ms": 0
   },
   {
    "key": "p12_a_gate_s1",
@@ -2126,6 +2129,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2136,6 +2140,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2146,6 +2151,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2156,6 +2162,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2166,6 +2173,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2176,6 +2184,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2186,6 +2195,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2196,6 +2206,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2206,6 +2217,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2216,6 +2228,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2226,6 +2239,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2236,6 +2250,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2246,6 +2261,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2256,6 +2272,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2266,6 +2283,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2465,6 +2483,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2475,6 +2494,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2485,6 +2505,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },
@@ -2495,6 +2516,7 @@
    "max": 1.0,
    "default": 0.0,
    "momentary": true,
+   "debounce_ms": 0,
    "type": "trigger",
    "refresh_display": true
   },

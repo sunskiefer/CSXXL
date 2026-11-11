@@ -97,7 +97,7 @@ typedef struct {
     float P[N_PARAMS];
     Layer L[2];
     uint32_t order;
-    int view; unsigned rev; float nav_cool; int pm_page; char pm_msg[96];
+    int view; unsigned rev; float nav_cool, ql_cool; int ql_dirty, pm_page; char pm_msg[96];
     float bend, mw, at, ribbon_prev, rm_vel, mb_last, mb_idle, mb_s, mb_pa, mb_pb, mb_pr;
     float pat[128];                 /* per-key (polyphonic) aftertouch 0..1 */
     double bpm; int bpm_ok;         /* host tempo (song_pos) */
@@ -336,7 +336,7 @@ static void eng_set(void *p, const char *key, const char *val) {
     if (i >= E_pg_0 && i <= E_pg_0 + N_PAGES) return;   /* page switches are driven by the engine only */
     if (i >= E_ql1 && i <= E_ql32) {   /* Q-Links follow the visible page */
         int t = VIEW_QL[I->view][i - E_ql1]; if (t < 0) return;
-        char b[32]; snprintf(b, sizeof b, "%g", (double)(clampf(v, 0.f, 1.f) * 100.f)); eng_set(p, PKEY[t], b); return;
+        char b[32]; snprintf(b, sizeof b, "%g", (double)(clampf(v, 0.f, 1.f) * 100.f)); eng_set(p, PKEY[t], b); I->ql_dirty = 1; return;   /* the screen faders are redrawn from render, see ql_dirty */
     }
     if (i == E_nav_zoom || i == E_nav_prev || i == E_nav_next || (i >= E_go_1 && i < E_go_1 + N_PAGES)) {
         if (v < 0.5f) return;
@@ -658,6 +658,8 @@ static void eng_render(void *p, int16_t *out, int frames) {
     Inst *I = (Inst *)p;
     if (frames > 128) frames = 128;
     if (I->nav_cool > 0.f) I->nav_cool -= (float)frames / SR;
+    if (I->ql_cool > 0.f) I->ql_cool -= (float)frames / SR;
+    if (I->ql_dirty && I->ql_cool <= 0.f) { I->ql_dirty = 0; I->ql_cool = 0.06f; I->rev++; }   /* a Q-Link moved a control: redraw the page, at most about 16 times a second, last value always drawn */
     { int rt = I->pad.touching; if (rt && !I->rib_was) I->rib_ref = I->rib_x; I->rib_was = rt; I->rib_off = rt ? (I->rib_x - I->rib_ref) * 0.2f : 0.f; }   /* zero point = where the finger first touched; springs back on release */
     /* modulation bar: pitch bar, centre = 0; destination A / B / both / ring-mod oscillator; DIRECT follows at once, RELEASE glides */
     { float bar = (G(p7_mod_bar_bar) - 0.5f) * 2.f; int mm = (int)(G(p7_mod_bar_mde) * 3.99f), md = (int)(G(p7_mod_bar_dst) * 3.99f);

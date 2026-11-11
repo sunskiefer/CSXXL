@@ -11,7 +11,7 @@ for p in d["pages"]:
         k = c["id"]; blk = c.get("block", "")
         nm = ("%s %s" % (blk, c["label"])).strip().upper()
         if c["kind"] == "button":
-            params.append({"key": k, "name": c["label"].upper(), "min": 0, "max": 1, "momentary": True})
+            params.append({"key": k, "name": c["label"].upper(), "min": 0, "max": 1, "momentary": True, "debounce_ms": 0})
         else:
             ent = {"key": k, "name": nm, "min": 0, "max": 100, "default": round(c["pos"] * 100), "display": "int"}
             if re.sub(r"^p\d+_[ab]_", "", k) in NAMED: ent["dynamic_display"] = True   # engine answers <key>_display with the value's name
@@ -26,16 +26,16 @@ for p in d["pages"]:
 for i in range(1, 33):
     params.append({"key": "ql%d" % i, "name": "Q-Link %d" % i, "min": 0.0, "max": 1.0, "default": 0.0, "dynamic_name": True, "dynamic_display": True})
 for k, nm in (("nav_zoom", "OVERVIEW"), ("nav_prev", "PREVIOUS PAGE"), ("nav_next", "NEXT PAGE")):
-    params.append({"key": k, "name": nm, "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "type": "trigger", "refresh_display": True})
+    params.append({"key": k, "name": nm, "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "debounce_ms": 0, "type": "trigger", "refresh_display": True})
 for p in d["pages"]:
-    params.append({"key": "go_%d" % p["index"], "name": "GO " + p["name"], "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "type": "trigger", "refresh_display": True})
+    params.append({"key": "go_%d" % p["index"], "name": "GO " + p["name"], "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "debounce_ms": 0, "type": "trigger", "refresh_display": True})
 for i in range(NPG + 1):
     params.append({"key": "pg_%d" % i, "name": "PAGE %d" % i, "options": ["Off", "On"], "default": 0})
 # ---- preset list (KutilXXL style): 8 named rows, page up/down, status line (appended after pg_N: params.lock is append-only)
 for i in range(1, 9):
     params.append({"key": "pm_%d" % i, "name": "Preset Row %d" % i, "min": 0.0, "max": 1.0, "default": 0.0, "display": "string", "type": "slot"})
 for k, nm in (("pm_prev", "PRESETS PAGE UP"), ("pm_next", "PRESETS PAGE DOWN"), ("pm_prev10", "PRESETS -10 PAGES"), ("pm_next10", "PRESETS +10 PAGES")):
-    params.append({"key": k, "name": nm, "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "type": "trigger", "refresh_display": True})
+    params.append({"key": k, "name": nm, "min": 0.0, "max": 1.0, "default": 0.0, "momentary": True, "debounce_ms": 0, "type": "trigger", "refresh_display": True})
 params.append({"key": "pm_info", "name": "Preset Info", "min": 0.0, "max": 1.0, "default": 0.0, "display": "string"})
 json.dump({"name": "CSXXL", "params": params, "sections": secs}, open(os.path.join(R, "vst", "params.json"), "w"), indent=1)
 with open(os.path.join(R, "src", "params_gen.h"), "w") as f:
