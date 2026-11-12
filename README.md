@@ -15,7 +15,7 @@ The sound is not a sample or a guess at a sound: the voices are built in code fr
 Thanks to the Deckard’s Dream General Build Thread (Mod Wiggler) and to Krakli for the references and guidance!
 
 ## Status
-Version 1.0.12, built for Force/MPC OS (ARMv7). All 12 panel pages are rendered, and the engine follows the voice spec: selectable waves incl. white noise, 2-pole HP and LP with mix, sine/sub, CS-80 envelopes, per-key aftertouch, host-tempo arpeggiator/echo/LFO sync, an 8-step arpeggiator gate pattern per line (ARP GATE page), ring modulator, bit crush, chorus, reverb, keysplit, a pitch mod bar and a touch ribbon.
+Version 1.0.13, built for Force/MPC OS (ARMv7). All 12 panel pages are rendered, and the engine follows the voice spec: selectable waves incl. white noise, 2-pole HP and LP with mix, sine/sub, CS-80 envelopes, per-key aftertouch, host-tempo arpeggiator/echo/LFO sync, an 8-step arpeggiator gate pattern per line (ARP GATE page), ring modulator, bit crush, chorus, reverb, keysplit, a pitch mod bar and a touch ribbon.
 
 Tested on the Force. Tap a tile on the overview to open a page; OVERVIEW and < > in the header work. Q-Links follow the page, with two banks of 16 so every slider of a page can be reached. The 768 factory patches are written from 64 sound recipes (8 families x 8) with 12 variations each, see docs/PATCHES.md.
 
