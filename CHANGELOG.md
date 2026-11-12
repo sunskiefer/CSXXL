@@ -2,6 +2,7 @@
 
 ## 1.0.13
 - Q-Links and on-screen faders now follow each other: turn a Q-Link and the fader of that page moves; touch a fader and its Q-Link name and value follow. Done per control through the wrapper's engine-changed report, no page redraw and nothing polled.
+- Ribbon on FILTER now works on every patch: it moves the cutoff that is actually heard (left closes down to 40 Hz, right opens to 18 kHz, the full way at RNG 50). Before, patches with a wide-open filter did not react.
 - Built against the current mpc-vst-plugins wrapper; momentary buttons keep their 1.0.12 tap behaviour (debounce 0).
 
 ## 1.0.12

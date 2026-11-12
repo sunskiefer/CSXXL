@@ -606,9 +606,13 @@ static void render_layer(Inst *I, int ly, float *bus, int frames, float sub_lfo,
             float vel = v->vel;
             float vat = fmaxf(I->at, I->pat[v->note & 127]);   /* per-key aftertouch (channel pressure as fallback) */
             float lcut_oct = q.lm * 6.f * ef + bri * 6.f + kbri + bri_master + (v->note - 60.f) / 12.f * q.t_key
-                           + vel * q.t_lve * 3.f + vat * q.t_laf * 3.f + lfo_to_f + sub_vcf + (rdst == 1 ? roff * rrng * 6.f : 0.f);
+                           + vel * q.t_lve * 3.f + vat * q.t_laf * 3.f + lfo_to_f + sub_vcf;
             float vdr = sinf((float)(vi * 7 + ly * 3) * 2.399f); /* per-voice-card trimmer drift */
             float lcut = expmap(q.lf, 40.f, 16000.f) * exp2f(lcut_oct + 0.04f * vdr);
+            if (rdst == 1 && roff != 0.f) {   /* ribbon on FILTER: works on the cutoff that is actually heard, so a patch whose filter sits far above the top still closes; left = down to 40 Hz, right = up to 18 kHz, the full way at RNG 50 */
+                float c = clampf(lcut, 40.f, 18000.f), r = clampf(roff * rrng * 2.f, -1.f, 1.f);
+                lcut = r < 0.f ? c * powf(40.f / c, -r) : c * powf(18000.f / c, r);
+            }
             float hcut = expmap(q.hf, 20.f, 8000.f) * exp2f(lfo_to_h + q.hm * 3.f * eh + vel * q.t_hve * 3.f + vat * q.t_haf * 3.f);
             float res = clampf(q.lres + rsn + lfo_to_r, 0.f, 1.f);
             SvfC hc, c1;
